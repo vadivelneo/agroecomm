@@ -1,0 +1,104 @@
+<script language="javascript" type="text/javascript">
+$(document).ready(function()
+{
+ $('.formError').css("display","none");
+  
+  $('.save').click(function()
+  { 
+    //alert('hi');return false;
+    var manu_name = $("#manu_name").val();
+
+    if(manu_name == "" )
+    {
+      $('#manu_nameError').css("display","block");
+      $('#manu_name').focus(); 
+      return false;
+    }
+    else
+    {
+    $('#manu_nameError').css("display","none");
+    }
+     
+  });
+    
+});
+</script>
+
+<?php echo $this->load->view('pages/master_left_side'); ?>
+
+<section>
+  <div class="rightPanel" style="padding: 14px 20px; width:96%;">
+    
+    <div class='container-fluid editViewContainer'>
+      <form class="form-horizontal recordEditView" id="EditView" name="EditView" method="post" action="#" enctype="multipart/form-data">
+        <div class="contentHeader row-fluid">
+          <h3 class="span8 textOverflowEllipsis">Updating Manufacturer</h3>
+          <span class="pull-right">
+            <button class="btn-success save" value="Save"  type="submit" name="manufacturer_edit_details" id="manufacturer_edit_details"><strong>Update</strong></button>
+             <a class="cancelLink" type="reset" onClick="javascript:window.history.back();">Cancel</a>
+                    </span>
+                </div>
+                
+                <table class="table table-bordered blockContainer showInlineTable equalSplit">
+                    <thead>
+                        <tr>
+                            <th class="blockHeader" colspan="4">Manufacturer Details</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <td class="fieldLabel medium">
+                                <label class="muted pull-right marginRight10px"><span class="redColor">*</span>Manufacturer Name</label>
+                            </td>
+                            <td class="fieldValue medium" >
+                                <div class="row-fluid">
+                                    <span class="span10">
+                                        <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" id="manu_nameError" style="margin-top: -30px;">
+                                            <div class="formErrorContent">*This field is required</div>
+                                            <div class="formErrorArrow"></div>
+                                         </div>
+                                        <input id="manu_name" name="manu_name" type="text" value="<?php if(isset($manufacturerdata->manufacturer_name)){ echo $manufacturerdata->manufacturer_name;}?>" class="input-large nameField" />
+                                    </span>
+                                </div>
+                            </td>
+                    
+                          <td class="fieldLabel medium">
+                                <label class="muted pull-right marginRight10px">Manufacturer Description</label>
+                            </td>
+                            <td class="fieldValue medium" >
+                                <div class="row-fluid">
+                                    <span class="span10">
+                                        <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" id="manu_descError" style="margin-top: -30px;">
+                                            <div class="formErrorContent">*This field is required</div>
+                                            <div class="formErrorArrow"></div>
+                                         </div>
+                                        <textarea id="manu_desc" name="manu_desc" type="text"  class="input-large nameField" /><?php if(isset($manufacturerdata->manufacturer_description)){ echo $manufacturerdata->manufacturer_description;}?></textarea>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                
+            
+                <br>
+                
+                <div class="row-fluid">
+                    <div class="pull-right">
+                        <button class="btn-success save" value="save" type="submit" name="manufacturer_edit_details" id="manufacturer_edit_details"><strong>Update</strong></button>
+                        <a class="cancelLink" type="reset" onClick="javascript:window.history.back();">Cancel</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                
+                <br>
+            
+            </form>
+        
+          </div>
+
+      </div>
+
+</section>
