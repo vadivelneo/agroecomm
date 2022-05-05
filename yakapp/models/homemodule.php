@@ -31,18 +31,15 @@ Class Homemodule extends CI_Model
 	}
 	function getuserdetail($username,$password)
 	{
-		$this->db->select('USR.*, COMP.company_logo, COMP.company_tax, COMP.company_vat_display, COMP.company_cst_display, COMP.company_gst_display, COMP.company_service_display, COMP.company_excise_display,OFCR.OFCR_ID,OFCR.OFCR_MOB,OFCR_ADDRESS.OFCR_BILL_ADDRS1,OFCR_ADDRESS.OFCR_BILL_ADDRS2,OFCR_ADDRESS.OFCR_BILL_ADDRS3,CITY.city_name,OFCR_ADDRESS.OFCR_BILL_ZIP');
-		$this->db->from('users as USR');
-		$this->db->where('USR.user_name', $username);
-		$this->db->or_where('user_phone',$username);
-		$this->db->where('USR.user_pwd', $password);
-		$this->db->join('company as COMP','COMP.company_id = USR.user_company_id');
-		$this->db->join('officer as OFCR','OFCR.OFCR_ADD_USR_ID = USR.user_id');
-		$this->db->join('officer_bill as OFCR_ADDRESS','OFCR.OFCR_ID = OFCR_ADDRESS.OFCR_BILL_OFCR_ID');
-		$this->db->join('city as CITY','OFCR_ADDRESS.OFCR_BILL_CTY = CITY.city_id');
+		$this -> db -> select('USR.*, COMP.company_logo, COMP.company_tax, COMP.company_vat_display, COMP.company_cst_display, COMP.company_gst_display, COMP.company_service_display, COMP.company_excise_display');
+		$this -> db -> from('users as USR');
+		$this -> db -> where('USR.user_name', $username);
+		$this ->db-> or_where('user_phone',$username);
+		$this -> db -> where('USR.user_pwd', $password);
+		$this -> db -> join('company as COMP','COMP.company_id = USR.user_company_id');
 		
-		$this->db->limit(1);
-		$result = $this->db->get()->row();
+		$this -> db -> limit(1);
+		$result = $this -> db -> get()->row();
 		return $result;
 	}
 

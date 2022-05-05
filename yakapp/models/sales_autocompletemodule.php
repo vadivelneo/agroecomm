@@ -7,6 +7,7 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('sales_quote_qoute_no', $q);
 	$this->db->where('sales_quote_status' ,'active');
+	$this->db->limit(100);
     $query = $this->db->get('sales_quotation');
 	if($query->num_rows > 0)
 	{
@@ -43,6 +44,7 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('price_book_name', $q);
 	$this->db->where('price_book_status' ,'active');
+	$this->db->limit(100);
     $query = $this->db->get('price_book');
 	if($query->num_rows > 0)
 	{
@@ -60,7 +62,9 @@ public function autosearch_sale_qut_no($q)
   {
     $this->db->select('*');
     $this->db->like('product_name', $q);
+	$this->db->limit(100);
     $query = $this->db->get('products');
+
 	if($query->num_rows > 0)
 	{
       foreach ($query->result_array() as $row)
@@ -96,7 +100,9 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('sales_order_number', $q);
 	$this->db->where('sales_order_active_status' ,'active');
+	$this->db->limit(100);
     $query = $this->db->get('sales_order');
+	
 	if($query->num_rows > 0)
 	{
       foreach ($query->result_array() as $row)
@@ -114,6 +120,7 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('sale_invoice_customer_po_refernce_number', $q);
 	$this->db->where('sales_order_active_status' ,'active');
+	$this->db->limit(100);
     $query = $this->db->get('sales_order');
 	if($query->num_rows > 0)
 	{
@@ -133,6 +140,7 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('delivery_challan_number', $q);
 	$this->db->where('delivery_challan_active_status' ,'enable');
+	$this->db->limit(100);
     $query = $this->db->get('delivery_challan');
 	if($query->num_rows > 0)
 	{
@@ -151,6 +159,7 @@ public function autosearch_sale_qut_no($q)
     $this->db->select('*');
     $this->db->like('sale_invoice_company_invoice_no', $q);
 	$this->db->where('sale_invoice_active_status' ,'active');
+	$this->db->limit(100);
     $query = $this->db->get('sale_invoice');
 	if($query->num_rows > 0)
 	{
@@ -168,6 +177,7 @@ public function autosearch_sale_qut_no($q)
   {
     $this->db->select('*');
     $this->db->like('sales_return_code', $q);
+	$this->db->limit(100);
     $query = $this->db->get('sales_return');
 	if($query->num_rows > 0)
 	{

@@ -77,7 +77,7 @@ class Genelogy extends MY_Controller {
 	
 	public function enrollment($sort_order='OFCR_ID',$sort_by='asc')
 	{
-		
+		 
 		if (isset($_POST['search']))
 			{
 		$sessionData = $this->session->userdata('userlogin');
@@ -674,8 +674,8 @@ class Genelogy extends MY_Controller {
 		
 			
 			$this->session->set_flashdata('message', 'Profile Added Successfully');
-			//redirect('genelogy/enrollment');
-			redirect('genelogy/officerform/');
+			redirect('genelogy/enrollment');
+		
 				
 		}
 		else

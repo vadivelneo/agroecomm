@@ -14,17 +14,6 @@ Class Salesordermodule extends CI_Model
 		return $ret;
 	}
 	
-	public function upi_ref_check($upi_ref_no)
-	{
-		$this->db->select('*')
-				->from('sales_order')
-				->where('upi_ref_no',$upi_ref_no)
-				->get();
-		$num = $this->db->affected_rows();
-
-		return $num;
-
-	}
 	
 	public function valid_incentive($COM_SO_ID, $so_customer_id)
 	{
@@ -77,8 +66,6 @@ Class Salesordermodule extends CI_Model
 								//->join('designation_users as DES_USR', 'DES_USR.designation_user_id = SO.sales_order_referral_id')
 								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
 								->where('SO.sales_order_active_status' ,'active')
-								->where('sales_order_status !=' ,'processed')
-								->where('sales_order_status !=' ,'confirmorder')
 								//->where('OFFR.OFCR_USR_VALUE' ,$sess_user_code)
 								->group_by('SO.sales_order_id')
 								->order_by($sort_order,$sort_by)
@@ -87,7 +74,7 @@ Class Salesordermodule extends CI_Model
 
 			$Count = $this->db->select('count(*) as TotalRows')
 								->from('sales_order')
-								->where('sales_order_status !=' ,'processed')
+								
 								->where('sales_order_active_status' ,'active')
 								->get()->row();
 			$ret['num_rows'] = $Count->TotalRows;
@@ -104,7 +91,6 @@ Class Salesordermodule extends CI_Model
 								//->join('designation_users as DES_USR', 'DES_USR.designation_user_id = SO.sales_order_referral_id')
 								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
 								->where('SO.sales_order_active_status' ,'active')
-								->where('sales_order_status !=' ,'processed')
 								->where('OFFR.OFCR_USR_VALUE' ,$sess_user_code)
 								->group_by('SO.sales_order_id')
 								->order_by($sort_order,$sort_by)
@@ -115,57 +101,6 @@ Class Salesordermodule extends CI_Model
 								->from('sales_order as SO')
 								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
 								->where('sales_order_active_status' ,'active')
-								->where('sales_order_status !=' ,'processed')
-								->where('OFFR.OFCR_USR_VALUE' ,$sess_user_code)
-								->get()->row();
-			$ret['num_rows'] = $Count->TotalRows;
-			return $ret;
-		}
-	}
-	
-	
-	public function get_all_orderform($sess_group,$sess_user,$limit,$start,$sort_order,$sort_by,$sess_user_code)
-	{
-		if($sess_user == 1)
-		{
-			$ret['rows'] = $this->db->select('SO.*,  TOT.*,OFFR.*')
-								->from('sales_order as SO')
-								->join('sales_order_total as TOT', 'TOT.so_total_sales_id = SO.sales_order_id')
-								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
-								->where('SO.sales_order_active_status' ,'active')
-								//->where('SO.sales_order_status' ,'confirmorder')
-								->group_by('SO.sales_order_id')
-								->order_by($sort_order,$sort_by)
-								->limit($limit, $start)
-								->get()->result_array();
-
-			$Count = $this->db->select('count(*) as TotalRows')
-								->from('sales_order')
-								->where('sales_order_active_status' ,'active')
-								->where('sales_order_status' ,'confirmorder	')
-								->get()->row();
-			$ret['num_rows'] = $Count->TotalRows;
-			return $ret;
-		}
-		else
-		{
-			$ret['rows'] = $this->db->select('SO.*,  TOT.*,OFFR.*')
-								->from('sales_order as SO')
-								->join('sales_order_total as TOT', 'TOT.so_total_sales_id = SO.sales_order_id')
-								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
-								->where('SO.sales_order_active_status' ,'active')
-								->where('SO.sales_order_status' ,'processed')
-								->where('OFFR.OFCR_USR_VALUE' ,$sess_user_code)
-								->group_by('SO.sales_order_id')
-								->order_by($sort_order,$sort_by)
-								->limit($limit, $start)
-								->get()->result_array();
-
-			$Count = $this->db->select('count(*) as TotalRows')
-								->from('sales_order as SO')
-								->join('officer as OFFR', 'OFFR.OFCR_ID = SO.sales_order_customer_id')
-								->where('sales_order_active_status' ,'active')
-								->where('sales_order_status' ,'processed')
 								->where('OFFR.OFCR_USR_VALUE' ,$sess_user_code)
 								->get()->row();
 			$ret['num_rows'] = $Count->TotalRows;
@@ -677,7 +612,7 @@ Class Salesordermodule extends CI_Model
 	
 	public function getsingle_so_items($id)
 	{	
-		$ret = $this->db->select('ITMES.*,PRO.product_name,PRO.product_sku, PRO.product_code,STR.store_name,STDIV.division_name')
+		$ret = $this->db->select('ITMES.*,PRO.product_name, PRO.product_code,STR.store_name,STDIV.division_name')
 					->from('sales_order_items as ITMES')
 					->where('ITMES.so_items_sales_id', $id)
 					->join('products as PRO', 'PRO.product_id = ITMES.so_items_item_id','left')

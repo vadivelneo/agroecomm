@@ -122,7 +122,7 @@ class Reports extends MY_Controller {
 
 		
 		$page = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
-		$limit =2000;
+		$limit =20;
 		$Result = $this->reportmodule->get_all_first_level($limit,$page,$sort_order,$sort_by,$parentid);
 		$Result_count = $this->reportmodule->get_all_first_level_count($limit,$page,$sort_order,$sort_by,$parentid);
 		$this->data["subuser_data"] = $Result['rows'];
@@ -143,7 +143,7 @@ class Reports extends MY_Controller {
 		$this->data["sort_by"]=$sort_by;	
 		$this->title = "AGRO FARM";
 		$this->keywords = "AGRO FARM";
-		$this->_render('pages/reports/datatable_directdownlinereport');
+		$this->_render('pages/reports/enrollmentreport');
 	}
 	
 	public function search_direct_downline($sort_order='OFCR_TRE_ID',$sort_by='desc')
@@ -152,7 +152,7 @@ class Reports extends MY_Controller {
 		//echo "<pre>"; print_r($session); exit;
 		$parentid=$session['user_code'];
 		
-		if(isset($_POST['search']))
+		if(isset($_POST['search']) && ($this->input->post('search_cus_id')!='' && $this->input->post('search_cus_name') !='' && $this->input->post('search_cus_phone')!=''))
 		{
 			$search_cus_id = $this->security->xss_clean($this->input->post('search_cus_id'));
 			$search_cus_name = $this->security->xss_clean($this->input->post('search_cus_name'));
@@ -166,6 +166,7 @@ class Reports extends MY_Controller {
 					);	
 			$this->session->set_userdata('level_data',$level_search);
 		}
+		else{redirect("reports/enrollment"); }
 			$search_data = $this->session->userdata('level_data');
 						
 			
@@ -294,7 +295,7 @@ class Reports extends MY_Controller {
 		
 		$this->title = "Enrollement Report";
 		$this->keywords = "Enrollement Report";
-		$this->_render('pages/reports/datatable_enrollementreport');
+		$this->_render('pages/reports/enrollement_report');
 	}
 	
 	
@@ -311,9 +312,23 @@ class Reports extends MY_Controller {
 		
 		
 		$this->data["po_list"] = $this->reportmodule->get_enrollement_reportsearch($sess_company,$user_code, $report_officer);
-				
-		$this->_render('pages/reports/datatable_enrollementreport');
 		
+		
+		
+		if(isset($_POST['export']))
+		{
+			$this->load->view('pages/reports/pdf/enrollement_report', $this->data);
+		}
+		else if($_POST['generate'])
+		{
+			$this->title = "Enrollement Report";
+			$this->keywords = "Enrollement Report";
+			$this->_render('pages/reports/enrollement_report');
+		}
+		else
+		{
+			redirect('reports/enrollement_report');
+		}
 		
 		
 	}
@@ -329,7 +344,7 @@ class Reports extends MY_Controller {
 		$this->title = "Enrollement Report";
 		$this->keywords = "Enrollement Report";
 		$this->data["search_key"] = $search_key;
-		$this->load->view('pages/reports/datatable_view_enrollement',$this->data);
+		$this->load->view('pages/reports/view_enrollement_report_export',$this->data);
 	}
 	
 	public function purchaseorder_pending()
@@ -1066,7 +1081,7 @@ class Reports extends MY_Controller {
 		$this->data['tax_value'] = $sessionData['company_tax'];
 		$this->title = "Sales  Incentive Report";
 		$this->keywords = "Sales  Incentive Report";
-		$this->_render('pages/reports/datatable_incentive_report');
+		$this->_render('pages/reports/sales_incentive_report');
 	}
 	
 	public function sales_transaction_report()
@@ -1085,7 +1100,6 @@ class Reports extends MY_Controller {
 	
 	public function level_report_count()
    	{
-		
 		$sessionData = $this->session->userdata('userlogin');
 		$sess_user=$sessionData['user_id'];
 		//$company_tax=$sessionData['company_tax'];
@@ -1095,8 +1109,9 @@ class Reports extends MY_Controller {
 		$this->data['tax_value'] = $sessionData['company_tax'];
 		$this->title = "Level Report";
 		$this->keywords = "Level Report";
-		$this->_render('pages/reports/datatable_levelreport');
+		$this->_render('pages/reports/level_report_count');
 	}
+	
 	public function purchase_report_count()
    	{
 		$sessionData = $this->session->userdata('userlogin');
@@ -1110,6 +1125,7 @@ class Reports extends MY_Controller {
 		$this->keywords = "Purchase Report";
 		$this->_render('pages/reports/datatable_purchasereport');
 	}
+	
 	public function awards_rewards_report()
    	{
 		$sessionData = $this->session->userdata('userlogin');
@@ -1135,7 +1151,7 @@ class Reports extends MY_Controller {
 		
 		$this->title = "Awards and Rewards";
 		$this->keywords = "Awards and Rewards";
-		$this->_render('pages/reports/datatable_awards_rewards');
+		$this->_render('pages/reports/awards_rewards_report_user');
 	}
 	
 public function level_reportsearch()
@@ -1525,7 +1541,7 @@ public function level_reportsearch()
 		$this->data["customer_id"] = $customer_id;
 		$this->data["customer_name"] = $customer_name;
 		$this->data["sess_user"] = $sess_user;
-		//echo $_POST['generate']; exit;
+		
 		if(isset($_POST['export']))
 		{
 			$this->load->view('pages/reports/pdf/sales_incentive_report', $this->data);
@@ -1534,7 +1550,7 @@ public function level_reportsearch()
 		{
 			$this->title = "Sales Invoice";
 			$this->keywords = "Sales Invoice";
-			$this->_render('pages/reports/datatable_incentive_report');
+			$this->_render('pages/reports/sales_incentive_report');
 		}
 		else
 		{

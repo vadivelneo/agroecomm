@@ -370,7 +370,7 @@ function getcountry()
 
     <div class="content-container">
 
-      <div class="logo"><img  style="width:250px;" src="<?php echo base_url(); ?>/resources/images/erp_logo.png"><br>
+      <div class="logo"><img src="<?php echo base_url(); ?>/resources/images/erp_logo.png"><br>
         <a href="#" target="_blank"></a> </div>
 
       <div class="content-header">
@@ -405,12 +405,12 @@ function getcountry()
                       
                 <div class="form-group col-sm-4">
                   <label for="name">Referal Id <span class="error">*</span></label>
-                  <input required type="text" id="Sponsor" name="Sponsor" onkeyup="ajax_sponsorid()" <?php if(isset($_GET['id'])) { ?> readonly <?php } ?> value="<?php
+                  <input type="text" id="Sponsor" name="Sponsor" onkeyup="ajax_sponsorid()" <?php if(isset($_GET['id'])) { ?> readonly <?php } ?> value="<?php
 					
 					
 				  if(isset($_GET['id'])) { $result_qry = explode("@",$_GET['id']); echo $result_qry[0];} else { }; ?>" class="form-control" data-required="true" >
            <div class="errorMsg">
-                  <span class="validate" id="SponsorError"> </span>
+                  <span class="validate" id="SponsorError">Please enter SponsorID </span>
                   </div> 
                 </div>
                 
@@ -420,7 +420,7 @@ function getcountry()
 				 
 				  if(isset($_GET['id'])) { $result_qry = explode("@",$_GET['id']); echo $result_qry[1];} else { }; ?>" class="form-control" data-required="true" >
            <div class="errorMsg">
-                  <span class="validate" id="SponsorError"> </span>
+                  <span class="validate" id="SponsorError">Please enter SponsorID </span>
                   </div> 
                 </div>
             
@@ -430,7 +430,7 @@ function getcountry()
 				  
 				  if(isset($_GET['id'])) { $result_qry = explode("@",$_GET['id']); echo $result_qry[2];} else { }; ?>" class="form-control" data-required="true" >
            <div class="errorMsg">
-                  <span class="validate" id="SponsorError"> </span>
+                  <span class="validate" id="SponsorError">Please enter SponsorID </span>
                   </div> 
                 </div>
                 
@@ -460,30 +460,30 @@ function getcountry()
 
               <div class="form-group col-sm-6">
                 <label for="name">First Name <span class="error">*</span></label>
-                <input required type="text" id="firstname" name="firstname" class="form-control">
+                <input type="text" id="firstname" name="firstname" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="firstnameError"></span>
+                  <span class="validate" id="firstnameError">Please Enter First Name </span>
                   </div>
               </div>
 			       <div class="form-group col-sm-6">
                 <label for="text-input">Last Name <span class="error">*</span></label>
-                <input required type="text" id="lastname" name="lastname" class="form-control">
+                <input type="text" id="lastname" name="lastname" class="form-control">
                  <div class="errorMsg">
-                  <span class="validate" id="lastnameError"> </span>
+                  <span class="validate" id="lastnameError">Please Enter Last Name  </span>
                   </div>
                 </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">Middle Name</label>
                 <input type="text" id="middlename" name="middlename" class="form-control">
                  <div class="errorMsg">
-                  <span class="validate" id="middlenameError"> </span>
+                  <span class="validate" id="middlenameError">Please Enter Middle Name </span>
                   </div>
                 </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">PAN Card NO</label>
                 <input type="text" id="pancard" name="pancard" class="form-control">
                  <div class="errorMsg">
-                  <span class="validate" id="pancardError"> </span>
+                  <span class="validate" id="pancardError">Please Enter Pan Number </span>
                   </div>
                  </div>
 
@@ -492,34 +492,34 @@ function getcountry()
             <!--<div class="col-sm-6 col-sm-6"> -->
             <div class="form-group col-sm-6">
                 <label for="text-input">Mobile No <span class="error">*</span></label>
-                <input required type="text" id="mobile" name="mobile" class="form-control">
+                <input type="text" id="mobile" name="mobile" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="mobileError"> </span>
+                  <span class="validate" id="mobileError">Please Enter Mobile Number </span>
                   </div>
               </div>
               
               <div class="form-group col-sm-6">
                   <label for="date-2">Date Of Birth <span class="error">*</span></label>
                   <div class="input-group date ui-datepicker">
-                      <input required type="date" id="DOB" name="DOB" class="form-control parsley-validated">
+                      <input type="date" id="DOB" name="DOB" class="form-control parsley-validated">
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>    
                   </div>
                   <div class="errorMsg">
-                  <span class="validate" id="DOBError"></span>
+                  <span class="validate" id="DOBError">Please Enter DOB </span>
                   </div>
               </div>    
               <div class="form-group col-sm-6">
                 <label for="text-input">Display Name </label>
                 <input type="text" id="displayname" name="displayname" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="displaynameError"> </span>
+                  <span class="validate" id="displaynameError">Please Enter Display Name </span>
                   </div>
               </div>    
 				    <div class="form-group col-sm-6">
                 <label for="text-input">Aadhar No. </label>
                 <input type="text" class="textbox" name="aadhar_no" id="aadhar_no">
                 <div class="errorMsg">
-                  <span class="validate" id="displaynameError"> </span>
+                  <span class="validate" id="displaynameError">Please Enter Display Name </span>
                   </div>
               </div>    
              <!--   </div>-->
@@ -530,7 +530,7 @@ function getcountry()
                     <input  type="radio" name="enrollementtype" value="individual" />
                     <label>INDIVIDUAL</label>
                   <div class="errorMsg">
-                  <span class="validate" id="enrollementtypeError"></span>
+                  <span class="validate" id="enrollementtypeError">Please Select  Enrollment Type </span>
                   </div>  
                  </div>
                   <div class="form_main" id="companyFields" style="display: none;">
@@ -538,7 +538,7 @@ function getcountry()
                   <label for="name">Company Name <span class="error">*</span></label>
                   <input type="text" id="companyname" name="companyname" class="form-control" >
            <div class="errorMsg">
-                  <span class="validate" id="companynameError"> </span>
+                  <span class="validate" id="companynameError">Please Enter Company Name </span>
                   </div>
                 </div>
                  <div class="form-group col-sm-6">
@@ -579,35 +579,35 @@ function getcountry()
                 <label for="text-input">First Name</label>
                 <input type="text" id="spouse_firstname" name="spouse_firstname" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="spouse_firstnameError"> </span>
+                  <span class="validate" id="spouse_firstnameError">Please Enter First Name </span>
                   </div>
                 </div>
        <div class="form-group col-sm-6">
                 <label for="text-input">Last Name </label>
                 <input type="text" id="spouse_lastname" name="spouse_lastname" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="spouse_lastnameError"> </span>
+                  <span class="validate" id="spouse_lastnameError">Please Enter Last Name </span>
                   </div>
                 </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">Relationship</label>
                 <input type="text" id="spouse_middlename" name="spouse_middlename" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="spouse_middlenameError"></span>
+                  <span class="validate" id="spouse_middlenameError">Please Enter Middle Name </span>
                   </div>
                 </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">PAN Card NO</label>
                 <input type="text" id="spouse_pancard" name="spouse_pancard" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="spouse_pancardError"></span>
+                  <span class="validate" id="spouse_pancardError">Please Enter Pan Number </span>
                   </div>
               </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">Mobile No </label>
                 <input type="text" id="spouse_mobile" name="spouse_mobile" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="spouse_mobileError"> </span>
+                  <span class="validate" id="spouse_mobileError">Please Enter Mobile Number </span>
                   </div> 
               </div>
               
@@ -659,17 +659,17 @@ function getcountry()
 
               <div class="form-group col-sm-6">
                 <label for="text-input">Address 1 <span class="error">*</span></label>
-                <input required type="text" id="addressone" name="addressone" class="form-control">
+                <input type="text" id="addressone" name="addressone" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="addressoneError"></span>
+                  <span class="validate" id="addressoneError">Please Enter Address Details </span>
                   </div>
               </div>
 
               <div class="form-group col-sm-6">
                 <label for="text-input">Address 2 <span class="error">*</span></label>
-                <input required type="text" id="addresstwo" name="addresstwo" class="form-control">
+                <input type="text" id="addresstwo" name="addresstwo" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="addresstwoError"></span>
+                  <span class="validate" id="addresstwoError">Please Enter Address Details </span>
                   </div>
               </div>
 
@@ -680,7 +680,7 @@ function getcountry()
 
               <div class="form-group col-sm-6">
                   <label for="name">Country <span class="error">*</span></label>
-                  <select required name="country" id="country" class="form-control" onchange="getcountry()">
+                  <select name="country" id="country" class="form-control" onchange="getcountry()">
                       <option value="">Please Select Country</option>
                      
                                 <?php foreach($ctry as $Con) { 
@@ -690,40 +690,40 @@ function getcountry()
                                 <?php } ?>
                   </select>
                   <div class="errorMsg">
-                  <span class="validate" id="countryError"></span>
+                  <span class="validate" id="countryError">Please Select your country </span>
                   </div>
                 </div>
 
               <div class="form-group col-sm-6">
                   <label for="name">State <span class="error">*</span> </label>
-                  <select required name="state" id="state" class="form-control"  onchange="getstate()" data-required="true">
+                  <select name="state" id="state" class="form-control"  onchange="getstate()" data-required="true">
                     <option value="">Please Select State</option>
                     </select>
                      <div class="errorMsg">
-                  <span class="validate" id="stateError"></span>
+                  <span class="validate" id="stateError">Please select your State</span>
                   </div>
               </div>
               <div class="form-group col-sm-6">
                   <label for="name">City <span class="error">*</span></label>
-                  <select required name="city" id="city" class="form-control" >
+                  <select name="city" id="city" class="form-control" >
                     <option value="">Please Select City</option>
                   </select>
                   <div class="errorMsg">
-                  <span class="validate" id="cityError"> </span>
+                  <span class="validate" id="cityError">Please select your City </span>
                   </div>
               </div>
                <div class="form-group col-sm-6">
                 <label for="text-input">Postal Code <span class="error">*</span></label>
                 <input type="text" id="pinCode" name="pinCode" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="pinCodeError"></span>
+                  <span class="validate" id="pinCodeError">Please enter Postal Code </span>
                   </div>
               </div>
                <div class="form-group col-sm-6">
                 <label for="text-input">Email Id <span class="error"></span></label>
                 <input type="text" id="email" name="email" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="emailError"></span>
+                  <span class="validate" id="emailError">Please enter Email </span>
                   </div> 
               </div>
          <!--  </div> <!-- /.col -->
@@ -760,28 +760,28 @@ function getcountry()
                 <label for="text-input">Account Name</label>
                 <input type="text" id="accountHolderName" name="accountHolderName" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="accountHolderNameError"></span>
+                  <span class="validate" id="accountHolderNameError">Please enter Account Name </span>
                   </div> 
               </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">Account Number</label>
                 <input type="text" id="accountno" name="accountno" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="accountnoError"> </span>
+                  <span class="validate" id="accountnoError">Please enter Account Number </span>
                   </div> 
               </div>
                <div class="form-group col-sm-6">
                 <label for="text-input">Bank Name </label>
                 <input type="text" id="bankName" name="bankName" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="bankNameError"> </span>
+                  <span class="validate" id="bankNameError">Please enter Bank Name </span>
                   </div>  
               </div>
                <div class="form-group col-sm-6">
                 <label for="text-input">IFSC Code</label>
                 <input type="text" id="IFSCNo" name="IFSCNo" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="IFSCNoError"> </span>
+                  <span class="validate" id="IFSCNoError">Please enter Bank IFS code </span>
                   </div>
               </div>
               <div class="form-group col-sm-6">
@@ -791,14 +791,14 @@ function getcountry()
                     <input  type="radio" name="AcType" value="current" />
                     <label>CURRENT</label>
                 <div class="errorMsg">
-                  <span class="validate" id="AcTypeError"></span>
+                  <span class="validate" id="AcTypeError">Please Select Account Type </span>
                   </div>     
               </div>
               <div class="form-group col-sm-6">
                 <label for="text-input">Branch Name </label>
                 <input type="text" id="BranchName" name="BranchName" class="form-control">
                 <div class="errorMsg">
-                  <span class="validate" id="BranchNameError"> </span>
+                  <span class="validate" id="BranchNameError">Please Enter Your Branch Name </span>
                   </div>
               </div>
               <div class="form-group col-sm-6">

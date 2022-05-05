@@ -140,7 +140,7 @@ $this->db->select('FB.*');
 								->limit(1)
 								->get()->row();
 	
-			$ret['pricelist'] = $this->db->select('PRICE_BOOK.price_book_price_selling_price, PRICE_BOOK.price_book_price_mrp, PRICE_BOOK.price_book_price_discount_percentage, PRICE_BOOK.price_book_price_discount_amount, PRICE_BOOK.price_book_price_vat, PRICE_BOOK.price_book_price_gst, PRICE_BOOK.price_book_price_sgst, PRICE_BOOK.price_book_price_igst, PRICE_BOOK.price_book_price_hsn ,  PRO.*, PRICE_BOOK.price_book_price_incentive_rate, PRICE_BOOK.price_book_price_handling_charge')
+			$ret['pricelist'] = $this->db->select('PRICE_BOOK.price_book_price_selling_price, PRICE_BOOK.price_book_price_mrp, PRICE_BOOK.price_book_price_discount_percentage, PRICE_BOOK.price_book_price_discount_amount, PRICE_BOOK.price_book_price_vat, PRICE_BOOK.price_book_price_gst, PRICE_BOOK.price_book_price_sgst, PRICE_BOOK.price_book_price_igst, PRICE_BOOK.price_book_price_hsn ,  PRO.product_type_id, PRO.product_group_id, PRO.product_id, PRO.product_name, PRO.product_code, PRICE_BOOK.price_book_price_incentive_rate, PRICE_BOOK.price_book_price_handling_charge')
 										->from('price_book_price as PRICE_BOOK')
 										->join('products as PRO', 'PRO.product_id = PRICE_BOOK.price_book_price_item_id')
 										->join('product_price as PRO_PRICE', 'PRO_PRICE.product_prd_id = PRO.product_id')
@@ -311,7 +311,7 @@ $this->db->select('FB.*');
 			$this->db->join('product_stock as PRO_STK', 'PRO_STK.product_stock_prd_id = PRO.product_id');
 			$this->db->join('products_type as PRO_TYP', 'PRO_TYP.products_type_id = PRO.product_type_id');
 			$this->db->join('uom as U', 'U.uom_id = PRO_STK.product_stock_uom_id');
-			//$this->db->where('PRO.product_type_id',2);
+			$this->db->where('PRO.product_type_id',2);
 			$this->db->where('PRO.product_status','enable');
 			$this->db->limit(10);
 			if($item_code != "")
@@ -320,7 +320,7 @@ $this->db->select('FB.*');
 			}
 			if($item_mfg_prtno != "")
 			{
-				$this->db->like('PRO.product_sku',$item_mfg_prtno);
+				$this->db->like('PRO.product_mfr_part_number',$item_mfg_prtno);
 			}
 			if($item_name != "")
 			{
@@ -418,7 +418,7 @@ $this->db->select('FB.*');
 			}
 			if($item_mfg_prtno != "" && $item_mfg_prtno != NULL)
 			{
-				$this->db->like('PRO.product_sku',$item_mfg_prtno);
+				$this->db->like('PRO.product_mfr_part_number',$item_mfg_prtno);
 			}
 			if($item_name != "" && $item_name != NULL)
 			{

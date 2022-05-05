@@ -1,11 +1,449 @@
-<style>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Update Enrollment</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Update Enrollment</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+               <form id="validate-enhanced" action="<?php echo site_url('genelogy/editOfficerProfile').'/'.$this->uri->segment('3'); ?>" id="enrollment" class="form parsley-form" method="POST" enctype="multipart/form-data">
+
+		  
+				<div class="card-body">
+
+				<div class="portlet">
+
+					<div class="portlet-header">
+
+						<h3>
+						 
+						Placement Details
+						<span style="margin-left: 50px; color:#ff0000; font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><?php echo $this->session->flashdata('message'); ?></span>
+						</h3>
+
+					</div> <!-- /.portlet-header -->
+
+				<div class="portlet-content">
+
+					<div class="form-group col-sm-6">
+						<label for="name">Referal Id <span class="error">*</span></label>
+						<input type="text" readonly id="Sponsor" name="Sponsor"  value="<?php if(isset($edituserdetails->OFCR_USR_VALUE)) { echo $edituserdetails->OFCR_USR_VALUE ; } ?>" class="form-control" data-required="true" >
+						<div class="errorMsg">
+							<span class="validate" id="SponsorError">Please enter SponsorID </span>
+						</div> 
+					</div>
+									
+
+				</div> <!-- /.portlet-content -->
+
+				</div>
+				<hr>
+				<div class="portlet">
+					<div class="portlet-header">
+						<h3>Enrollment</h3>
+					</div> <!-- /.portlet-header -->
+					<div class="portlet-content">
+					<div class='row'>
+					<input type="hidden" name="state_id" id="state_id" value="<?php if(isset($edituserdetails->OFCR_BILL_ST)) { echo $edituserdetails->OFCR_BILL_ST; } ?>" />
+					<input type="hidden" name="city_id" id="city_id" value="<?php if(isset($edituserdetails->OFCR_BILL_CTY)) { echo $edituserdetails->OFCR_BILL_CTY; } ?>" />
+					
+					<div class="form-group col-sm-6">
+						<label for="name">First Name <span class="error">*</span></label>
+						<input type="text" id="firstname" readonly name="firstname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_FST_NME)) { echo $edituserdetails->OFCR_FST_NME; } ?>"  >
+						<div class="errorMsg">
+							<span class="validate" id="firstnameError">Please Enter First Name </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">Last Name <span class="error">*</span></label>
+						<input type="text" id="lastname" readonly name="lastname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_LST_NME)) { echo $edituserdetails->OFCR_LST_NME; } ?>" >
+						<div class="errorMsg">
+							<span class="validate" id="lastnameError">Please Enter Last Name  </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">Middle Name</label>
+						<input type="text" id="middlename" readonly name="middlename" class="form-control" value="<?php if(isset($edituserdetails->OFCR_MID_NME)) { echo $edituserdetails->OFCR_MID_NME; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="middlenameError">Please Enter Middle Name </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">PAN Card NO</label>
+						<input type="text" id="pancard" name="pancard" class="form-control" value="<?php if(isset($edituserdetails->OFCR_PAN)) { echo $edituserdetails->OFCR_PAN; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="pancardError">Please Enter Pan Number </span>
+						</div>
+					</div>
+					<!--<div class="col-sm-6 col-sm-6"> -->
+					<div class="form-group col-sm-6">
+						<label for="text-input">Mobile No <span class="error">*</span></label>
+						<input type="text" id="mobile" name="mobile" class="form-control" value="<?php if(isset($edituserdetails->OFCR_MOB)) { echo $edituserdetails->OFCR_MOB; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="mobileError">Please Enter Mobile Number </span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label for="date-2">Date Of Birth <span class="error">*</span></label>
+						<div class="input-group date ui-datepicker">
+							<input type="date"  class="form-control parsley-validated" name="DOB" id="DOB" value="<?php if($edituserdetails->OFCR_DOB){echo ($edituserdetails->OFCR_DOB);}?>">
+							  
+						</div>
+						<div class="errorMsg">
+							<span class="validate" id="DOBError">Please Enter DOB </span>
+						</div>
+					</div>    
+					<div class="form-group col-sm-6">
+						<label for="text-input">Display Name </label>
+						<input type="text" id="displayname" name="displayname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_DISP_NME)) { echo $edituserdetails->OFCR_DISP_NME; } ?>" >
+						<div class="errorMsg">
+							<span class="validate" id="displaynameError">Please Enter Display Name </span>
+						</div>
+					</div>    
+					<div class="form-group col-sm-6">
+						<label for="text-input">Aadhar No. </label>
+						<input type="text"   class="form-control"  name="aadhar_no" id="aadhar_no" value="<?php if(isset($edituserdetails->OFCR_AADHAR)) { echo $edituserdetails->OFCR_AADHAR; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="displaynameError">Please Enter Display Name </span>
+						</div>
+					</div>    
+				<!--   </div>-->
+					<div class="form-group col-sm-6" style=" height: 35px; margin-top: 27px; width: auto;">
+						<label for="name"> Enrollment Type <span class="error">*</span> </label>
+						<input  type="radio" name="enrollementtype" value="business" <?php if(isset($edituserdetails->OFCR_ENROLL_TYP)) { if($edituserdetails->OFCR_ENROLL_TYP == 'business') { ?> checked="checked" <?php  } } ?> />
+						<label>BUISNESS </label>
+						<input  type="radio" name="enrollementtype" value="individual" <?php if(isset($edituserdetails->OFCR_ENROLL_TYP)) { if($edituserdetails->OFCR_ENROLL_TYP == 'individual') { ?> checked="checked" <?php  } } ?> />
+						<label>INDIVIDUAL</label>
+						<div class="errorMsg">
+							<span class="validate" id="enrollementtypeError">Please Select  Enrollment Type </span>
+						</div>  
+					</div>
+					<div class="form_main" id="companyFields" style="display: none;">
+						<div class="form-group col-sm-6">
+							<label for="name">Company Name <span class="error">*</span></label>
+							<input type="text" id="companyname" name="companyname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_CMP_NME)) { echo $edituserdetails->OFCR_CMP_NME; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="companynameError">Please Enter Company Name </span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="name">Company Pan No  </label>
+							<input type="text" id="companypan" name="companypan" class="form-control" value="<?php if(isset($edituserdetails->OFCR_CMP_PAN)) { echo $edituserdetails->OFCR_CMP_PAN; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="companypanError">Invalid Pan Number  </span>
+							</div>
+						</div>
+					</div>
+
+					</div>
+				</div> <!-- /.col -->
+
+				<!-- /.col -->
+
+				</div> <!-- /.row -->
+<hr>					
+         <!-- /.portlet -->
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>Nominee Details</h3>
+				</div> <!-- /.portlet-header -->
+				<div class="portlet-content">
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<label for="text-input">First Name</label>
+						<input type="text" id="spouse_firstname" name="spouse_firstname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_FST_NME)) { echo $edituserdetails->OFCR_SPOUSE_FST_NME; } ?>"  >
+						<div class="errorMsg">
+							<span class="validate" id="spouse_firstnameError">Please Enter First Name </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">Last Name </label>
+						<input type="text" id="spouse_lastname" name="spouse_lastname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_LST_NME)) { echo $edituserdetails->OFCR_SPOUSE_LST_NME; } ?>" >
+						<div class="errorMsg">
+							<span class="validate" id="spouse_lastnameError">Please Enter Last Name </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">Middle Name</label>
+						<input type="text" id="spouse_middlename" name="spouse_middlename" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_MID_NME)) { echo $edituserdetails->OFCR_SPOUSE_MID_NME; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="spouse_middlenameError">Please Enter Middle Name </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">PAN Card NO</label>
+						<input type="text" id="spouse_pancard" name="spouse_pancard" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_PAN)) { echo $edituserdetails->OFCR_SPOUSE_PAN; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="spouse_pancardError">Please Enter Pan Number </span>
+						</div>
+					</div>
+					<div class="form-group col-sm-6">
+						<label for="text-input">Mobile No </label>
+						<input type="text" id="spouse_mobile" name="spouse_mobile" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_MOB)) { echo $edituserdetails->OFCR_SPOUSE_MOB; } ?>">
+						<div class="errorMsg">
+							<span class="validate" id="spouse_mobileError">Please Enter Mobile Number </span>
+						</div> 
+					</div>
+
+					<div class="right">
+						<div class="right_form1">
+							<div class="formLabelDiv">
+								<label class="formlabel">DOB</label>
+							</div>
+							<div class="formInput">
+								<input type="date"  class="form-control"   name="spouse_DOB" id="spouse_DOB" value="<?php  if($edituserdetails->OFCR_SPOUSE_DOB) { echo $edituserdetails->OFCR_SPOUSE_DOB; } ?>">
+							</div>
+
+						</div>
+					</div>
+				</div> 
+				</div>
+			</div> <!-- /.portlet-content -->
+
+<hr>
+			<div class="portlet" >
+				<div class="portlet-header">
+					<h3>Address Details</h3>
+				</div> <!-- /.portlet-header -->
+
+				<div class="portlet-content">
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<label for="text-input">Address 1 <span class="error">*</span></label>
+							<input type="text" id="addressone" name="addressone" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS1)) { echo $edituserdetails->OFCR_BILL_ADDRS1; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="addressoneError">Please Enter Address Details </span>
+							</div>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<label for="text-input">Address 2 <span class="error">*</span></label>
+							<input type="text" id="addresstwo" name="addresstwo" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS2)) { echo $edituserdetails->OFCR_BILL_ADDRS2; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="addresstwoError">Please Enter Address Details </span>
+							</div>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<label for="text-input">Address 3</label>
+							<input type="text" id="addressthree" name="addressthree" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS3)) { echo $edituserdetails->OFCR_BILL_ADDRS3; } ?>" >
+						</div>
+
+						<div class="form-group col-sm-6">
+							<label for="name">Country <span class="error">*</span></label>
+							<select name="country" id="country" class="form-control" onchange="getcountry()">
+							<option value="">Select Your Country</option>
+								<?php foreach($ctry as $Con) { 
+								?>
+								<option value="<?php echo $Con['CNTRY_ID']; ?>" <?php if(isset($edituserdetails->OFCR_BILL_CNTRY)) { if($edituserdetails->OFCR_BILL_CNTRY == $Con['CNTRY_ID']) { ?> selected="selected" <?php  } } ?> ><?php echo $Con['CNTRY_NME']; ?></option>
+								<?php } ?>
+							</select>
+							<div class="errorMsg">
+								<span class="validate" id="countryError">Please Select your country </span>
+							</div>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<label for="name">State <span class="error">*</span> </label>
+							<select name="state" id="state" class="form-control"  onchange="activateCity()" data-required="true">
+								<option value="">Select Your State</option>
+							</select>
+							<div class="errorMsg">
+								<span class="validate" id="stateError">Please select your State</span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="name">City <span class="error">*</span></label>
+							<select name="city" id="city" class="form-control" >
+								<option value="">Select Your City</option>
+							</select>
+							<div class="errorMsg">
+								<span class="validate" id="cityError">Please select your City </span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Postal Code <span class="error">*</span></label>
+							<input type="text" id="pinCode" name="pinCode" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ZIP)) { echo $edituserdetails->OFCR_BILL_ZIP; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="pinCodeError">Please enter Postal Code </span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Email Id <span class="error"></span></label>
+							<input type="text" id="email" name="email" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_EMAIL)) { echo $edituserdetails->OFCR_BILL_EMAIL; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="emailError">Please enter Email </span>
+							</div> 
+						</div>
+					<!--  </div> <!-- /.col -->
+					</div> 
+				</div> 
+			</div>
+<hr>
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>Bank Details </h3>
+				</div> <!-- /.portlet-header -->
+
+				<div class="portlet-content">
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<label for="text-input">Account Name</label>
+							<input type="text" id="accountHolderName" name="accountHolderName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_ACCNT_HOLD_NME)) { echo $edituserdetails->OFCR_BNK_ACCNT_HOLD_NME; } ?>">
+							<div class="errorMsg">
+								<span class="validate" id="accountHolderNameError">Please enter Account Name </span>
+							</div> 
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Account Number</label>
+							<input type="text" id="accountno" name="accountno" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_ACCNT_NUM)) { echo $edituserdetails->OFCR_BNK_ACCNT_NUM; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="accountnoError">Please enter Account Number </span>
+							</div> 
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Bank Name </label>
+							<input type="text" id="bankName" name="bankName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_NME)) { echo $edituserdetails->OFCR_BNK_NME; } ?>">
+							<div class="errorMsg">
+								<span class="validate" id="bankNameError">Please enter Bank Name </span>
+							</div>  
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">IFSC Code</label>
+							<input type="text" id="IFSCNo" name="IFSCNo" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_IFSC)) { echo $edituserdetails->OFCR_BNK_IFSC; } ?>">
+							<div class="errorMsg">
+								<span class="validate" id="IFSCNoError">Please enter Bank IFS code </span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="name"> Account Type </label>
+							<input  type="radio" name="AcType" value="saving" <?php if(isset($edituserdetails->OFCR_BNK_ACCNT_TYP)) { if($edituserdetails->OFCR_BNK_ACCNT_TYP == 'saving') { ?> checked="checked" <?php  } } ?> />
+							<label>SAVINGS </label>
+							<input  type="radio" name="AcType" value="current" <?php if(isset($edituserdetails->OFCR_BNK_ACCNT_TYP)) { if($edituserdetails->OFCR_BNK_ACCNT_TYP == 'current') { ?> checked="checked" <?php  } } ?> />
+							<label>CURRENT</label>
+							<div class="errorMsg">
+								<span class="validate" id="AcTypeError">Please Select Account Type </span>
+							</div>     
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Branch Name </label>
+							<input type="text" id="BranchName" name="BranchName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_BRN_NME)) { echo $edituserdetails->OFCR_BNK_BRN_NME; } ?>" >
+							<div class="errorMsg">
+								<span class="validate" id="BranchNameError">Please Enter Your Branch Name </span>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<label for="text-input">Branch Address</label>
+							<input type="text" id="BranchAddress" name="BranchAddress" class="form-control" data-required="true" value="<?php if(isset($edituserdetails->OFCR_BNK_BRN_ADDR)) { echo $edituserdetails->OFCR_BNK_BRN_ADDR; } ?>" >
+						</div>
+					</div> 
+				</div>
+			</div>
+<hr>
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>Attachments</h3>
+				</div> <!-- /.portlet-header --> 
+
+				<div class="portlet-content">
+					<div class="form-group col-sm-6">
+						<label class="formlabel">PAN CARD</label>
+						<input type="file" name="pan_card" class="textbox" size="40" accept=".pdf" >
+						<br/><a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>" title="<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
+						<input type="hidden" name="hiddenpan_card" id="hiddenpan_card" value="<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>" />
+						<div class="errorMsg"></div> 
+					</div>
+					<div class="form-group col-sm-6">
+						<label class="formlabel">AADHAR</label>
+						<input type="file" class="textbox" name="aadhar_xerox" size="40" accept=".pdf" >
+						<br/><a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>" title="<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
+						<input type="hidden" name="hiddenaadhar" id="hiddenaadhar" value="<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>" />
+						<div class="errorMsg">	</div> 
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label class="formlabel">PASSBOOK</label>
+						<input type="file"  class="textbox" name="passbook_xerox" size="40" accept=".pdf" >
+						<br/>
+						<a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>" title="<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
+						<input type="hidden" name="hiddenpassbook" id="hiddenpassbook" value="<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>" />
+						<div class="errorMsg"></div> 
+					</div>
+
+
+
+					<div class="form-group col-sm-6">
+						<label class="formlabel">PHOTO</label>
+						<input type="file" class="textbox" name="profilepicture" size="40"  >
+						<br/><a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>" title="<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
+						<input type="hidden" name="hiddenprofilepicture" id="hiddenprofilepicture" value="<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>" />
+						<div class="errorMsg">	</div> 
+					</div>
+					<div class="form-group col-sm-6">
+						<button type="submit" class="btn btn-primary" name="updateProfile" id="updateprofile">Submit</button>
+					</div>
+				</div> 
+			</div>
+			
+                 
+                </div>
+                <!-- /.card-body -->
+				<!--
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>-->
+              </form>
+            </div>
+            <!-- /.card -->
+ 
+
+          </div>
+          <!--/.col (left) -->
+          
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  
+  
+  
+  
+  <style>
 .error
 {
   color:#F00;
 }
+.validate{
+	display:none;
+}
 </style>
-<link rel="stylesheet" href="<?php echo base_url(); ?>/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>/resources/css/target-admin.css">
 <script language="javascript" type="text/javascript">
 $(document).ready(function()
 { 
@@ -578,528 +1016,3 @@ function isNumberKey(evt)
 }
 
 </script>
-
-<div class="container">
-
-  <div class="content" >
-
-    <div class="content-container">
-
-      
-
-      <div class="content-header">
-        <h2 class="content-header-title">Update Enrollment</h2>
-       <!-- <ol class="breadcrumb">
-          <li><a href="<?php echo site_url(); ?>">Home</a></li>
-          <li><a href="javascript:;">Enrollment</a></li>
-          <li class="active">New Enrollment</li>
-        </ol> -->
-      </div> <!-- /.content-header -->
-
-      
- <div class="form-group col-sm-6">
-                
-				  <a class="btn btn-primary" type="reset" onClick="javascript:window.history.back();">Back</a>
-                </div>
-      <div class="row">
-
-        <div class="col-sm-12">
-		  <form id="validate-enhanced" action="<?php echo site_url('genelogy/editOfficerProfile').'/'.$this->uri->segment('3'); ?>" id="enrollment" class="form parsley-form" method="POST" enctype="multipart/form-data">
-		<div class="portlet">
-
-        <div class="portlet-header">
-
-          <h3>
-            <i class="fa fa-tasks"></i>
-              Placement Details
-			  <span style="margin-left: 50px; color:#ff0000; font-family: Verdana, Geneva, sans-serif; font-size: 16px;"><?php echo $this->session->flashdata('message'); ?></span>
-          </h3>
-
-        </div> <!-- /.portlet-header -->
-
-       <div class="portlet-content">
-                      
-                <div class="form-group col-sm-6">
-                  <label for="name">Referal Id <span class="error">*</span></label>
-                  <input type="text" readonly id="Sponsor" name="Sponsor"  value="<?php if(isset($edituserdetails->OFCR_USR_VALUE)) { echo $edituserdetails->OFCR_USR_VALUE ; } ?>" class="form-control" data-required="true" >
-           <div class="errorMsg">
-                 
-                  </div> 
-                </div>
-                                                
-                 
-            </div> <!-- /.portlet-content -->
-
-          </div>
-
-          <div class="portlet">
-
-            <div class="portlet-header">
-
-              <h3>
-                <i class="fa fa-tasks"></i>
-                Enrollment
-                
-              </h3>
-
-            </div> <!-- /.portlet-header -->
-
-            <div class="portlet-content">
-        
-            
-           <!-- <div class="col-sm-6"> -->
- <input type="hidden" name="state_id" id="state_id" value="<?php if(isset($edituserdetails->OFCR_BILL_ST)) { echo $edituserdetails->OFCR_BILL_ST; } ?>" />
-    <input type="hidden" name="city_id" id="city_id" value="<?php if(isset($edituserdetails->OFCR_BILL_CTY)) { echo $edituserdetails->OFCR_BILL_CTY; } ?>" />
-              <div class="form-group col-sm-6">
-                <label for="name">First Name <span class="error">*</span></label>
-                <input type="text" id="firstname" readonly name="firstname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_FST_NME)) { echo $edituserdetails->OFCR_FST_NME; } ?>"  >
-                <div class="errorMsg">
-                 
-                  </div>
-              </div>
-			       <div class="form-group col-sm-6">
-                <label for="text-input">Last Name <span class="error">*</span></label>
-                <input type="text" id="lastname" readonly name="lastname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_LST_NME)) { echo $edituserdetails->OFCR_LST_NME; } ?>" >
-                 <div class="errorMsg">
-                 
-                  </div>
-                </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Middle Name</label>
-                 <input type="text" id="middlename" readonly name="middlename" class="form-control" value="<?php if(isset($edituserdetails->OFCR_MID_NME)) { echo $edituserdetails->OFCR_MID_NME; } ?>">
-                 <div class="errorMsg">
-                 
-                  </div>
-                </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">PAN Card NO</label>
-                 <input type="text" id="pancard" name="pancard" class="form-control" value="<?php if(isset($edituserdetails->OFCR_PAN)) { echo $edituserdetails->OFCR_PAN; } ?>">
-                 <div class="errorMsg">
-                 
-                  </div>
-                 </div>
-
-           
-
-            <!--<div class="col-sm-6 col-sm-6"> -->
-            <div class="form-group col-sm-6">
-                <label for="text-input">Mobile No <span class="error">*</span></label>
-                <input required type="text" id="mobile" name="mobile" class="form-control" value="<?php if(isset($edituserdetails->OFCR_MOB)) { echo $edituserdetails->OFCR_MOB; } ?>">
-                <div class="errorMsg">
-                 
-                  </div>
-              </div>
-              
-              <div class="form-group col-sm-6">
-                  <label for="date-2">Date Of Birth <span class="error">*</span></label>
-                  <div class="input-group date ui-datepicker">
-                        <input required type="date"  class="form-control parsley-validated" name="DOB" id="DOB" value="<?php if($edituserdetails->OFCR_DOB){echo ($edituserdetails->OFCR_DOB);}?>">
-                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>    
-                  </div>
-                  <div class="errorMsg">
-                 
-                  </div>
-              </div>    
-              <div class="form-group col-sm-6">
-                <label for="text-input">Display Name </label>
-               <input type="text" id="displayname" name="displayname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_DISP_NME)) { echo $edituserdetails->OFCR_DISP_NME; } ?>" >
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>    
-				    <div class="form-group col-sm-6">
-                <label for="text-input">Aadhar No. </label>
-                <input type="text" class="textbox" name="aadhar_no" id="aadhar_no" value="<?php if(isset($edituserdetails->OFCR_AADHAR)) { echo $edituserdetails->OFCR_AADHAR; } ?>">
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>    
-             <!--   </div>-->
-				<div class="form-group col-sm-6" style=" height: 35px; margin-top: 27px; width: auto;">
-                  <label for="name"> Enrollment Type <span class="error">*</span> </label>
-                  <input  type="radio" name="enrollementtype" value="business" <?php if(isset($edituserdetails->OFCR_ENROLL_TYP)) { if($edituserdetails->OFCR_ENROLL_TYP == 'business') { ?> checked="checked" <?php  } } ?> />
-                    <label>BUISNESS </label>
-                   <input  type="radio" name="enrollementtype" value="individual" <?php if(isset($edituserdetails->OFCR_ENROLL_TYP)) { if($edituserdetails->OFCR_ENROLL_TYP == 'individual') { ?> checked="checked" <?php  } } ?> />
-                    <label>INDIVIDUAL</label>
-                  <div class="errorMsg">
-                  
-                  </div>  
-                 </div>
-                  <div class="form_main" id="companyFields" style="display: none;">
-                 <div class="form-group col-sm-6">
-                  <label for="name">Company Name <span class="error">*</span></label>
-                   <input type="text" id="companyname" name="companyname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_CMP_NME)) { echo $edituserdetails->OFCR_CMP_NME; } ?>" >
-           <div class="errorMsg">
-                  <span class="validate" id="companynameError">Please Enter Company Name </span>
-                  </div>
-                </div>
-                 <div class="form-group col-sm-6">
-                  <label for="name">Company Pan No  </label>
-                  <input type="text" id="companypan" name="companypan" class="form-control" value="<?php if(isset($edituserdetails->OFCR_CMP_PAN)) { echo $edituserdetails->OFCR_CMP_PAN; } ?>" >
-           <div class="errorMsg">
-                  <span class="validate" id="companypanError">Invalid Pan Number  </span>
-                  </div>
-                </div>
-                </div>
-              
-
-            </div> <!-- /.col -->
-			
-             <!-- /.col -->
-
-          </div> <!-- /.row -->
-
-           <!-- /.row -->
-
-
-        </div> <!-- /.portlet-content -->
-
-      </div>
-
-           <!-- /.portlet -->
-<div class="portlet">
-
-        <div class="portlet-header">
-
-          <h3>
-            <i class="fa fa-tasks"></i>
-             Nominee Details
-          </h3>
-
-        </div> <!-- /.portlet-header -->
-
-        <div class="portlet-content">
-
-          <div class="row">
-
-           <!-- <div class="form-group col-sm-6"> -->
-
-              <div class="form-group col-sm-6">
-                <label for="text-input">First Name</label>
-               <input type="text" id="spouse_firstname" name="spouse_firstname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_FST_NME)) { echo $edituserdetails->OFCR_SPOUSE_FST_NME; } ?>"  >
-				   
-                <div class="errorMsg">
-                  
-                  </div>
-                </div>
-       <div class="form-group col-sm-6">
-                <label for="text-input">Last Name </label>
-                <input type="text" id="spouse_lastname" name="spouse_lastname" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_LST_NME)) { echo $edituserdetails->OFCR_SPOUSE_LST_NME; } ?>" >
-                <div class="errorMsg">
-                  
-                  </div>
-                </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Middle Name</label>
-              <input type="text" id="spouse_middlename" name="spouse_middlename" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_MID_NME)) { echo $edituserdetails->OFCR_SPOUSE_MID_NME; } ?>">
-                <div class="errorMsg">
-                  
-                  </div>
-                </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">PAN Card NO</label>
-                <input type="text" id="spouse_pancard" name="spouse_pancard" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_PAN)) { echo $edituserdetails->OFCR_SPOUSE_PAN; } ?>">
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Mobile No </label>
-                <input type="text" id="spouse_mobile" name="spouse_mobile" class="form-control" value="<?php if(isset($edituserdetails->OFCR_SPOUSE_MOB)) { echo $edituserdetails->OFCR_SPOUSE_MOB; } ?>">
-                <div class="errorMsg">
-                 
-                  </div> 
-              </div>
-              
-              <div class="right">
-                <div class="right_form1">
-                  <div class="formLabelDiv">
-                    <label class="formlabel">DOB</label>
-                  </div>
-                  <div class="formInput">
-                    <input type="date"  name="spouse_DOB" id="spouse_DOB" value="<?php  if($edituserdetails->OFCR_SPOUSE_DOB) { echo $edituserdetails->OFCR_SPOUSE_DOB; } ?>">
-                  </div>
-                 
-                </div>
-              </div>
-
-              
-
-          <!--  </div>  /.col -->
-              
-
-            </div> <!-- /.col -->
-			
-             <!-- /.col -->
-
-          </div> <!-- /.row -->
-
-           <!-- /.row -->
-
-
-        </div> <!-- /.portlet-content -->
-
-     
-      <div class="portlet" >
-
-        <div class="portlet-header">
-
-          <h3>
-            <i class="fa fa-tasks"></i>
-              Address Details 
-          </h3>
-
-        </div> <!-- /.portlet-header -->
-
-        <div class="portlet-content">
-
-          <div class="row">
-
-          <!--  <div class="col-sm-6">-->
-
-              <div class="form-group col-sm-6">
-                <label for="text-input">Address 1 <span class="error">*</span></label>
-                <input type="text" id="addressone" name="addressone" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS1)) { echo $edituserdetails->OFCR_BILL_ADDRS1; } ?>" >
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>
-
-              <div class="form-group col-sm-6">
-                <label for="text-input">Address 2 <span class="error">*</span></label>
-                <input type="text" id="addresstwo" name="addresstwo" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS2)) { echo $edituserdetails->OFCR_BILL_ADDRS2; } ?>" >
-                <div class="errorMsg">
-                 
-                  </div>
-              </div>
-
-              <div class="form-group col-sm-6">
-                <label for="text-input">Address 3</label>
-                <input type="text" id="addressthree" name="addressthree" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ADDRS3)) { echo $edituserdetails->OFCR_BILL_ADDRS3; } ?>" >
-              </div>
-
-              <div class="form-group col-sm-6">
-                  <label for="name">Country <span class="error">*</span></label>
-                   <select name="country" id="country" class="form-control" onchange="getcountry()">
-                      <option value="">Select Your Country</option>
-                     
-                                <?php foreach($ctry as $Con) { 
-								 
-								?>
-                                    <option value="<?php echo $Con['CNTRY_ID']; ?>" <?php if(isset($edituserdetails->OFCR_BILL_CNTRY)) { if($edituserdetails->OFCR_BILL_CNTRY == $Con['CNTRY_ID']) { ?> selected="selected" <?php  } } ?> ><?php echo $Con['CNTRY_NME']; ?></option>
-                                <?php } ?>
-                  </select>
-                  <div class="errorMsg">
-                 
-                  </div>
-                </div>
-
-              <div class="form-group col-sm-6">
-                  <label for="name">State <span class="error">*</span> </label>
-                  <select name="state" id="state" class="form-control"  onchange="activateCity()" data-required="true">
-                    <option value="">Select Your State</option>
-                     
-                  
-                    </select>
-                     <div class="errorMsg">
-                 
-                  </div>
-              </div>
-              <div class="form-group col-sm-6">
-                  <label for="name">City <span class="error">*</span></label>
-                   <select name="city" id="city" class="form-control" >
-                    <option value="">Select Your City</option>
-                     
-                  
-                    </select>
-                  <div class="errorMsg">
-                  
-                  </div>
-              </div>
-               <div class="form-group col-sm-6">
-                <label for="text-input">Postal Code <span class="error">*</span></label>
-                <input type="text" id="pinCode" name="pinCode" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_ZIP)) { echo $edituserdetails->OFCR_BILL_ZIP; } ?>" >
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>
-               <div class="form-group col-sm-6">
-                <label for="text-input">Email Id <span class="error"></span></label>
-                <input type="text" id="email" name="email" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BILL_EMAIL)) { echo $edituserdetails->OFCR_BILL_EMAIL; } ?>" >
-                <div class="errorMsg">
-                 
-                  </div> 
-              </div>
-         <!--  </div> <!-- /.col -->
-            </div> <!-- /.col -->
-			
-             <!-- /.col -->
-
-          </div> <!-- /.row -->
-
-           <!-- /.row -->
-
-
-        </div> <!-- /.portlet-content -->
-
-      
-      <div class="portlet">
-
-        <div class="portlet-header">
-
-          <h3>
-            <i class="fa fa-tasks"></i>
-              Bank Details 
-          </h3>
-
-        </div> <!-- /.portlet-header -->
-
-        <div class="portlet-content">
-
-          <div class="row">
-
-           <!-- <div class="col-sm-6"> -->
-
-              <div class="form-group col-sm-6">
-                <label for="text-input">Account Name</label>
-               <input type="text" id="accountHolderName" name="accountHolderName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_ACCNT_HOLD_NME)) { echo $edituserdetails->OFCR_BNK_ACCNT_HOLD_NME; } ?>">
-                <div class="errorMsg">
-                 
-                  </div> 
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Account Number</label>
-                 <input type="text" id="accountno" name="accountno" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_ACCNT_NUM)) { echo $edituserdetails->OFCR_BNK_ACCNT_NUM; } ?>" >
-                <div class="errorMsg">
-                 
-                  </div> 
-              </div>
-               <div class="form-group col-sm-6">
-                <label for="text-input">Bank Name </label>
-                  <input type="text" id="bankName" name="bankName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_NME)) { echo $edituserdetails->OFCR_BNK_NME; } ?>">
-                <div class="errorMsg">
-                 
-                  </div>  
-              </div>
-               <div class="form-group col-sm-6">
-                <label for="text-input">IFSC Code</label>
-                <input type="text" id="IFSCNo" name="IFSCNo" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_IFSC)) { echo $edituserdetails->OFCR_BNK_IFSC; } ?>">
-                <div class="errorMsg">
-                  
-                  </div>
-              </div>
-              <div class="form-group col-sm-6">
-                  <label for="name"> Account Type </label>
-                   <input  type="radio" name="AcType" value="saving" <?php if(isset($edituserdetails->OFCR_BNK_ACCNT_TYP)) { if($edituserdetails->OFCR_BNK_ACCNT_TYP == 'saving') { ?> checked="checked" <?php  } } ?> />
-                    <label>SAVINGS </label>
-                    <input  type="radio" name="AcType" value="current" <?php if(isset($edituserdetails->OFCR_BNK_ACCNT_TYP)) { if($edituserdetails->OFCR_BNK_ACCNT_TYP == 'current') { ?> checked="checked" <?php  } } ?> />
-                    <label>CURRENT</label>
-                <div class="errorMsg">
-                
-                  </div>     
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Branch Name </label>
-                 <input type="text" id="BranchName" name="BranchName" class="form-control" value="<?php if(isset($edituserdetails->OFCR_BNK_BRN_NME)) { echo $edituserdetails->OFCR_BNK_BRN_NME; } ?>" >
-                <div class="errorMsg">
-                 
-                  </div>
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="text-input">Branch Address</label>
-                 <input type="text" id="BranchAddress" name="BranchAddress" class="form-control" data-required="true" value="<?php if(isset($edituserdetails->OFCR_BNK_BRN_ADDR)) { echo $edituserdetails->OFCR_BNK_BRN_ADDR; } ?>" >
-              </div>
-
-              
-
-             
-
-           <!-- </div> <!-- /.col -->
-
-            
-			
-             <!-- /.col -->
-
-          </div> <!-- /.row -->
-
-           <!-- /.row -->
-
-
-        </div> <!-- /.portlet-content -->
-
-      </div>
-
-<div class="portlet">
-
-        <div class="portlet-header">
-
-          <h3>
-            <i class="fa fa-tasks"></i>
-             Attachments
-          </h3>
-
-        </div> <!-- /.portlet-header -->
-
-       <div class="portlet-content">
-                      
-                <div class="form-group col-sm-6">
-                 <label class="formlabel">PAN CARD</label>
-                 <input type="file" name="pan_card" class="textbox" size="40" accept=".pdf" >
-				  <a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>" title="<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
-					<input type="hidden" name="hiddenpan_card" id="hiddenpan_card" value="<?php if(isset($edituserdetails->pan_card)) { echo $edituserdetails->pan_card ; } ?>" />
-           <div class="errorMsg">
-                 
-                  </div> 
-                </div>
-                
-               
-            
-                 <div class="form-group col-sm-6">
-                 <label class="formlabel">AADHAR</label>
-                  <input type="file" class="textbox" name="aadhar_xerox" size="40" accept=".pdf" >
-				  <a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>" title="<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
-					<input type="hidden" name="hiddenaadhar" id="hiddenaadhar" value="<?php if(isset($edituserdetails->aadhar_xerox)) { echo $edituserdetails->aadhar_xerox ; } ?>" />
-          <div class="errorMsg">
-                 
-                  </div> 
-                </div>
-				
-				 <div class="form-group col-sm-6">
-                 <label class="formlabel">PASSBOOK</label>
-                    <input type="file"  class="textbox" name="passbook_xerox" size="40" accept=".pdf" >
-					<a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>" title="<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
-					<input type="hidden" name="hiddenpassbook" id="hiddenpassbook" value="<?php if(isset($edituserdetails->passbook_xerox)) { echo $edituserdetails->passbook_xerox ; } ?>" />
-           <div class="errorMsg">
-                 
-                  </div> 
-                </div>
-                
-               
-            
-                 <div class="form-group col-sm-6">
-                 <label class="formlabel">PHOTO</label>
-                  <input type="file" class="textbox" name="profilepicture" size="40"  >
-				  <a target="_blank" href="<?php echo base_url(); ?>/resources/uploads/<?php if(isset($edituserdetails->officer_id)) { echo $edituserdetails->officer_id ; } ?>/<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>" title="<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>"><img src="<?php echo base_url(); ?>/resources/images/download.png"  height="42" width="42"></a>
-					<input type="hidden" name="hiddenprofilepicture" id="hiddenprofilepicture" value="<?php if(isset($edituserdetails->user_photo)) { echo $edituserdetails->user_photo ; } ?>" />
-          <div class="errorMsg">
-                 
-                  </div> 
-                </div>
-                 <div class="form-group col-sm-6">
-                 <button type="submit" class="btn btn-primary" name="updateProfile" id="updateprofile">Submit</button>
-                </div>
-
-            </div> <!-- /.portlet-content -->
-
-          </div>
-      
- </form>
-        </div>
-
-      </div> <!-- /.row -->
-
-
-    
-    </div> <!-- /.content-container -->
-      
- 

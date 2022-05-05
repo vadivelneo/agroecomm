@@ -454,45 +454,6 @@ Class Mastersmodule extends CI_Model
 					
 	}
 	
-	public function get_search_pro_subgroup($limit,$page,$sort_order,$sort_by,$sess_company,$sess_group,$search_name)
-	{
-		$this->db->select('sub_group.*,main_group.*');
-		$this->db->from('product_sub_group as sub_group');
-		$this->db->join('products_groups as main_group','sub_group.product_group_id = main_group.products_group_id' );
-		$this->db->order_by('product_sub_group_id', 'DESC');
-		if($search_name != '')
-		{
-		$this->db->like('product_sub_group_name',$search_name);
-		}
-
-		$this->db->where('product_sub_group_status','enable');
-		$this->db->order_by($sort_order, $sort_by);
-		$this->db->limit($limit,$page);
-		$ret['rows'] = $this->db->get()->result_array();
-
-
-
-		$this->db->select('count(*) as TotalRows');
-		$this->db->from('product_sub_group as sub_group');
-		$this->db->join('products_groups as main_group','sub_group.product_group_id = main_group.products_group_id' );
-
-		if($search_name != '')
-		{
-		$this->db->like('product_sub_group_name',$search_name);
-		}
-
-
-		$this->db->order_by($sort_order, $sort_by);
-		$Count = $this->db->get()->row();
-
-		$ret['num_rows'] = $Count->TotalRows;
-
-		//echo"<PRE>";print_R($ret);exit;
-		return $ret;
-		
-					
-	}
-	
 	
 	//** Get Product Group List **//
 
@@ -508,25 +469,6 @@ Class Mastersmodule extends CI_Model
 	
 		$Count = $this->db->select('count(*) as TotalRows')
 							->from('products_groups')
-						 	->get()->row();
-
-		$ret['num_rows'] = $Count->TotalRows;
-		return $ret;
-	}
-	
-	public function get_pro_sub_group($limit,$start,$sort_order,$sort_by)
-	{
-		$ret['rows'] = $this->db->select('sub_group.*,main_group.*')
-							->from('product_sub_group as sub_group')
-							->join('products_groups as main_group','sub_group.product_group_id = main_group.products_group_id' )
-							->where('sub_group.product_sub_group_status', 'enable')
-							->order_by($sort_order, $sort_by)
-			     			->order_by('sub_group.product_sub_group_id', 'DESC')
-							->limit($limit, $start)
-							->get()->result_array();
-	
-		$Count = $this->db->select('count(*) as TotalRows')
-							->from('product_sub_group')
 						 	->get()->row();
 
 		$ret['num_rows'] = $Count->TotalRows;
@@ -554,13 +496,6 @@ Class Mastersmodule extends CI_Model
 		return  $insert_id;		
 	}
 	
-	public function add_pro_sub_group($pro_group)
-	{
-		$this->db->insert('product_sub_group', $pro_group);
-		$insert_id = $this->db->insert_id();
-		return  $insert_id;		
-	}
-	
 	//** Product Group Validation for Edit **//
 	
 	public function editpro_gup_vaildation($products_group_name, $id)
@@ -584,13 +519,7 @@ Class Mastersmodule extends CI_Model
 		return true;
 	}
 
-	public function update_prosub_group($pro_groupdetails,$id)
-	{	
-		$this->db->where('product_sub_group_id', $id);
-		$this->db->update('product_sub_group', $pro_groupdetails);
-		
-		return true;
-	}
+	
 	//** Get Single Product Group **//
 	
 	public function getsingle_pro_group($id)
@@ -605,17 +534,6 @@ Class Mastersmodule extends CI_Model
 		return $query;
 	}
 	
-	public function edit_sub_group($id)
-	{
-		$this->db->select('PRO_SG.*');
-		$this->db->from('product_sub_group as PRO_SG');
-		
-	 	$this->db->where('product_sub_group_id', $id);
-		$query = $this->db->get()->row();
-		//echo "<pre>"; print_r($query); exit;
-		return $query;
-	}
-	
 	//** Product Group Status **//
 	
 	public function updateprogroupstatus($pro_group_data, $id)
@@ -623,14 +541,6 @@ Class Mastersmodule extends CI_Model
 		
 		$this->db->where('products_group_id', $id)
 				 ->update('products_groups', $pro_group_data);
-		return true;
-	}
-	
-	public function updateprosubgroupstatus($pro_group_data, $id)
-	{
-		
-		$this->db->where('product_sub_group_id', $id)
-				 ->update('product_sub_group', $pro_group_data);
 		return true;
 	}
 	
@@ -648,16 +558,6 @@ Class Mastersmodule extends CI_Model
 						->from('products_type as TYPE')
 						//->join('store as STA','STA.store_category = TYPE.products_type_id' )
 						->where('TYPE.products_type_status','enable')
-						->get()->result_array();
-		return $ret;
-	}
-	
-	public function get_productgroup()
-	{
-		$ret = $this->db->select('*')
-						->from('products_groups')
-						//->join('store as STA','STA.store_category = TYPE.products_type_id' )
-						->where('products_group_status','enable')
 						->get()->result_array();
 		return $ret;
 	}

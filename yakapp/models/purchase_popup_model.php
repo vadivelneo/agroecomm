@@ -348,7 +348,7 @@ Class Purchase_popup_model extends CI_Model
 			$this->db->join('price_book as PB', 'PB.price_book_id = PBPRIC.price_book_price_pb_id');
 			//$this->db->where('PRO.material_store_division_id',$division_id);
 			$this->db->where('PRO.product_status','enable');
-			$this->db->where('PBPRIC.price_book_price_pb_id','2');
+			$this->db->where('PBPRIC.price_book_price_pb_id',$pricebook_id);
 			//$this->db->where('PRO.product_type_id !=', 2);
 			$this->db->limit(10);
 			if($product_type != "")
@@ -365,7 +365,7 @@ Class Purchase_popup_model extends CI_Model
 			}
 			if($item_mfg_prtno != "")
 			{
-				$this->db->like('PRO.product_sku',$item_mfg_prtno);
+				$this->db->like('PRO.product_mfr_part_number',$item_mfg_prtno);
 			}
 			if($item_name != "")
 			{

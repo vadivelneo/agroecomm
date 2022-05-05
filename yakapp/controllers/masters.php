@@ -610,57 +610,7 @@ class Masters extends MY_Controller {
 		  $this->_render('pages/masters/productgroup/product_group_list');
 	}
 	
-
-	public function search_productsubgroup($sort_order='product_sub_group_id',$sort_by='desc')
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		$sess_company=$sessionData['company_id'];
-		$sess_group=$sessionData['group_id'];
-		
-		if(isset($_POST['search']))
-		{
-			$search_name = $this->security->xss_clean($this->input->post('search_name'));
-			
-			
-		
-			$req_search_product_group= array(
-					'search_name' => $search_name,
-					
-					);	
-			$this->session->set_userdata('req_search_product_group',$req_search_product_group);
-		}	
-			
-			
-			$search_data = $this->session->userdata('req_search_product_group');			
-			$search_name = $search_data['search_name'];
-				
-			
-		
-		  $page = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
-		  $limit =10;
-		  $Result = $this->mastersmodule->get_search_pro_subgroup($limit,$page,$sort_order,$sort_by,$sess_company,$sess_group,$search_name);
-		 
-		  $this->data["pro_group"] = $Result['rows'];
-		
-		  $config['prev_link']='Prev';
-		  $config['next_link']='Next';
-		  $config['first_link']='First';
-		  $config['last_link']='Last';
-		  $config['base_url'] = site_url('masters/search_productgroup/').'/'.$sort_order.'/'.$sort_by; 
-		  $config['total_rows'] = $Result['num_rows'];
-		  $config['per_page']= $limit;
-		  $config['uri_segment']=5;
-		  $config['num_link']=5;
-		  $this->pagination->initialize($config);
-		  $this->data['page_links'] = $this->pagination->create_links(); 
-		  $this->data["sort_order"]=$sort_order;
-		  $this->data["sort_by"]=$sort_by;
-		  
-		  $this->title = "Product Sub Group";
-		  $this->keywords = "Product Sub Group";
-		  $this->_render('pages/masters/productsubgroup/product_group_list');
-	}
+	
 	//**  Product Group List **//
 	
 	public function productgroup($sort_order='products_group_id',$sort_by='desc')
@@ -687,32 +637,6 @@ class Masters extends MY_Controller {
 		$this->title = "Product Group";
 		$this->keywords = "Product Group";
 		$this->_render('pages/masters/productgroup/product_group_list');
-	}
-	
-	public function productsubgroup($sort_order='product_sub_group_id',$sort_by='desc')
-	{
-		$page = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
-		$limit =10;
-		$Result = $this->mastersmodule->get_pro_sub_group($limit,$page,$sort_order,$sort_by);
-		$this->data["pro_group"] = $Result['rows'];
-
-		$config['prev_link']='Prev';
-		$config['next_link']='Next';
-		$config['first_link']='false';
-		$config['last_link']='false';
-		$config['base_url'] = site_url('masters/productsubgroup/').'/'.$sort_order.'/'.$sort_by; 
-		$config['total_rows'] = $Result['num_rows'];
-		$config['per_page']= $limit;
-		$config['uri_segment']=5;
-		$config['num_link']=5;
-		$this->pagination->initialize($config);
-		$this->data['page_links'] = $this->pagination->create_links(); 
-		$this->data["sort_order"]=$sort_order;
-		$this->data["sort_by"]=$sort_by;
-
-		$this->title = "Product Sub Group";
-		$this->keywords = "Product Sub Group";
-		$this->_render('pages/masters/productsubgroup/product_group_list');
 	}
 	
 	//** Add Product Group **//
@@ -763,52 +687,6 @@ class Masters extends MY_Controller {
 		}
 	}
 	
-	public function addsubproductgroup()
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		if(isset($_POST['add_pro_group']))
-		{
-			$products_group_name = $this->security->xss_clean($this->input->post('product_group_name'));
-			$products_group_description = $this->security->xss_clean($this->input->post('description'));
-			$material_type = $this->security->xss_clean($this->input->post('material_type'));
-			$product_usageunit = $this->security->xss_clean($this->input->post('product_usageunit'));
-			$status = $this->security->xss_clean($this->input->post('status'));
-			$product_group_id = $this->security->xss_clean($this->input->post('product_group_id'));
-
-			$pro_gup_val = $this->mastersmodule->pro_gup_vaildation($products_group_name);//** Product Group Validation **//
-			if($pro_gup_val==0)
-			{
-				$pro_group=array(
-					'product_sub_group_name'=>$products_group_name,
-					'product_group_id'=>$product_group_id,
-					'product_sub_group_description'=>$products_group_description,
-					'product_sub_group_status'=>'enable',
-					'product_sub_group_created_by' =>$sess_user,
-					'product_sub_group_updated_by' =>$sess_user,
-					'product_sub_group_add_date' => date ('Y-m-d h:i:s'),
-					);
-					
-				$this->mastersmodule->add_pro_sub_group($pro_group);	
-				$this->session->set_flashdata('message', 'Product Group Added Successfully');
-				redirect('masters/productsubgroup');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Product Group Already Exist');
-				redirect('masters/productsubgroup');
-			}
-		}
-		else
-		{
-			$this->data["product_group"] = $this->mastersmodule->get_productgroup(); //** Get All Product Types **//
-			$this->data["product_uom"] = $this->mastersmodule->get_alluom(); //** Get All Unit of Measurememt Details **//
-			$this->title = "Product Group";
-			$this->keywords = "Product Group";
-			$this->_render('pages/masters/productsubgroup/add_product_group');
-		}
-	}
-	
 	//** Edit Product Group **//
 	
 	public function editproductgroup($id)
@@ -855,52 +733,6 @@ class Masters extends MY_Controller {
 			$this->title = "Product Group";
 			$this->keywords = "Product Group";
 			$this->_render('pages/masters/productgroup/edit_product_group');
-		}
-	}
-	
-	
-	public function editproductsubgroup($id)
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		if(isset($_POST['update_pro_group']))
-		{	
-			$products_group_name = $this->security->xss_clean($this->input->post('product_group_name'));
-			$products_group_description = $this->security->xss_clean($this->input->post('description'));
-			$material_type = $this->security->xss_clean($this->input->post('material_type'));
-			$product_usageunit = $this->security->xss_clean($this->input->post('product_usageunit'));
-			$product_group_id = $this->security->xss_clean($this->input->post('product_group_id'));
-
-			$pro_gup_val = $this->mastersmodule->editpro_gup_vaildation($products_group_name, $id);//** Product Group Validation for Edit **//
-			if($pro_gup_val==0)
-			{
-				$pro_groupdetails=array(
-					'product_sub_group_id'=>$id,
-					'product_sub_group_name'=>$products_group_name,
-					'product_sub_group_description'=>$products_group_description,
-					'product_group_id'=>$product_group_id,
-					'product_sub_group_updated_by' =>$sess_user,
-					'product_sub_group_update_date' => date ('Y-m-d h:i:s'),
-					);
-					//echo "<pre>"; print_r($pro_groupdetails); exit;
-				$this->mastersmodule->update_prosub_group($pro_groupdetails ,$id);	
-				$this->session->set_flashdata('message', 'Product Group Updated Successfully');
-				redirect('masters/productsubgroup');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Product Group Already Exist');
-				redirect('masters/productsubgroup');	
-			}
-		}
-		else
-		{
-			$this->data["product_group"] = $this->mastersmodule->get_productgroup(); //** Get All Product Types **//
-			$this->data["product_uom"] = $this->mastersmodule->get_alluom(); //** Get All Unit of Measurememt Details **//
-			$this->data['progroupdata'] = $this->mastersmodule->edit_sub_group($id);//** Get Single Product Group **//
-			$this->title = "Product Group";
-			$this->keywords = "Product Group";
-			$this->_render('pages/masters/productsubgroup/edit_product_group');
 		}
 	}
 
@@ -1216,34 +1048,10 @@ class Masters extends MY_Controller {
 				  'products_group_update_date' => date('Y-m-d h:i:s'),
 			  );
 		$this->mastersmodule->updateprogroupstatus($pro_group_data, $id);
-		$this->session->set_flashdata('message', 'Status Changed Successfully');
+		$this->session->set_flashdata('message', 'UOM Status Changed Successfully');
 		redirect('masters/productgroup');
 	}
 	
-	
-	public function pro_subgroup_status($id,$status)
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		
-		if($status == 'enable')
-		{
-			$changeStatus = 'disable';
-		}
-		else
-		{
-			$changeStatus = 'enable';
-		}
-		
-		$pro_group_data = array(
-				  'product_sub_group_status' => $changeStatus,
-				  'product_sub_group_updated_by' =>$sess_user,
-				  'product_sub_group_update_date' => date('Y-m-d h:i:s'),
-			  );
-		$this->mastersmodule->updateprosubgroupstatus($pro_group_data, $id);
-		$this->session->set_flashdata('message', 'Status Changed Successfully');
-		redirect('masters/productsubgroup');
-	}
 	//** Search Country **//
 	
 	public function search_country($sort_order='country_id',$sort_by='desc')

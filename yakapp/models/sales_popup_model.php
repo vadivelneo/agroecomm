@@ -39,7 +39,6 @@ Class Sales_popup_model extends CI_Model
 	{
 		$ret = $this->db->select('G.products_group_id, G.products_group_name')
 					->from('products_groups as G')
-					->where('G.products_group_status','enable')
 					->get()->result_array();
 		return $ret;
 	}
@@ -87,78 +86,10 @@ Class Sales_popup_model extends CI_Model
 										//echo $this->db->last_query();
 			return $ret;
 	}
-	
-	public function orderformproductsdetails($pricebook_id,$division_id,$store_id)
-	{
-		
-		$ret = $this->db->select('PRICE_BOOK.*, PRO.* , PRO_PRICE.*, INV.*, sum(inventory_qty)')
-										->from('price_book_price as PRICE_BOOK')
-										->join('products as PRO', 'PRO.product_id = PRICE_BOOK.price_book_price_item_id')
-										->join('product_price as PRO_PRICE', 'PRO_PRICE.product_prd_id = PRO.product_id')
-										//->join('product_stock as PRO_STK', 'PRO_STK.product_stock_prd_id = PRO.product_id')
-										//->join('products_type as PRO_TYP', 'PRO_TYP.products_type_id = PRO.product_type_id')
-										->join('inventory_new as INV', 'PRO.product_id = INV.inventory_item_id','left')
-										
-										->where('PRICE_BOOK.price_book_price_pb_id', $pricebook_id)
-										->where('PRO.product_status','enable')
-										->group_by('PRO.product_id')
-										->limit(50)
-										->get()->result_array();
-										//echo $this->db->last_query();
-			return $ret;
-	}
-	
-	public function autosearch_item_partnumber($q,$pricebook_id,$product_type,$product_group,$product_sub_group,$item_code,$item_name,$item_mfg_prtno,$store_id)
+	public function autosearch_item_partnumber($q,$pricebook_id,$product_type,$product_group,$item_code,$item_name,$item_mfg_prtno,$store_id)
   {
 	  
-	  	$this->db->select('PRICE_BOOK.*, PRO.*');
-		$this->db->from('price_book_price as PRICE_BOOK');
-		$this->db->join('products as PRO', 'PRO.product_id = PRICE_BOOK.price_book_price_item_id');
-		
-		$this->db->where('PRICE_BOOK.price_book_price_pb_id', $pricebook_id);
-		
-		$this->db->group_by('PRO.product_id');
-		$this->db->where('PRO.product_status','enable');
-		
-	
-		if($product_group != "")
-		{
-			$this->db->where('PRO.product_group_id',$product_group);
-		}
-		if($product_sub_group != "")
-		{
-			$this->db->where('PRO.product_sub_group',$product_sub_group);
-		}
-		if($item_code != "" && $item_code != NULL)
-		{
-			$this->db->like('PRO.product_code',$item_code);
-		}
-		if($item_name != "" && $item_name != NULL)
-		{
-			$this->db->like('PRO.product_name',$item_name);
-		}
-		if($item_mfg_prtno != "" && $item_mfg_prtno != NULL)
-		{
-			$this->db->like('PRO.product_sku',$q);
-		}
-		
-		$this->db->limit(25);
-		//echo $this->db->last_query(); exit;
-		$query = $this->db->get();
-		
-		if($query->num_rows > 0){
-		  foreach ($query->result_array() as $row){
-			$row_set[] = $row;  	   
-		  }
-		  echo json_encode($row_set); //format the array into json data
-    }
-  }
-  
-  
-  public function autosearch_order_form($q,$pricebook_id,$product_type,$product_group,$item_code,$item_name,$item_mfg_prtno,$store_id)
-  {
-	  
-	  	$this->db->select('PRICE_BOOK.*,PRO_PRICE.*, PRO.*,INV.*,sum(inventory_qty)');
+	  	$this->db->select('PRICE_BOOK.*,PRO_PRICE.*, PRO.*,INV.*');
 		$this->db->from('price_book_price as PRICE_BOOK');
 		$this->db->join('products as PRO', 'PRO.product_id = PRICE_BOOK.price_book_price_item_id');
 		$this->db->join('product_price as PRO_PRICE', 'PRO_PRICE.product_prd_id = PRO.product_id');
@@ -172,11 +103,37 @@ Class Sales_popup_model extends CI_Model
 		//$this->db->where('PRO.material_store_id', $store_id);
 		$this->db->where('INV.inventory_qty !=','0.00');
 		$this->db->where('PRO.product_status','enable');
-		$this->db->group_by('PRO.product_id'); 
-		$ret = 	$this->db->get()->result_array();
 		
-		return $ret;
+		if($product_type != "")
+		{
+			$this->db->where('PRO.product_type_id',$product_type);
+		}
+		if($product_group != "")
+		{
+			$this->db->where('PRO.product_group_id',$product_group);
+		}
+		if($item_code != "")
+		{
+			$this->db->like('PRO.product_code',$item_code);
+		}
+		if($item_name != "")
+		{
+			$this->db->like('PRO.product_name',$item_name);
+		}
+		if($item_mfg_prtno != "")
+		{
+			$this->db->like('PRO.product_mfr_part_number',$q);
+		}
 		
+		$this->db->limit(10);
+		$query = $this->db->get();
+		
+		if($query->num_rows > 0){
+		  foreach ($query->result_array() as $row){
+			$row_set[] = $row;  	   
+		  }
+		  echo json_encode($row_set); //format the array into json data
+    }
   }
 	
 	//** Search In Multiple Item Details **//
@@ -220,7 +177,6 @@ Class Sales_popup_model extends CI_Model
 		return $ret;
 	}
 	
-
 	//** Get Single Item Product Details **//
 	
 	public function getitemdetails($product_item_id, $pricebook_id)

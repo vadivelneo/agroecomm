@@ -1,139 +1,142 @@
-<script>
-$(document).ready(function () {
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>Level Report</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Level Report</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+		
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+		 
+		  
+		 
+          <div class="col-12">
+          
+                
+              <!-- /.card-header -->
+			  <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Search</h3>
+              </div>
+				<div class="card-body">
+				<form class="form-horizontal " id="stockForm" name="stockForm" method="post" action="" enctype="multipart/form-data"> 
+					<div tabindex="3" class="report row" id="report" style="padding:1%;">
+					<?php
+					$sessionuserData = $this->session->userdata('userlogin');
+					//echo/"<pre>"; print_r($sessionuserData); exit;
+					$sess_user=$sessionuserData['user_id'];
+					?>			
+					<?php
+					$con = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
+					mysqli_select_db($con, $this->db->database);
+					//$con = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
+					//mysqli_select_db($con, 'neoindzg_agro_ecomm');  
+					$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 
+					//echo $sql; exit;				
+					$setRec = mysqli_query($con, $sql);  
+
+					$row = mysqli_fetch_array($setRec);
+					$level=$_POST['level'];
+					?>
+
+
+
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>From date : </p>
+							</div>	
+							<div class="report_field_input">
+								<input type="date" class="form-control" name="from_date" required  id="from_date" value="<?php if(isset($_POST['from_date'])) { if(($_POST['from_date']) != '0000-00-00' && $_POST['from_date'] != '' && $_POST['from_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['from_date'])); } } else { echo date('01-m-Y'); } ?>">
+							</div>
+							</div>
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> To date : </p>
+						</div>	
+						<div class="report_field_input">
+						<input type="date" class="form-control" name="to_date" required id="to_date" value="<?php if(isset($_POST['to_date'])) { if(($_POST['to_date']) != '0000-00-00' && $_POST['to_date'] != '' && $_POST['to_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['to_date'])); } } else { echo date('01-m-Y'); } ?>">
+						</div>
+						</div>
+
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> Officer ID : </p>
+						</div>	
+						<div class="report_field_input"> 
+						<input type="text" required class="form-control" name="OFCR_TRE_UNDR_ID" required placeholder="Officer ID" id="OFCR_TRE_UNDR_ID" <?php if($sess_user != 1) { ?>  readonly <?php } else {  ?>  <?php } ?> value="<?php  echo $row['OFCR_USR_VALUE']; ?>">
+						</div>
+						</div>
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> level : </p>
+						</div>	
+						<div class="report_field_input">
+						<select required name="level" id="level" class='form-control'>
+						<option value="">Select Level</option>
+						<option value="1" <?php if($level==1){ echo "selected";}?> >1</option>
+						<option value="2" <?php if($level==2){ echo "selected";}?>>2</option>
+						<option value="3" <?php if($level==3){ echo "selected";}?>>3</option>
+						<option value="4" <?php if($level==4){ echo "selected";}?>>4</option>
+						<option value="5" <?php if($level==5){ echo "selected";}?>>5</option>
+						<option value="6" <?php if($level==6){ echo "selected";}?>>6</option>
+						<option value="7" <?php if($level==7){ echo "selected";}?>>7</option>
+						<option value="8" <?php if($level==8){ echo "selected";}?>>8</option>
+						<option value="9" <?php if($level==9){ echo "selected";}?>>9</option>
+						<option value="10" <?php if($level==10){ echo "selected";}?>>10</option>
+						</select>
+						</div>
+						</div>
+						<button type="submit" name="view_report" class="btn btn-success">View</button>               
+					</div> 
+				</form> 
+				</div>
+              </div>
+			 
+              <!-- /.card-body -->
+            
+			
+				 
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      
+    </section>
 	
-	$("#report_vendor").autocomplete({
-		source: "<?php echo site_url('reports/report_search_vendor_name'); ?>", 
-		minLength: 1,
-		select: function(event, ui)
-				{
-					$('#vendor').val(ui.item.vendor_id);
-					$('#report_vendor').val(ui.item.vendor_name);
-				}
- 	});
-	
-	$("#report_store").autocomplete({
-		source: "<?php echo site_url('reports/report_search_store_name'); ?>", 
-		minLength: 1,
-		select: function(event, ui)
-				{
-					$('#store').val(ui.item.vendor_id);
-					$('#report_store').val(ui.item.vendor_name);
-				}
- 	});
-  
-});
-
-</script>
-<script type="text/javascript">
-		function accordin_grid($id,$i)
-		{
-			
-				$('#accordin_grid_'+$i).css('display','none');
-				$('#accordin_close_grid_'+$i).css('display','block');
-			
-				var search_id = $id;
-				var search_key = $i;
-					   //alert($i);
-				   $.ajax({
-					type: 'POST',
-					url: '<?php echo site_url('reports/view_enrollement_report'); ?>',
-					data: {search_id: search_id, search_key:search_key },
-					success: function(resp)
-					{ 
-						$('#summary_report_'+$i).html(resp);
-					}
-				 });
-		}
-		
-		function accordin_close_grid($id,$i)
-		{
-			
-			 $('#accordin_close_grid_'+$i).css('display','none');
-			 $('#accordin_grid_'+$i).css('display','block');
-			 $('#summary_report_'+$i).html('');
-		}
-
-</script>
-
-
-<?php echo $this->load->view('pages/incentive_left_side'); ?>
-<?php 
-
-?>
-<section>
-		<div class="row-fluid">
-			<form class="form-horizontal " id="stockForm" name="stockForm" method="post" action="" enctype="multipart/form-data"> 
-				<div tabindex="3" class="report" id="report" style="padding:1%;">
-	<?php
-$sessionuserData = $this->session->userdata('userlogin');
-//echo/"<pre>"; print_r($sessionuserData); exit;
-$sess_user=$sessionuserData['user_id'];
-?>			
- <?php
-				$con = $conn = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
-				mysqli_select_db($conn, $this->db->database);
-				
-				//$con = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
-				//mysqli_select_db($con, 'neoindzg_agro_ecomm');  
-				$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 
-				//echo $sql; exit;				
-				$setRec = mysqli_query($con, $sql);  
-				
-				$row = mysqli_fetch_array($setRec);
-				
-	  ?>
-					
-		
-             
-		  <div class="report_field field_box">
-                                    <div class="report_field_label">
-                                    	<p>From date : </p>
-                                    </div>	
-                                    <div class="report_field_input">
-                                    	  <input type="date" class="form-control" name="from_date" required  id="from_date" value="<?php if(isset($_POST['from_date'])) { if(($_POST['from_date']) != '0000-00-00' && $_POST['from_date'] != '' && $_POST['from_date'] != NULL){ echo date('d-m-Y', strtotime($_POST['from_date'])); } } else { echo date('01-m-Y'); } ?>">
-                                	</div>
-                                </div>
-                                <div class="report_field field_box">
-                                	<div class="report_field_label">
-                                    	<p> To date : </p>
-                                    </div>	
-                                    <div class="report_field_input">
-                                    	<input type="date" class="form-control" name="to_date" required id="to_date" value="<?php if(isset($_POST['to_date'])) { if(($_POST['to_date']) != '0000-00-00' && $_POST['to_date'] != '' && $_POST['to_date'] != NULL){ echo date('d-m-Y', strtotime($_POST['to_date'])); } } else { echo date('01-m-Y'); } ?>">
-                                	</div>
-                                </div>
-								
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" required class="form-control" name="OFCR_TRE_UNDR_ID" required placeholder="Officer ID" id="OFCR_TRE_UNDR_ID" <?php if($sess_user != 1) { ?>  readonly <?php } else {  ?>  <?php } ?> value="<?php  echo $row['OFCR_USR_VALUE']; ?>">
-                           
-							<select required name="level" id="level">
-							<option value="">Select Level</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-							</select>
-                              <button type="submit" name="view_report" class="btn btn-green">View</button>               
-				</div> 
-			</form> 
-			
-		</div>
-		<br />
-		
-<style>
-
-.table_1 {
-    margin-left: 50px;
-    width: 90% !important;
-}
-
-</style>
-<table style="margin-left:140px;margin-bottom:50px;width:73%;" border="1">
- 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> Level Report </h3>
+				<div>
+             	
+        	</div>
+			 
+              </div>
+              <!-- /.card-header -->
+				<div class="card-body table-responsive p-0">
+					<table class="table table-hover text-nowrap">
+						
        <?php
 
 if(isset($_POST['view_report']))
@@ -147,7 +150,7 @@ if(isset($_POST['view_report']))
   $l1_t="10"; $l2_t="20"; $l3_t="30"; $l4_t="40"; $l5_t="50"; $l6_t="60"; $l7_t="70"; $l8_t="80"; $l9_t="90"; $l10_t="100";
   $l1_ta="10000"; $l2_ta="20000"; $l3_ta="30000"; $l4_ta="40000"; $l5_ta="50000"; $l6_ta="60000"; $l7_ta="70000"; $l8_ta="80000"; $l9_ta="90000"; $l10_ta="100000";
   
-  $l1array=""; $l1_c="0";
+  $l1array=array(); $l1_c="0";
     $sel=mysqli_query($con,"SELECT * from vsoft_officer_tree where OFCR_TRE_UNDR_ID='$OFCR_TRE_UNDR_ID'");
     $l1_c=mysqli_num_rows($sel);
     WHILE($rows=mysqli_fetch_array($sel)){
@@ -160,7 +163,7 @@ if(isset($_POST['view_report']))
 
     
     
-    $l2_c="0";$l2array="";
+    $l2_c="0";$l2array=array();
 
         if($l1array!="")
     {
@@ -227,7 +230,7 @@ if(isset($_POST['view_report']))
         if($level==1) {  echo "</td></tr>"; } //Prints Table Data
     }
         
-     $l3_c="0";$l3array="";
+     $l3_c="0";$l3array=array();
      
      if($l2array!="")
     {
@@ -286,7 +289,7 @@ if(isset($_POST['view_report']))
         
     }
          
-         $l4_c="0";$l4array="";
+         $l4_c="0";$l4array=array();
      if($l3array!="")
     {
         
@@ -345,7 +348,7 @@ if(isset($_POST['view_report']))
         if($level==3) {  echo "</td></tr>"; } //Prints Table Data
     }
          
-         $l5_c="0";$l5array="";
+         $l5_c="0";$l5array=array();
      if($l4array!="")
     {
         
@@ -401,7 +404,7 @@ if(isset($_POST['view_report']))
         if($level==4) {  echo "</td></tr>"; } //Prints Table Data
     }
          
-         $l6_c="0";$l6array="";
+         $l6_c="0";$l6array=array();
      if($l5array!="")
     {
         
@@ -459,7 +462,7 @@ if(isset($_POST['view_report']))
     }
 
          
-         $l7_c="0";$l7array="";
+         $l7_c="0";$l7array=array();
       if($l6array!="")
     {
         
@@ -517,7 +520,7 @@ if(isset($_POST['view_report']))
     }
 
          
-         $l8_c="0";$l8array="";
+         $l8_c="0";$l8array=array();
      if($l7array!="")
     {
         
@@ -575,7 +578,7 @@ if(isset($_POST['view_report']))
         
 
          
-         $l9_c="0";$l9array="";
+         $l9_c="0";$l9array=array();
         if($l8array!="")
     {
          $l8_c="0";        
@@ -633,7 +636,7 @@ if(isset($_POST['view_report']))
     }
         
          
-         $l10_c="0";$l10array="";
+         $l10_c="0";$l10array=array();
     if($l9array!="")
     {
         
@@ -690,7 +693,7 @@ if(isset($_POST['view_report']))
         }
         if($level==9) {  echo "</td></tr>"; } //Prints Table Data
     }
-    
+    $l11array=array();
       if($l10array!="")
     {
         
@@ -749,25 +752,128 @@ if(isset($_POST['view_report']))
         
     
      } 
-	 if(isset($level))
-	 {
-	    if($level==1) {  echo '<tr><td colspan="3"><h1>Total Members Level 1 - '.$l1_c.' </h1></td></tr><tr>'; } //Prints Table Data
- if($level==2) {  echo '<tr><td colspan="3"><h1>Total Members Level 2 - '.$l2_c.' </h1></td></tr><tr>'; } //Prints Table Data
- if($level==3) {  echo '<tr><td colspan="3"><h1>Total Members Level 3 - '.$l3_c.' </h1></td></tr><tr>'; } //Prints Table Data
-  if($level==4) {  echo '<tr><td colspan="3"><h1>Total Members Level 4 - '.$l4_c.' </h1></td></tr><tr>'; } //Prints Table Data
-if($level==5) {  echo '<tr><td colspan="3"><h1>Total Members Level 5 - '.$l5_c.' </h1></td></tr><tr>'; } //Prints Table Data
- if($level==6) {  echo '<tr><td colspan="3"><h1>Total Members Level 6 - '.$l6_c.' </h1></td></tr><tr>'; } //Prints Table Data
-if($level==7) {  echo '<tr><td colspan="3"><h1>Total Members Level 7 - '.$l7_c.' </h1></td></tr><tr>'; } //Prints Table Data
-if($level==8) {  echo '<tr><td colspan="3"><h1>Total Members Level 8 - '.$l8_c.' </h1></td></tr><tr>'; } //Prints Table Data
-  if($level==9) {  echo '<tr><td colspan="3"><h1>Total Members Level 9 - '.$l9_c.' </h1></td></tr><tr>'; } //Prints Table Data
-  if($level==10) {  echo '<tr><td colspan="3"><h1>Total Members Level 10 - '.$l10_c.' </h1></td></tr><tr>'; } 
-//Prints Table Data
-	 }
+	if(isset($level))
+		{
+		if($level==1) 
+		{
+			echo '<tr><td colspan="3"><h1>Total Members Level 1 - '.$l1_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==2) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 2 - '.$l2_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==3) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 3 - '.$l3_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==4) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 4 - '.$l4_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==5) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 5 - '.$l5_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==6) 
+		{
+			echo '<tr><td colspan="3"><h1>Total Members Level 6 - '.$l6_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==7) 
+		{
+			echo '<tr><td colspan="3"><h1>Total Members Level 7 - '.$l7_c.' </h1></td></tr><tr>';
+		} //Prints Table Data
+		if($level==8) 
+		{
+			echo '<tr><td colspan="3"><h1>Total Members Level 8 - '.$l8_c.' </h1></td></tr><tr>';
+		} //Prints Table Data
+		if($level==9) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 9 - '.$l9_c.' </h1></td></tr><tr>'; 
+		} //Prints Table Data
+		if($level==10) 
+		{  
+			echo '<tr><td colspan="3"><h1>Total Members Level 10 - '.$l10_c.' </h1></td></tr><tr>'; 
+		} 
+		//Prints Table Data
+	}
 	 ?>
 
-</table>
+					</table>
+					<div class="dataTables_paginate paging_bootstrap">
+						<center> <?php echo $page_links; ?> </center>
+					</div>
+				</div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
+ 
+ 
+ 
 
-                        	
-                        
-               
-</section>
+
+
+<script>
+$(document).ready(function () {
+	
+	$("#report_vendor").autocomplete({
+		source: "<?php echo site_url('reports/report_search_vendor_name'); ?>", 
+		minLength: 1,
+		select: function(event, ui)
+				{
+					$('#vendor').val(ui.item.vendor_id);
+					$('#report_vendor').val(ui.item.vendor_name);
+				}
+ 	});
+	
+	$("#report_store").autocomplete({
+		source: "<?php echo site_url('reports/report_search_store_name'); ?>", 
+		minLength: 1,
+		select: function(event, ui)
+				{
+					$('#store').val(ui.item.vendor_id);
+					$('#report_store').val(ui.item.vendor_name);
+				}
+ 	});
+  
+});
+
+</script>
+<script type="text/javascript">
+		function accordin_grid($id,$i)
+		{
+			
+				$('#accordin_grid_'+$i).css('display','none');
+				$('#accordin_close_grid_'+$i).css('display','block');
+			
+				var search_id = $id;
+				var search_key = $i;
+					   //alert($i);
+				   $.ajax({
+					type: 'POST',
+					url: '<?php echo site_url('reports/view_enrollement_report'); ?>',
+					data: {search_id: search_id, search_key:search_key },
+					success: function(resp)
+					{ 
+						$('#summary_report_'+$i).html(resp);
+					}
+				 });
+		}
+		
+		function accordin_close_grid($id,$i)
+		{
+			
+			 $('#accordin_close_grid_'+$i).css('display','none');
+			 $('#accordin_grid_'+$i).css('display','block');
+			 $('#summary_report_'+$i).html('');
+		}
+
+</script>

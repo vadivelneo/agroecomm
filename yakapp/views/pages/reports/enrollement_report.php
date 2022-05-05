@@ -1,4 +1,164 @@
-<script>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>Direct Downline Report</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active"> Direct Downline Report</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+		
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+		 
+		  
+		 
+          <div class="col-12">
+          
+                
+              <!-- /.card-header -->
+			  <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Search</h3>
+              </div>
+				<div class="card-body">
+				<form class="form-horizontal " id="stockForm" name="stockForm" method="post" action="<?php echo site_url('reports/enrollement_reportsearch'); ?>" enctype="multipart/form-data"> 
+					<div tabindex="3" class="report" id="report" style="padding:1%;">
+
+					<?php
+					$sessionuserData = $this->session->userdata('userlogin');
+					//echo/"<pre>"; print_r($sessionuserData); exit;
+					$sess_user=$sessionuserData['user_id'];
+					?>
+					<?php
+
+					$conn = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
+					mysqli_select_db($conn, $this->db->database);
+					//$conn = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
+					//mysqli_select_db($conn, 'neoindzg_agro_ecomm');  
+					$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 
+					//echo $sql; exit;				
+					$setRec = mysqli_query($conn, $sql);  
+
+					$row = mysqli_fetch_array($setRec);
+					//echo $row['user_photo'];
+					?>
+					<input type="text" name="report_officer" <?php if($sess_user != 1) { ?>  readonly <?php } else {  ?>  <?php } ?> placeholder="Officer ID" class="input-large report_to" id="report_officer" value="<?php  echo $row['OFCR_USR_VALUE']; ?>">
+
+					&nbsp;&nbsp;&nbsp;      
+
+
+					<input type="hidden" name="vendor" id="vendor"  value="<?php if(isset($vendor_id)){ echo $vendor_id; }?>" />
+
+					<input type="submit" id="generate" name="generate" class="btn-success btn_generate" value="Generate">
+					</div> 
+				</form> 
+				<?php
+				if(!empty($po_list)) {?>
+				<form class="form-horizontal" id="stockForm" name="stockForm" method="post" action="<?php echo site_url('reports/enrollement_reportsearch'); ?>" enctype="multipart/form-data">
+
+					<input type="hidden" name="report_store" placeholder="Store Name" class="input-large report_to" id="report_store" value="<?php if(isset($store_name)){ echo $store_name; }?>">
+					<input type="hidden" name="vendor" id="vendor" value="<?php if(isset($vendor_id)){ echo $vendor_id; }?>" />
+					<input type="hidden" name="search_item_status" id="search_item_status" value="<?php if(isset($search_item_status)){ echo $search_item_status;}?>" />
+					<!--  <input type="submit" id="export" name="export" class="btn-success btn_export" value="Export"> -->
+				</form>
+				<?php }?>
+				</div>
+              </div>
+			 
+              <!-- /.card-body -->
+            
+			
+				 
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      
+    </section>
+	
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> Direct Downline Report </h3>
+				<div>
+             	
+        	</div>
+			 
+              </div>
+              <!-- /.card-header -->
+				<div class="card-body table-responsive p-0">
+					<table class="table table-hover text-nowrap">
+						<thead>
+							 <tr>
+								<th>S.No</th>
+								<th>Customer ID</th>
+								<th>Customer Name</th>
+								<th>Customer Mobile</th>
+								<th>Customer Rank</th>
+							
+							</tr>
+						</thead>
+						<tbody>
+							 <?php
+								  //echo "<pre>";
+								  //print_r($subuser_data);
+							if(!empty($subuser_data)) {
+								$i = $this->uri->segment(5) ? $this->uri->segment(5)+1 : 1;
+							 foreach($subuser_data as $pro) { ?>
+								  <tr>
+							
+								<td  class="show_table"><?php echo $i; ?></td>
+								<td  class="show_table"><?php echo $pro['OFCR_USR_VALUE']; ?></td>
+								<td><?php echo ucfirst($pro['OFCR_FST_NME']).' '.ucfirst($pro['OFCR_LST_NME']); ?></td>
+								<td><?php echo $pro['OFCR_MOB']; ?></td>
+								<td><?php echo ''; ?></td>
+								
+								
+							  
+							</tr>
+								  <?php $i++;}} else{?>
+								  <tr>
+									<td colspan="6" style="text-align:center;"> No Records Found </td>
+								  </tr>
+								  <?php }?>
+						</tbody>
+					</table>
+					<div class="dataTables_paginate paging_bootstrap">
+						<center> <?php echo $page_links; ?> </center>
+					</div>
+				</div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
+ 
+ <script>
 $(document).ready(function () {
 	
 	$("#report_vendor").autocomplete({
@@ -76,9 +236,8 @@ $sess_user=$sessionuserData['user_id'];
 ?>
  <?php
 	  
-				$conn = $conn = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
-				mysqli_select_db($conn, $this->db->database);
-				
+				$conn = new mysqli('localhost', 'root', '');  
+				mysqli_select_db($conn, 'agro_test');
 				//$conn = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
 				//mysqli_select_db($conn, 'neoindzg_agro_ecomm');  
 				$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 

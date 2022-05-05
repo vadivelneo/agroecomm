@@ -46,17 +46,17 @@ class MY_Controller extends CI_Controller{
 		
 		//data
 		$toBody["content_body"] = $this->load->view($view,array_merge($this->data,$toTpl),true);
-		
+		 
 		//nav menu
 		if($this->hasNav){
 			$this->load->helper("nav");
 			$toMenu["pageName"] = $this->pageName;
-			$toHeader["nav"] = $this->load->view("template/nav",$toMenu,true);
+			//$toHeader["nav"] = $this->load->view("template/nav",$toMenu,true);
 		}
-		$toHeader["basejs"] = $this->load->view("template/basejs",$this->data,true);
+		//$toHeader["basejs"] = $this->load->view("template/basejs",$this->data,true);
 		
-		$toBody["header"] = $this->load->view("template/header",$toHeader,true);
-		$toBody["footer"] = $this->load->view("template/footer",'',true);
+		$toBody["header"] = $this->load->view("template1/header",$toHeader,true);
+		$toBody["footer"] = $this->load->view("template1/footer",'',true);
 		
 		$toTpl["body"] = $this->load->view("template/".$this->template,$toBody,true);
 		

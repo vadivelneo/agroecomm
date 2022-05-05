@@ -117,122 +117,6 @@ function itemsgridrowdelete(id)
 }
 
 
-function orderformrowdelete(id)
-{
-	//alert('gfhfddd');
-	sure = confirm('Are you sure, do you want to delete an item?');
-	
-  	if(sure == true) 
-  	{
-		
-		var login_company_id = $("#login_company_id").val();
-		var tax_value = $("#tax_value").val();
-		
-		var deleteid = $("#itemsgrid_delete_"+id).attr('data-delete');
-		var itemid = $("#itemsgrid_delete_"+id).attr('data-item');
-		
-		var myarray = new Array();
-		
-		$('input[name^="item_id"]').each(function() {
-   			myarray.push($(this).val());			
-		});
-		
-		length = $("#last_table_id").val();
-		
-		var newarray = "";
-		
-		var i = 0;
-		for(var counter=1; counter<=length; counter++)
-		{
-			var	popup_item_id = $("#item_id_"+counter).val();
-			var	popup_item_code = $("#item_code_"+counter).val();
-			var	popup_item_name = $("#item_name_"+counter).val();
-			var	popup_item_mfg_prtno = $("#item_mfg_prtno_"+counter).val();
-			
-			var	popup_item_product_code= $("#multiple_item_product_code_"+counter).val();
-			var	popup_item_division_id = $("#multiple_item_division_id_"+counter).val();
-			var	popup_item_division_name = $("#multiple_item_division_name_"+counter).val();
-			var	popup_item_store_id = $("#multiple_item_store_id_"+counter).val();
-			var	popup_item_store_name = $("#multiple_item_store_name_"+counter).val();
-			
-			var	popup_item_uom_name  = $("#item_uom_name_"+counter).val();
-			var	popup_item_uom_id  = $("#item_uom_id_"+counter).val();
-			var	popup_item_mrp  = $("#item_mrp_"+counter).val();
-			var	popup_item_priceperunit  = $("#item_priceperunit_"+counter).val();
-			var	popup_item_qty  = $("#item_qty_"+counter).val();
-			var	popup_item_free_qty  = $("#item_qty_free_"+counter).val();
-			var	popup_item_free_item  = $("#free_qty_name"+counter).val();
-			//alert(popup_item_free_qty);
-			var	popup_gross_amount  = $("#item_gross_amount_"+counter).val();
-			var	item_tax_percent  = $("#item_tax_percent_"+counter).val();
-			var	item_tax_amount  = $("#item_tax_amount_"+counter).val();
-			var	popup_item_discount_percent  = $("#item_discount_percent_"+counter).val();
-			var	item_discount_amount  = $("#item_discount_amount_"+counter).val();
-			var	item_damage_discount_percentage  = $("#item_damage_discount_percentage_"+counter).val();
-			var	item_damage_discount_amount  = $("#item_damage_discount_amount_"+counter).val();
-			var	item_flat_discount  = $("#item_flat_discount_"+counter).val();
-			
-			var	item_net_amount  = $("#item_net_amount_"+counter).val();
-			var	popup_item_inv_id  = $("#item_inv_id_"+counter).val();
-			var	popup_item_inv_qty  = $("#item_inv_qty_"+counter).val();
-			
-			var	popup_item_vat  = $("#item_vat_"+counter).val();
-			var	popup_item_gst  = $("#item_gst_"+counter).val();
-			var	popup_item_cst  = $("#item_cst_"+counter).val();
-			var	popup_item_serv_tax  = $("#item_serv_tax_"+counter).val();
-			var	popup_item_exc  = $("#item_exc_"+counter).val();
-			
-			var	popup_item_hsn  = $("#item_hsn_value_"+counter).val();
-			var	popup_item_cgst = $("#item_cgst_"+counter).val();
-			var	popup_item_cgst_amount  = $("#item_cgst_amount_"+counter).val();
-			var	popup_item_sgst  = $("#item_sgst_"+counter).val();
-			var	popup_item_sgst_amount  = $("#item_sgst_amount_"+counter).val();
-			var	popup_item_gross_amount_with_disc  = $("#item_gross_amount_with_disc_"+counter).val();
-			var	popup_item_batch_no = $("#item_batch_no_"+counter).val();
-			var	popup_item_inv_qty = $("#item_inv_qty_"+counter).val();
-			var	popup_item_incentive_rate = $("#item_incentive_rate_"+counter).val();
-			var	popup_item_incentive_total = $("#item_incentive_total_"+counter).val();
-			
-			
-			if(popup_item_id != itemid)	
-			{	
-				 i++;
-				 
-				if(tax_value != 'nontaxable')
-				{
-				 var items ='<tr><td><a href="javascript:void(0);" id="'+i+'">'+i+'</a><input id="item_code_'+i+'" name="item_code['+i+']" value="'+popup_item_code+'" type="hidden" /><input id="item_id_'+i+'" name="item_id['+i+']" value="'+popup_item_id+'" type="hidden" /></td><td><a href="javascript:void(0);">'+popup_item_name+'</a><input id="item_code_'+i+'" name="item_code['+i+']" value="'+popup_item_code+'" type="hidden" /><input id="item_mfg_prtno_'+i+'" name="item_mfg_prtno['+i+']" value="'+popup_item_mfg_prtno+'" type="hidden" /><input id="item_name_'+i+'" name="item_name['+i+']" value="'+popup_item_name+'" type="hidden" /><input id="multiple_item_division_id_'+i+'" name="multiple_item_division_id['+i+']" value="'+popup_item_division_id+'" type="hidden" /><input id="multiple_item_division_name_'+i+'" name="multiple_item_division_name['+i+']" value="'+popup_item_division_name+'" type="hidden" /><input id="multiple_item_store_id_'+i+'" name="multiple_item_store_id['+i+']" value="'+popup_item_store_id+'" type="hidden" /><input id="multiple_item_store_name_'+i+'" name="multiple_item_store_name['+i+']" value="'+popup_item_store_name+'" type="hidden" /><input id="item_hsn_value_'+i+'" name="item_hsn_value['+i+']" value="'+popup_item_hsn+'" type="hidden" /></td><td><a href="javascript:void(0);"></a><input id="item_inv_id_'+i+'" name="item_inv_id['+i+']" type="hidden" value="'+popup_item_inv_id+'" /><input id="item_inv_qty_'+i+'" name="item_inv_qty['+i+']" type="hidden" value="'+popup_item_inv_qty+'" /><input id="item_qty_'+i+'" name="item_qty['+i+']" value="'+popup_item_qty+'" class="quantity stock_text" type="text" onkeyup="return sales_items_grid_total(event, '+i+')"/></td><td><input id="item_incentive_rate_'+i+'" name="item_incentive_rate['+i+']" value="'+popup_item_incentive_rate+'" class="quantity stock_text" type="hidden" onkeyup="return sales_items_grid_total(event, '+i+')"/><input id="item_incentive_total_'+i+'" name="item_incentive_total['+i+']" value="'+popup_item_incentive_total+'" class="quantity stock_text" type="hidden" onkeyup="return sales_items_grid_total(event, '+i+')"/><input id="free_qty_name'+i+'" class="quantity" name="free_qty_name['+i+']" value="'+popup_item_free_item+'" type="hidden" /><input id="item_qty_free_'+i+'" class="quantity" name="item_qty_free['+i+']" value="'+popup_item_free_qty+'" type="hidden" /><input id="item_uom_id_'+i+'" name="item_uom_id['+i+']" type="hidden" value="'+popup_item_uom_id+'" /><input id="item_uom_name_'+i+'" name="item_uom_name['+i+']" type="hidden" value="'+popup_item_uom_name+'" /><input id="item_mrp_'+i+'" name="item_mrp['+i+']" type="hidden" class="quantity" value="'+popup_item_mrp+'" /><a href="javascript:void(0);" ></a><a href="javascript:void(0);" id="item_priceperunit_value_'+i+'"></a><input  id="item_priceperunit_'+i+'" name="item_priceperunit['+i+']" value="'+popup_item_priceperunit+'" class="quantity" type="text" /><input id="item_batch_no_'+i+'" name="item_batch_no['+i+']" value="'+popup_item_batch_no+'" type="hidden" class="quantity stock_text" readonly="readonly" /><input id="item_inv_qty_'+i+'" name="item_inv_qty['+i+']" value="'+popup_item_inv_qty+'" type="hidden" class="quantity stock_text" readonly="readonly" /><input id="item_gross_amount_'+i+'" name="item_gross_amount['+i+']" value="'+popup_gross_amount+'" class="quantity stock_text" type="hidden" /><input id="item_discount_percent_'+i+'" name="item_discount_percent['+i+']" value="'+popup_item_discount_percent+'" class="quantity stock_text" type="hidden" /><input id="item_flat_discount_'+i+'" name="item_flat_discount['+i+']" value="0" type="hidden" /><a href="javascript:void(0);"></a><input id="item_discount_amount_'+i+'" name="item_discount_amount['+i+']" value="'+item_discount_amount+'" class="quantity stock_text" type="hidden" /><input id="item_damage_discount_percentage_'+i+'" name="item_damage_discount_percentage['+i+']" value="'+item_damage_discount_percentage+'" type="hidden" /><input id="item_damage_discount_amount_'+i+'" name="item_damage_discount_amount['+i+']" value="'+item_damage_discount_amount+'" type="hidden" /><input id="item_gross_amount_with_disc_'+i+'" name="item_gross_amount_with_disc['+i+']" value="'+popup_item_gross_amount_with_disc+'" class="quantity stock_text" type="hidden" /><input id="item_tax_percent_'+i+'" name="item_tax_percent['+i+']" value="'+item_tax_percent+'" type="hidden" /><input id="item_tax_amount_'+i+'" name="item_tax_amount['+i+']" value="'+item_tax_amount+'" type="hidden" /><a href="javascript:void(0);" ></a><input id="item_cgst_'+i+'" name="item_cgst['+i+']" value="'+popup_item_cgst+'" class="quantity stock_text" type="hidden" /><input id="item_cgst_amount_'+i+'" name="item_cgst_amount['+i+']" value="'+popup_item_cgst_amount+'" class="quantity stock_text" type="hidden" /><a href="javascript:void(0);" ></a><input id="item_sgst_'+i+'" name="item_sgst['+i+']" value="'+popup_item_sgst+'" class="quantity stock_text" type="hidden" /><input id="item_sgst_amount_'+i+'" name="item_sgst_amount['+i+']" class="quantity stock_text" value="'+popup_item_sgst_amount+'" type="hidden" /></td><td ><div class="itemsgrid_action itemsgrid_delete" id="itemsgrid_delete_'+i+'" onclick="return orderformrowdelete('+i+');" data-item="'+popup_item_id+'" data-delete="'+i+'" title="Delete"><span class="icon-trash"></span></div></td></tr>';
-				}
-				else
-				{
-					
-				}
-				  
-				  newarray = newarray.concat(items);
-			}
-			else
-			{
-				
-			}
-		}
-		$("#last_table_id").val(i);
-		$('#disp_items').html(newarray);
-		
-		$("#total_shipping_charges").val("");
-		$("#total_shipping_tax").val("");
-		$("#total_adjustments").val("");
-		$("#grand_total").val("");
-				
-		return calculatetotal();
-		
-		return false;
-    }
-  	else 
-  	{
-      return false;
-    }
-	
-}
-
 function itemsgridbomdelete(id)
 {
 	sure = confirm('Are you sure to Delete?');
@@ -1186,7 +1070,7 @@ function group_tax_calculation()
 			
 			
 		
-			var table = '<div class="inner_tax_group"><table class="tax_group_table table table-bordered blockContainer showInlineTable equalSplit"><tbody><tr><td class="tax_group_lable"><label>Total Gross Amount</label></td><td><input class="group_tax_calc" name="tax_group_gross_amount['+i+']" id="tax_group_gross_amount_'+i+'" type="text" value="'+tax_group_total_net_amount+'" readonly="readonly"><input class="group_tax_calc" name="tax_group_discount_amount['+i+']" id="tax_group_discount_amount_'+i+'" type="hidden" value="'+tax_group_total_discount_amount+'" readonly="readonly"></td></tr></tr><tr><td class="tax_group_lable"><label>Total Gross Amount Without Tax</label></td><td><input class="group_tax_calc" name="tax_group_without_tax_gross_amount['+i+']" id="tax_group_without_tax_gross_amount_'+i+'" type="text" value="'+tax_group_total_gross_amount_without_tax+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Total Tax Amount</label></td><td><input class="group_tax_calc" name="tax_group_tax_amount['+i+']" id="tax_group_tax_amount_'+i+'" type="text" value="'+tax_group_tax_amount+'" readonly="readonly"><input name="tax_group_tax_percentage['+i+']" id="tax_group_tax_percentage_'+i+'" type="hidden" value="'+total_tax_group_val+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Total Gross Amount With Tax</label></td><td><input class="group_tax_calc" name="tax_group_with_tax_gross_amount['+i+']" id="tax_group_with_tax_gross_amount_'+i+'" type="text" value="'+tax_group_total_gross_amount_with_tax+'" readonly="readonly"><input class="group_tax_calc" name="tax_group_total_incentive_amount['+i+']" id="tax_group_total_incentive_amount_'+i+'" type="hidden" value="'+tax_group_total_incentive_amount+'" readonly="readonly"></td></tr></tbody></table></div><br />';
+			var table = '<div class="inner_tax_group"><table class="tax_group_table table table-bordered blockContainer showInlineTable equalSplit"><tbody><tr><td class="tax_group_lable"><label>Total Gross Amount</label></td><td><input class="group_tax_calc" name="tax_group_gross_amount['+i+']" id="tax_group_gross_amount_'+i+'" type="text" value="'+tax_group_total_net_amount+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Discount percent Amount</label></td><td><input class="group_tax_calc" name="tax_group_discount_amount['+i+']" id="tax_group_discount_amount_'+i+'" type="text" value="'+tax_group_total_discount_amount+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Total Gross Amount Without Tax</label></td><td><input class="group_tax_calc" name="tax_group_without_tax_gross_amount['+i+']" id="tax_group_without_tax_gross_amount_'+i+'" type="text" value="'+tax_group_total_gross_amount_without_tax+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Total Tax Amount</label></td><td><input class="group_tax_calc" name="tax_group_tax_amount['+i+']" id="tax_group_tax_amount_'+i+'" type="text" value="'+tax_group_tax_amount+'" readonly="readonly"><input name="tax_group_tax_percentage['+i+']" id="tax_group_tax_percentage_'+i+'" type="hidden" value="'+total_tax_group_val+'" readonly="readonly"></td></tr><tr><td class="tax_group_lable"><label>Total Gross Amount With Tax</label></td><td><input class="group_tax_calc" name="tax_group_with_tax_gross_amount['+i+']" id="tax_group_with_tax_gross_amount_'+i+'" type="text" value="'+tax_group_total_gross_amount_with_tax+'" readonly="readonly"><input class="group_tax_calc" name="tax_group_total_incentive_amount['+i+']" id="tax_group_total_incentive_amount_'+i+'" type="hidden" value="'+tax_group_total_incentive_amount+'" readonly="readonly"></td></tr></tbody></table></div><br />';
 			
 			$("#tax_group_length").val(tax_group.length);
 			$('#tax_group_calculation').append(table);

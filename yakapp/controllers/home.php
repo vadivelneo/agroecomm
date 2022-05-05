@@ -110,31 +110,18 @@ class Home extends MY_Controller {
 		
 	}
 	
-	public function test()
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		//echo $sess_user; exit;
-		
-		$this->_render('pages/test');
-		
-	}
-	
 	public function home_list()
 	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		//echo $sess_user; exit;
-		$this->data["count_downline_user"] = $this->homemodule->count_downline_user($sess_user); 
-		$this->data["downline_user_details"] = $this->homemodule->downline_user_details($sess_user); 
-		$this->data["self_purchase_amount_user"] = $this->homemodule->self_purchase_amount_user($sess_user); 
-		$this->data["incentive_amount_user"] = $this->homemodule->incentive_amount_user($sess_user); 
-		$this->data["redeem_amount_user"] = $this->homemodule->redeem_amount_user($sess_user); 
-		$this->data["wallet_amount_user"] = $this->homemodule->wallet_amount_user($sess_user); 
-		$this->data["user_details"] = $this->homemodule->user_details($sess_user); 
+		$this->data["officer_count"] = $this->homemodule->officer_count(); 
+		$this->data["vendor_count"] = $this->homemodule->vendor_count(); 
+		$this->data["purchase_amount"] = $this->homemodule->purchase_amount(); 
+		$this->data["sales_amount"] = $this->homemodule->sales_amount(); 
+		$this->data["cus_incentive"] = $this->homemodule->cus_incentive(); 
+		$this->data["comp_incentive"] = $this->homemodule->comp_incentive(); 
+		//echo "<pre>";print_r($this->data["officer_count"]); 
 		$this->title = "Home";
 		$this->keywords = "Home";
-		$this->load->view('pages/dashboard', $this->data);
+		$this->_render('pages/dashboard');
 	}
 	
 	public function user_dashboard()
@@ -149,9 +136,10 @@ class Home extends MY_Controller {
 		$this->data["redeem_amount_user"] = $this->homemodule->redeem_amount_user($sess_user); 
 		$this->data["wallet_amount_user"] = $this->homemodule->wallet_amount_user($sess_user); 
 		$this->data["user_details"] = $this->homemodule->user_details($sess_user); 
+		//echo "<pre>";print_r($this->data["downline_user_details"]); 
 		$this->title = "Home";
 		$this->keywords = "Home";
-		$this->load->view('pages/dashboard', $this->data);
+		$this->_render('pages/user_dashboard');
 	}
 	
 	 	

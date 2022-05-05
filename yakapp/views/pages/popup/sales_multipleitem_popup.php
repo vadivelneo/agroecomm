@@ -42,7 +42,7 @@ function search_multiple_product()
 			data: {pricebook: pricebook_id, product_type: search_product_type, product_group: search_product_group, item_code: search_item_code, item_name: search_item_name, item_mfg_prtno: search_item_mfg_prtno, customer_discount: customer_discount, item_mfg_prtno: item_mfg_prtno, item_name: item_name, item_code: item_code,store_id:store_id},
 			success: function(html)
 			{
-			if(html == ''){$('#multiple_items').html('');}
+			
 			var json_obj = $.parseJSON(html);//parse JSON
 			var itemcount = 1;
 			var output="<ul>";
@@ -53,24 +53,21 @@ function search_multiple_product()
 				{
 				 	output+='<tr>';
 			
-					output+='<td class="checkbox"><input type="checkbox" class="itemcheckbox" id="checkbox' + itemcount + '" value="' + itemcount + '" name="item_check[]">';
+					output+='<td class="checkbox"><input type="checkbox" class="itemcheckbox form-control" id="checkbox' + itemcount + '" value="' + itemcount + '" name="item_check[]">';
 					output+='</td>';
 					
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].product_code + '</li>';
+					output+='' + json_obj[i].product_code + '';
 					output+='<input id="multiple_item_id_' + itemcount + '" name="multiple_item_id[' + itemcount + ']" value="' + json_obj[i].product_id + '" type="hidden" />';
 					output+='<input id="multiple_item_product_code_' + itemcount + '" name="multiple_item_product_code[' + itemcount + ']" value="' + json_obj[i].product_code + '" type="hidden" />';
 					output+='<input id="multiple_item_code_' + itemcount + '" name="multiple_item_code[' + itemcount + ']" value="' + json_obj[i].product_code + '" type="hidden" />';
 					output+='</td>';
 					
-					output+='<td>';
-					output+='<li>' + json_obj[i].product_sku + '</li>';
-					output+='<input id="multiple_item_sku_' + itemcount + '" name="multiple_item_sku[' + itemcount + ']" value="' + json_obj[i].product_sku + '" type="hidden" />';
-					output+='</td>';
+
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].product_name + '</li>';
+					output+='' + json_obj[i].product_name + '';
 					output+='<input id="multiple_item_hsn_' + itemcount + '" name="multiple_item_hsn[' + itemcount + ']" value="' + json_obj[i].price_book_price_hsn + '" type="hidden" />';
 					output+='<input id="multiple_item_name_' + itemcount + '" name="multiple_item_name[' + itemcount + ']" value="' + json_obj[i].product_name + '" type="hidden" />';
 					output+='</td>';
@@ -81,68 +78,68 @@ function search_multiple_product()
 					
 					
 					output+='<td>';
-					output+='  <input id="inventory_batch_no_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_batch_no + '" type="text" readonly  />';
+					output+='  <input id="inventory_batch_no_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_batch_no + '" type="text" readonly  />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="text" readonly  />';
+					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="text" readonly  />';
 					output+='</td>';
 					
 					
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].price_book_price_mrp + '</li>';
+					output+='' + json_obj[i].price_book_price_mrp + '';
 					output+='<input id="multiple_item_uom_id_' + itemcount + '" name="multiple_item_uom_id_[' + itemcount + ']" value="' + json_obj[i].uom_id + '" type="hidden" />';
 					output+='<input id="multiple_item_uom_name_' + itemcount + '" name="multiple_item_uom_name_[' + itemcount + ']" value="' + json_obj[i].uom_name + '" type="hidden" />';
 					output+='<input id="multiple_item_mrp_' + itemcount + '" name="multiple_item_mrp_[' + itemcount + ']" value="' + json_obj[i].price_book_price_mrp + '" type="hidden" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="hidden"  />';
-					output+='  <input id="multiple_item_inv_id_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_id_[' + itemcount + ']"  value="' + json_obj[i].inventory_id + '"  type="hidden"  />';
-					output+='  <input id="multiple_item_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_qty[' + itemcount + ']" onkeyup="return salse_multiplepopuptotal(event, ' + itemcount + ')"  type="text" value="0"  type="text"  />';
+					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="hidden"  />';
+					output+='  <input id="multiple_item_inv_id_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_inv_id_[' + itemcount + ']"  value="' + json_obj[i].inventory_id + '"  type="hidden"  />';
+					output+='  <input id="multiple_item_qty_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_qty[' + itemcount + ']" onkeyup="return salse_multiplepopuptotal(event, ' + itemcount + ')"  type="text" value="0"  type="text"  />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_incentive_rate_' + itemcount + '" class="quantity stock_text" name="multiple_incentive_rate[' + itemcount + ']" value="' + json_obj[i].price_book_price_incentive_rate + '" type="text"   />';
+					output+='  <input id="multiple_incentive_rate_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_incentive_rate[' + itemcount + ']" value="' + json_obj[i].price_book_price_incentive_rate + '" type="text"   />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_incentive_total_' + itemcount + '" class="quantity stock_text" name="multiple_incentive_total[' + itemcount + ']" value="" type="text"   />';
+					output+='  <input id="multiple_incentive_total_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_incentive_total[' + itemcount + ']" value="" type="text"   />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_priceperunit_' + itemcount + '" class="quantity" name="multiple_item_priceperunit[]" type="text" value="' + json_obj[i].price_book_price_selling_price + '" readonly="readonly" />';
+					output+='  <input id="multiple_item_priceperunit_' + itemcount + '" class="form-control w-100  quantity" name="multiple_item_priceperunit[]" type="text" value="' + json_obj[i].price_book_price_selling_price + '" readonly="readonly" />';
 					output+='</td>';
 					
 					
 					//discount
 					output+='<td>';            			  
-					output+='  <input id="multiple_item_percentage_discount_' + itemcount + '" class="quantity stock_text" name="multiple_item_percentage_discount[' + itemcount + ']" value="' + json_obj[i].price_book_price_discount_percentage + '" readonly="readonly" type="text"  />';			
+					output+='  <input id="multiple_item_percentage_discount_' + itemcount + '" class="form-control w-100  quantity stock_text" name="multiple_item_percentage_discount[' + itemcount + ']" value="' + json_obj[i].price_book_price_discount_percentage + '" readonly="readonly" type="text"  />';			
 					
-					output+='  <input id="multiple_item_damage_discount_percent_' + itemcount + '" class="quantity stock_text" name="multiple_item_damage_discount_percent_[' + itemcount + ']" value="' + json_obj[i].price_book_damage_discount_percentage + '" type="hidden" />';				
+					output+='  <input id="multiple_item_damage_discount_percent_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_damage_discount_percent_[' + itemcount + ']" value="' + json_obj[i].price_book_damage_discount_percentage + '" type="hidden" />';				
 					output+='</td>';
 				
 					
 					if(customer_tax_type == 'gst') {
 						output+='<td>'; 
-						output+='  <input id="multiple_item_cgst_' + itemcount + '" class="quantity stock_text" name="multiple_item_cgst[' + itemcount + ']" value="' + json_obj[i].price_book_price_gst + '" type="text" readonly="readonly"  />';
+						output+='  <input id="multiple_item_cgst_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_cgst[' + itemcount + ']" value="' + json_obj[i].price_book_price_gst + '" type="text" readonly="readonly"  />';
 						output+='</td>';
 						output+='<td>'; 
-						output+='  <input id="multiple_item_sgst_' + itemcount + '" class="quantity stock_text" name="multiple_item_sgst[' + itemcount + ']" value="' + json_obj[i].price_book_price_sgst + '" type="text" readonly="readonly"  />';
+						output+='  <input id="multiple_item_sgst_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_sgst[' + itemcount + ']" value="' + json_obj[i].price_book_price_sgst + '" type="text" readonly="readonly"  />';
 						output+='</td>';
 						
 					 }
 					 else
 					 {
 						 output+='<td>';
-						output+='  <input id="multiple_item_igst_' + itemcount + '" class="quantity stock_text" name="multiple_item_igst[' + itemcount + ']" value="' + json_obj[i].price_book_price_igst + '" type="text" readonly="readonly"  />';
+						output+='  <input id="multiple_item_igst_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_igst[' + itemcount + ']" value="' + json_obj[i].price_book_price_igst + '" type="text" readonly="readonly"  />';
 						output+='</td>';
 					 }
 					
 							
 					output+='<td>';
-					output+='  <input id="multiple_item_rate_' + itemcount + '" class="quantity" name="multiple_item_rate[' + itemcount + ']" value="" type="text" readonly="readonly"  />';
+					output+='  <input id="multiple_item_rate_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_rate[' + itemcount + ']" value="" type="text" readonly="readonly"  />';
 					output+='</td>';
 					output+='</tr>';
 					
@@ -156,72 +153,72 @@ function search_multiple_product()
 				{
 				 	output+='<tr>';
 			
-					output+='<td class="checkbox"><input type="checkbox" class="itemcheckbox" id="checkbox' + itemcount + '" value="' + itemcount + '" name="item_check[]">';
+					output+='<td class="checkbox"><input type="checkbox" class="itemcheckbox form-control" id="checkbox' + itemcount + '" value="' + itemcount + '" name="item_check[]">';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].product_code + '</li>';
+					output+='' + json_obj[i].product_code + '';
 					output+='<input id="multiple_item_id_' + itemcount + '" name="multiple_item_id[' + itemcount + ']" value="' + json_obj[i].product_id + '" type="hidden" />';
 					output+='<input id="multiple_item_code_' + itemcount + '" name="multiple_item_code[' + itemcount + ']" value="' + json_obj[i].product_code + '" type="hidden" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].product_mfr_part_number + '</li>';
+					output+='' + json_obj[i].product_mfr_part_number + '';
 					output+='<input id="multiple_item_mfg_prtno_' + itemcount + '" name="multiple_item_mfg_prtno[' + itemcount + ']" value="' + json_obj[i].product_mfr_part_number + '" type="hidden" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].product_name + '</li>';
+					output+='' + json_obj[i].product_name + '';
 					output+='<input id="multiple_item_name_' + itemcount + '" name="multiple_item_name[' + itemcount + ']" value="' + json_obj[i].product_name + '" type="hidden" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='<li>' + json_obj[i].uom_name + '</li>';
+					output+='' + json_obj[i].uom_name + '';
 					output+='<input id="multiple_item_uom_id_' + itemcount + '" name="multiple_item_uom_id_[' + itemcount + ']" value="' + json_obj[i].uom_id + '" type="hidden" />';
 					output+='<input id="multiple_item_uom_name_' + itemcount + '" name="multiple_item_uom_name_[' + itemcount + ']" value="' + json_obj[i].uom_name + '" type="hidden" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_priceperunit_' + itemcount + '" class="quantity" name="multiple_item_priceperunit[]" type="text" value="' + json_obj[i].price_book_price_selling_price + '" readonly="readonly" />';
+					output+='  <input id="multiple_item_priceperunit_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_priceperunit[]" type="text" value="' + json_obj[i].price_book_price_selling_price + '" readonly="readonly" />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="inventory_batch_no_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_batch_no + '" type="text" readonly  />';
+					output+='  <input id="inventory_batch_no_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_batch_no + '" type="text" readonly  />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="text" readonly  />';
+					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="text" readonly  />';
 					output+='</td>';
 					
 					
 					
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="hidden"  />';
-					output+='  <input id="multiple_item_inv_id_' + itemcount + '" class="quantity stock_text" name="multiple_item_inv_id_[' + itemcount + ']"  value="' + json_obj[i].inventory_id + '"  type="hidden"  />';
-					output+='  <input id="multiple_item_qty_' + itemcount + '" class="quantity stock_text" name="multiple_item_qty[' + itemcount + ']" onkeyup="return salse_multiplepopuptotal(event, ' + itemcount + ')"  type="text" value=""  type="text"  />';
+					output+='  <input id="multiple_item_inv_qty_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_inv_qty[' + itemcount + ']" value="' + json_obj[i].inventory_qty + '" type="hidden"  />';
+					output+='  <input id="multiple_item_inv_id_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_inv_id_[' + itemcount + ']"  value="' + json_obj[i].inventory_id + '"  type="hidden"  />';
+					output+='  <input id="multiple_item_qty_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_qty[' + itemcount + ']" onkeyup="return salse_multiplepopuptotal(event, ' + itemcount + ')"  type="text" value=""  type="text"  />';
 					output+='</td>';
 					
 					//discount
 					output+='<td>';            			  
-					output+='  <input id="multiple_item_percentage_discount_' + itemcount + '" class="quantity stock_text" name="multiple_item_percentage_discount[' + itemcount + ']" value="' + customer_discount + '" type="text"  />';			
+					output+='  <input id="multiple_item_percentage_discount_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_percentage_discount[' + itemcount + ']" value="' + customer_discount + '" type="text"  />';			
 					output+='</td>';
 					
 					output+='<td>'; 	
-					output+='  <input id="multiple_item_flat_discount_' + itemcount + '" class="quantity stock_text" name="multiple_item_flat_discount_[' + itemcount + ']" value="' + json_obj[i].price_book_price_discount_percentage + '" type="text"  />';				
+					output+='  <input id="multiple_item_flat_discount_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_flat_discount_[' + itemcount + ']" value="' + json_obj[i].price_book_price_discount_percentage + '" type="text"  />';				
 					output+='</td>';
 					
 					output+='<td>'; 
-					output+='  <input id="multiple_item_discount_amount_' + itemcount + '" class="quantity stock_text" name="multiple_item_discount_amount_[' + itemcount + ']" value="" type="text"  />';
-					output+='  <input id="multiple_item_vat_' + itemcount + '" class="quantity stock_text" name="multiple_item_vat[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
-					output+='  <input id="multiple_item_gst_' + itemcount + '" class="quantity" name="multiple_item_gst[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
-					output+='  <input id="multiple_item_cst_' + itemcount + '" class="quantity stock_text" name="multiple_item_cst[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
-					output+='  <input id="multiple_item_ser_tax_' + itemcount + '" class="quantity" name="multiple_item_ser_tax[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
-					output+='  <input id="multiple_item_exc_' + itemcount + '" class="quantity" name="multiple_item_exc[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
+					output+='  <input id="multiple_item_discount_amount_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_discount_amount_[' + itemcount + ']" value="" type="text"  />';
+					output+='  <input id="multiple_item_vat_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_vat[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
+					output+='  <input id="multiple_item_gst_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_gst[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
+					output+='  <input id="multiple_item_cst_' + itemcount + '" class="form-control w-100 quantity stock_text" name="multiple_item_cst[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
+					output+='  <input id="multiple_item_ser_tax_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_ser_tax[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
+					output+='  <input id="multiple_item_exc_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_exc[' + itemcount + ']" value="0.00" type="hidden" readonly="readonly"  />';
 					output+='</td>';
 					
 					output+='<td>';
-					output+='  <input id="multiple_item_rate_' + itemcount + '" class="quantity" name="multiple_item_rate[' + itemcount + ']" value="" type="text" readonly="readonly"  />';
+					output+='  <input id="multiple_item_rate_' + itemcount + '" class="form-control w-100 quantity" name="multiple_item_rate[' + itemcount + ']" value="" type="text" readonly="readonly"  />';
 					output+='</td>';
 					output+='</tr>';
 					itemcount++;
@@ -670,17 +667,7 @@ $(document).ready(function () {
 	
 });
 
-/*$(document).ready(function(){
-  $("#birds").autocomplete({
-    source: "birds/get_birds" // name of controller followed by function
-  }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-        var inner_html = '<a><div class="list_item_container"><div class="image"><img src="img/' + item.image + '"></div><div class="label">' + item.label + '</div><div class="description">' + item.description + '</div></div></a>';
-        return $( "<li></li>" )
-            .data( "item.autocomplete", item )
-            .append(inner_html)
-            .appendTo( ul );
-    };
-});*/
+ 
 
 $(document).ready(function(){
 
@@ -718,46 +705,27 @@ $(document).ready(function(){
 	$excise_display_mode = $sessionData['company_excise'];
 ?>
 
-<div class="p-popup">
+<div class="p-popup container" style='background: #e8cdcd;'>
   <a class="close"><img src="<?php echo base_url(); ?>/resources/images/close-button.png" width="25" /></a>
   
-  <div>
+  <div class='row'>
   <div class="title_head">
   <p>Search Material</p>
   </div>
-      <table>
+      <table class='table table-hover text-nowrap'>
       	<tr>
-        <!--	<td>
-            	Product Type :
-                <br /><br />
-                <select	name="search_multiple_product_type" class="chzn-select" id="search_multiple_product_type">
-                    <option value="">Select Product Type</option>
-                    <?php if(isset($product_type) && !empty($product_type)) { foreach($product_type as $TYPE) { ?>
-                    <option value="<?php echo $TYPE['products_type_id']; ?>"><?php echo $TYPE['products_type_name']; ?></option>
-                    <?php } } ?>
-                </select>
-            </td>
-            <td>
-            	Product Group :
-            	<br /><br />
-            	<select name="search_multiple_product_group" class="chzn-select" id="search_multiple_product_group" >
-                    <option value="">Select Product Group</option>
-                    <?php if(isset($product_group) && !empty($product_group)) { foreach($product_group as $GROUP) { ?>
-                    <option value="<?php echo $GROUP['products_group_id']; ?>"><?php echo $GROUP['products_group_name']; ?></option>
-                    <?php } } ?>
-                </select>
-            </td> -->
+         
 			<td>
             	SKU :
             	<br /><br />
-            	<input type="text" 	value="" name="search_multiple_item_mfg_prtno" autocomplete="off" class="input-large" id="search_multiple_item_mfg_prtno" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_multiple_item_mfg_prtno" autocomplete="off" class="input-large form-control w-100" id="search_multiple_item_mfg_prtno" onkeyup="search_multiple_product()">
                 <span id="auto_complete_item_partnumber"></span>
             </td>
             
             <td>
             	Item Code :
             	<br /><br />
-            	<input type="text" 	value="" name="search_multiple_item_code" autocomplete="off" class="input-large" id="search_multiple_item_code" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_multiple_item_code" autocomplete="off" class="input-large form-control w-100" id="search_multiple_item_code" onkeyup="search_multiple_product()">
                 <span id="auto_complete_item_code"></span>
 				
 				<input type="hidden" value="<?php echo $vat_display_mode; ?>" name="vat_display_mode" id="vat_display_mode">
@@ -771,7 +739,7 @@ $(document).ready(function(){
             <td>
             	Item :
             	<br /><br />
-            	<input type="text" 	value="" name="search_multiple_item_name" autocomplete="off" class="input-large" id="search_multiple_item_name" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_multiple_item_name" autocomplete="off" class="input-large form-control w-100" id="search_multiple_item_name" onkeyup="search_multiple_product()">
                 <span id="auto_complete_item_name"></span>
             </td>
 			
@@ -794,12 +762,11 @@ $(document).ready(function(){
       <div id="multiple_item_error" style="color: #FF0000; text-align:center;"></div>
       <form id="multiple_item_form">
         <div class="content">
-          <table>
+          <table class='table table-hover text-nowrap'>
             <thead>
               <tr>
               	<th class="checkbox"><input type="checkbox" id="multipleItemselecctall" value=""></th>
-                <th width="60px">Item Code</th>
-				 <th width="60px">SKU</th>
+                <th width="60px">SKU</th>
                 <th width="200px">Item</th>
                 <th width="60px">Batch No.</th>
 				<th width="60px">Inventory Qty</th>
@@ -848,13 +815,9 @@ $(document).ready(function(){
              
               <td>
 			  <?php if(isset($PROLST['product_sku'])) { echo $PROLST['product_sku']; } ?>
-              
+               <input id="multiple_item_mfg_prtno_<?php echo $itemcount; ?>" name="multiple_item_mfg_prtno[<?php echo $itemcount; ?>]" type="hidden" value="<?php if(isset($PROLST['product_sku'])) { echo $PROLST['product_sku']; } ?>" />
                <input id="multiple_item_id_<?php echo $itemcount; ?>" name="multiple_item_id[<?php echo $itemcount; ?>]" value="<?php echo $PROLST['product_id']; ?>" type="hidden" />
                 <input id="multiple_item_code_<?php echo $itemcount; ?>" name="multiple_item_code[<?php echo $itemcount; ?>]" value="<?php if(isset($PROLST['product_code'])) { echo $PROLST['product_code']; } ?>" type="hidden" />
-              </td>
-			  <td>
-              <?php if(isset($PROLST['product_sku'])) { echo $PROLST['product_sku']; } ?>
-              <input id="multiple_item_mfg_prtno_<?php echo $itemcount; ?>" name="multiple_item_mfg_prtno[<?php echo $itemcount; ?>]" type="hidden" value="<?php if(isset($PROLST['product_sku'])) { echo $PROLST['product_sku']; } ?>" />
               </td>
                <td>
               <?php if(isset($PROLST['product_name'])) { echo $PROLST['product_name']; } ?>
@@ -892,13 +855,10 @@ $(document).ready(function(){
               </td>
              
               <td>
-              <?php /*?><input type="text" value="<?php if(isset($customer_discount)) { echo $customer_discount; } ?>" name="multiple_item_percentage_discount[<?php echo $itemcount; ?>]" class="quantity stock_text" id="multiple_item_percentage_discount_<?php echo $itemcount; ?>" readonly="readonly"><?php */?>
-               <input type="text" value="<?php if(isset($PROLST['price_book_price_discount_percentage'])) { echo $PROLST['price_book_price_discount_percentage']; } ?>" name="multiple_item_percentage_discount[<?php echo $itemcount; ?>]" class="quantity stock_text" id="multiple_item_percentage_discount_<?php echo $itemcount; ?>" readonly="readonly">
+                <input type="text" value="<?php if(isset($PROLST['price_book_price_discount_percentage'])) { echo $PROLST['price_book_price_discount_percentage']; } ?>" name="multiple_item_percentage_discount[<?php echo $itemcount; ?>]" class="quantity stock_text" id="multiple_item_percentage_discount_<?php echo $itemcount; ?>" readonly="readonly">
               </td>
               
-			<!--  <td>
-              <input id="multiple_item_damage_discount_percent_<?php// echo $itemcount; ?>" class="quantity stock_text" name="multiple_item_damage_discount_percent[<?php //echo $itemcount; ?>]" type="text"  value="<?php //if(isset($PROLST['price_book_damage_discount_percentage'])) { //echo $PROLST['price_book_damage_discount_percentage']; } ?>" readonly="readonly" />
-              </td>-->
+			 
              
 			  <?php
 				if(isset($tax_value)) 

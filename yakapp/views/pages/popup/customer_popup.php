@@ -1,3 +1,7 @@
+
+<script src="<?php echo base_url();?>resources/js/vsoft_item_calculation.js"></script>
+<script src="<?php echo base_url();?>resources/js/sales_popup_script.js"></script>
+<script src="<?php echo base_url();?>resources/js/purchase_popup_script.js"></script>
 <script type="text/javascript"> 
 
 function get_customer_details(id)
@@ -91,33 +95,33 @@ function search_multiple_product()
 		$company_id=$sessionData['company_id'];
 		
 		?>
-<div class="p-popup">
+<div class="container p-popup" style='background: #e8cdcd;'>
   <a class="close"><img src="<?php echo base_url(); ?>/resources/images/close-button.png" width="25" /></a>
-  <div>
+  <div class='row'>
   <div class="title_head">
   <p>Search Customer</p>
   </div>
-      <table>
+      <table class='table table-hover text-nowrap'>
       	<tr>
         	<td>
             	 Customer Code :
                 <br /><br />
-                <input type="text" name="search_cus_code" class="input-large" id="search_cus_code" onkeyup="search_multiple_product()">
+                <input type="text" name="search_cus_code" class="input-large form-control w-100" id="search_cus_code" onkeyup="search_multiple_product()">
             </td>
             <td>
             	Customer Name :
             <br /><br />
-            	<input type="text" 	value="" name="search_cus_name" class="input-large" id="search_cus_name" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_cus_name" class="input-large form-control w-100" id="search_cus_name" onkeyup="search_multiple_product()">
             </td>
             <td>
             	Mobile No:
             <br /><br />
-            	<input type="text" 	value="" name="search_cus_mobile" class="input-large" id="search_cus_mobile" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_cus_mobile" class="input-large form-control w-100" id="search_cus_mobile" onkeyup="search_multiple_product()">
             </td>
             <td>
             	E-Mail:
             <br /><br />
-            	<input type="text" 	value="" name="search_cus_email" class="input-large" id="search_cus_email" onkeyup="search_multiple_product()">
+            	<input type="text" 	value="" name="search_cus_email" class="input-large form-control w-100" id="search_cus_email" onkeyup="search_multiple_product()">
             </td>
             <!--<td>
             	<br /><br />
@@ -132,7 +136,7 @@ function search_multiple_product()
   	<div class="table_head1" id="table">
       <div class="popup_col w10 last">
         <div class="content">
-          <table>
+          <table class='table table-hover text-nowrap'>
              <tbody id="multiple_customers">
               <tr>
                 <th>Customer Code</th>

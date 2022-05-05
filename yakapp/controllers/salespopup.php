@@ -170,34 +170,6 @@ class Salespopup extends MY_Controller {
 		
 		echo $result; exit;
 	}
-	public function orderform_itemdetails()
-	{
-		$sessionData = $this->session->userdata('userlogin');
-		$sess_user=$sessionData['user_id'];
-		$sess_company=$sessionData['company_id'];
-		$sess_group=$sessionData['group_id'];
-
-		$pricebook_id = $this->input->post('pricebook');
-		$customer_id = $this->input->post('customer_id');
-		$customer_discount = $this->input->post('customer_discount');
-		$customer_tax_type = $this->input->post('customer_tax_type');
-		$division_id = $this->input->post('division_id');
-		$store_id = $this->input->post('store_id');
-
-		//** Get all Producttype **//
-		$this->data["product_type"] = $this->sales_popup_model->get_allproducttypes($sess_group,$sess_company);
-		$this->data["product_group"] = $this->sales_popup_model->get_allproductgroups();//** Get all Productgroup **//
-		//$this->data['product_list'] = $this->sales_popup_model->orderformproductsdetails($pricebook_id,$division_id,$store_id);//** Get All Product Based on customers **//
-		$this->data['product_list'] = '';//** Get All Product Based on customers **//
-		//echo "<pre>"; print_r($this->data['product_list']); exit;
-		//echo $pricebook_id; exit;
-		
-		$this->data["customer_tax_type"] = $this->sales_popup_model->get_product_tax_type($customer_id);
-		$this->data['customer_discount'] = $customer_discount;
-		$result = $this->load->view("pages/popup/orderform_popup_mobile", $this->data, true);
-		
-		echo $result; exit;
-	}
 	
 	public function instantsales_getmultipleitemdetails()
 	{
@@ -472,7 +444,6 @@ class Salespopup extends MY_Controller {
 		$pricebook_id=$this->security->xss_clean($this->input->post('pricebook'));
 		$product_type=$this->security->xss_clean($this->input->post('product_type'));
 		$product_group=$this->security->xss_clean($this->input->post('product_group'));
-		$product_sub_group=$this->security->xss_clean($this->input->post('material_sub_group'));
 		$item_mfg_prtno=$this->security->xss_clean($this->input->post('item_mfg_prtno'));
 		$item_name=$this->security->xss_clean($this->input->post('item_name'));
 		$item_code=$this->security->xss_clean($this->input->post('item_code'));
@@ -482,7 +453,7 @@ class Salespopup extends MY_Controller {
 		$this->data['customer_discount'] = $customer_discount;
 		
 		
-		$this->sales_popup_model->autosearch_item_partnumber($q,$pricebook_id,$product_type,$product_group,$product_sub_group,$item_code,$item_name,$item_mfg_prtno,$store_id);
+		$this->sales_popup_model->autosearch_item_partnumber($q,$pricebook_id,$product_type,$product_group,$item_code,$item_name,$item_mfg_prtno,$store_id);
 		}
 	 }
 	 

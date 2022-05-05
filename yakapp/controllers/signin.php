@@ -24,14 +24,16 @@ class Signin extends MY_Controller {
 		$this->login();
 	}
 
-
-	
 	public function login()
 	{
-		
-		if(isset($_POST['signin']))
-		{
-			//echo $this->uri->segment(3); exit;
+		$this->title = "Login";
+		$this->keywords = "Login";
+		$this->load->view("pages/login");
+		//$this->_render('pages/login');
+	}
+
+	public function userlogin()
+	{
 		$username = $this->security->xss_clean($this->input->post("username"));
 		$password = $this->security->xss_clean(md5($this->input->post("password")));
 
@@ -39,18 +41,10 @@ class Signin extends MY_Controller {
 		$date=date("Y-m-d H:i:s");
 
 		$verifyusername=$this->homemodule->verifylogin($username,$password);
-		//echo $username; exit;
-		//echo $password; exit;
-		//echo $verifyusername; exit;
+
 		if($verifyusername==1)
 		{
 			$user=$this->homemodule->getuserdetail($username,$password);
-			 
-			if($user->user_id > 0){ }
-			else{
-			$this->session->set_flashdata('message','You Not Create Officer details , Please Contact Admin. Thank you... ');
-			redirect('signin/login');
-			}
 			
 			$data=array(
 				"login_histroy_ip"=> $ip_address,
@@ -60,13 +54,6 @@ class Signin extends MY_Controller {
 			
 			$sessionArr = array(
 				'user_id' => $user->user_id,
-				'OFCR_ID' => $user->OFCR_ID,
-				'OFCR_MOB' => $user->OFCR_MOB,
-				'OFCR_ADDRESS1' => $user->OFCR_BILL_ADDRS1,
-				'OFCR_ADDRESS2' => $user->OFCR_BILL_ADDRS2,
-				'OFCR_ADDRESS3' => $user->OFCR_BILL_ADDRS3,
-				'city_name' => $user->city_name,
-				'OFCR_BILL_ZIP' => $user->OFCR_BILL_ZIP,
 				'user_code' => $user->user_name,
 				'user_type' => $user->user_type,
 				'user_first_name' => $user->user_first_name,
@@ -83,48 +70,26 @@ class Signin extends MY_Controller {
 			);
 			
 			$this->session->set_userdata('userlogin',$sessionArr);
-			
-			 
-			//echo $this->uri->segment(3); exit;
-			//redirect('salesorder_guest/order_form');
-			if($this->uri->segment(3) == 'order')
-			{
-			redirect('salesorder_guest/order_form');
-			}
-			else
+			if($user->user_id == 1)
 			{
 			redirect('home/home_list');
 			}
-			
+			else
+			{
+				redirect('home/user_dashboard');
+			}
 		}
 		else{
 			$this->session->set_flashdata('message','Please enter valid Username and Password ');
 			redirect('signin/login');
 		}
-		}
-		else
-		{
-		$this->title = "Login";
-		$this->keywords = "Login";
 
-		$this->load->view('pages/login');
-		}
-	}
-
-	
-	
-	public function forgot_password()
-	{
-		$this->title = "Forget Password";
-		$this->keywords = "Forget Password";
-
-		$this->load->view('pages/forgotpass');
 	}
 
 	public function forgotpassword()
 	{	
 		//echo 'hi';exit;
-	   //$this->_render('pages/login');
+	   $this->_render('pages/login');
 
 	   if(isset($_POST['send']))
 	 {
@@ -152,7 +117,7 @@ class Signin extends MY_Controller {
 		 
 		 $message = $this->load->view('pages/mailtemplate/forgotpasswordmail', $this->data, true);
 
-		 //print_r($this->data['user']);exit;
+		// print_r($this->data['user']);exit;
 		
 		$this->load->library('email');
 
@@ -203,7 +168,7 @@ class Signin extends MY_Controller {
 					'user_reset_pwd' => NULL
 				);
 
-				//print_r($data); exit;
+				print_r($data); exit;
 				
 				$this->homemodule->ChangePassword($userId, $data);
 				$this->session->set_flashdata('message', 'Password Reset Successfully');

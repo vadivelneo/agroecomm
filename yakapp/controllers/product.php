@@ -536,37 +536,6 @@ class Product extends MY_Controller {
 		exit;
 	}
 	
-	public function getprosub_group()
-	{
-		$product_group =  $this->security->xss_clean($this->input->post('product_group'));
-		
-		$product_group = $this->productmodule->getproduct_sub_group($product_group);
-       
-		if(empty($product_group))
-		{
-			echo "<option value='0'>Select Sub-Group</option>";
-		}
-		else
-		{
-			$Select = "<option value=''>Select Sub-Group</option>";
-			
-			 foreach($product_group as $DIVI)
-			{
-				if($DIVI["product_sub_group_id"] != '')
-				{
-					$Select .= "<option value='{$DIVI["product_sub_group_id"]}'>{$DIVI["product_sub_group_name"]}</option>";
-				}
-				else
-				{
-					$Select .= "<option value='{$DIVI["product_sub_group_id"]}'>{$DIVI["product_sub_group_name"]}</option>";
-				}
-			} 
-			echo $Select;
-			
-		}
-		exit;
-	}
-	
 	
 	public function getprostore()
 	{
@@ -788,8 +757,7 @@ class Product extends MY_Controller {
 					$product_igst="0";
 				}
 				
-				$imgpan = rand(). $_FILES['prod_img']['name'];
-				move_uploaded_file($_FILES['prod_img']['tmp_name'], "resources/uploads/product/".$imgpan);				
+								
 				$validproduct = $this->productmodule->productvaildation($product_code);//** Product Validation based on product code **//
 				if($validproduct== 0)
 				{		
@@ -804,7 +772,6 @@ class Product extends MY_Controller {
 					'product_sub_group'=>$product_sub_group,
 					'product_produ_type'=>$product_produ_type,
 					'product_uom'=>$product_uom,
-					'product_img'=>$imgpan,
 					'product_sticer_id'=>$product_sticer_id,
 					'product_report'=>$product_report,
 					'product_stock_alert'=>$product_stock_alert,
@@ -869,7 +836,7 @@ class Product extends MY_Controller {
 				$product_sku = $this->security->xss_clean($this->input->post('product_sku'));
 				
 				$product_group = $this->security->xss_clean($this->input->post('product_group'));
-				$product_sub_group = $this->security->xss_clean($this->input->post('material_sub_group'));
+				$product_sub_group = $this->security->xss_clean($this->input->post('product_sub_group'));
 				$product_produ_type = $this->security->xss_clean($this->input->post('product_produ_type'));
 				$product_uom = $this->security->xss_clean($this->input->post('product_uom'));
 				
@@ -913,17 +880,6 @@ class Product extends MY_Controller {
 								
 				$validproduct= $this->productmodule->product_update_vaildation($product_item_code, $id); //** Update Product Validation based on product code and ID **//
 				
-				$doc_prodimg = $_FILES['prod_img']['name'];
-				if($doc_prodimg != "")
-				{
-					$prodimg = rand(). $_FILES['prod_img']['name'];
-					move_uploaded_file($_FILES['prod_img']['tmp_name'], "resources/uploads/product/".$prodimg);
-				}
-				else
-				{
-					$prodimg =	$this->input->post('hiddenproduct_img');
-				}
-				
 				if($validproduct == 0)
 				{		
 						
@@ -937,7 +893,6 @@ class Product extends MY_Controller {
 					'product_sub_group'=>$product_sub_group,
 					'product_produ_type'=>$product_produ_type,
 					'product_uom'=>$product_uom,
-					'product_img'=>$prodimg,
 					'product_sticer_id'=>$product_sticer_id,
 					'product_report'=>$product_report,
 					'product_stock_alert'=>$product_stock_alert,
@@ -980,12 +935,9 @@ class Product extends MY_Controller {
 			else
 			{
 				$this->data["edit_product"] = $this->productmodule->getsingle_product($id);//** Get Single Product Details **//
-				//echo "<pre>";
-				//print_r($this->data["edit_product"]->product_group_id);
 				$this->data["company_srt_name"] = $this->mastersmodule->get_all_company();//** Get All Company Details from Master's Module **//
 				$this->data["product_type"] = $this->productmodule->get_allproducttypes($sess_company); //** Get All Product Types **//
 				$this->data["product_group"] = $this->productmodule->get_allproductgroups();//** Get All Product Group **//
-				$this->data["product_subgroup"] = $this->productmodule->get_allproductsubgroups($this->data["edit_product"]->product_group_id);//** Get All Product Group **//
 				$this->data["product_manufac"] = $this->productmodule->get_allmanufacturer();//** Get All Manufacturer **//
 				$this->data["product_list"] = $this->productmodule->get_allproductsdetails();//** Get All Product DEtails **//
 				$this->data["product_uom"] = $this->productmodule->get_alluom();//** Get All Unit of Measurememt Details **//

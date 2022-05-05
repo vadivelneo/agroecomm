@@ -1,3 +1,7 @@
+<script src="http://localhost/neo/agro/agro_ecomm1/agro_ecomm1//resources/js/jquery.bpopup.min.js"></script>
+
+<script src="http://localhost/neo/agro/agro_ecomm1/agro_ecomm1//resources/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://localhost/neo/agro/agro_ecomm1/agro_ecomm1//resources/css/jquery-ui.css" />
 <script type="text/javascript">
 function onkeyupfortotal(id)
 {
@@ -396,15 +400,30 @@ function getstore_division()
 
 </script>
 
-<?php echo $this->load->view('pages/sales_left_side'); ?>
-
-<section>
-	<div class="rightPanel" style="padding: 14px 20px; width:96%;">
-		
-		<div class='container-fluid editViewContainer'>
-			<form class="form-horizontal recordEditView" id="addSalesorder" name="addSalesorder" autocomplete="off" method="post" action="<?php echo site_url('salesorder/addsalesorder')?>" enctype="multipart/form-data">
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>View Self Purchase</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">View Self Purchase     </li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+	
+	<section class="content">
+      <div class="container-fluid">
+	  <form class="form-horizontal recordEditView" id="addSalesorder" name="addSalesorder" autocomplete="off" method="post" action="<?php echo site_url('salesorder/addsalesorder')?>" enctype="multipart/form-data">
 				<div class="contentHeader row-fluid">
-					<h3 class="span8 textOverflowEllipsis">New Self Purchase Details</h3>
+					 
 					<span class="pull-right">
 						<button class="btn-success cus_add_details" value="Save" type="submit" name="save" id="cus_add_details"><strong>Save</strong></button>
 						 <button type="reset" value="Reset" class="btn btn-primary">Reset</button>
@@ -414,246 +433,240 @@ function getstore_division()
                 <input id="login_company_id" name="login_company_id" type="hidden" value="<?php echo $login_company_id; ?>" />
                 <input id="tax_value" name="tax_value" type="hidden" value="<?php echo $tax_value; ?>" />
                 
-                <table class="table table-bordered blockContainer showInlineTable equalSplit">
-                    <thead>
-                        <tr>
-                            <th class="blockHeader" colspan="4">Self Purchase Details</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        <tr>
-                            <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    <span class="redColor">*</span>Self Purchase no
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-										 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_noError">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Self Purchase Details</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+             
+                <div class="card-body row">
+                  <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Self Purchase no</label>
+						<div class="row-fluid">
+							<span class="span10">
+								 
+								<input id="so_no" readonly="readonly" type="text" class="input-large uppercase form-control" onkeyup="return codevalidation()" name="so_no" value="<?php if(isset($Socode)) { echo $Socode; } ?>"/>
+								<input id="so_prefix" type="hidden" name="so_prefix" value="<?php if(isset($SoPrefix)) { echo $SoPrefix; } ?>"/>
+								
+							</span>
+									<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"   id="so_noError">
                                           <div class="formErrorContent">This field is required</div>
                                           <div class="formErrorArrow"></div>
-                                       </div>
-									    <input id="so_no" readonly="readonly" type="text" class="input-large uppercase" onkeyup="return codevalidation()" name="so_no" value="<?php if(isset($Socode)) { echo $Socode; } ?>"/>
-                                        <input id="so_prefix" type="hidden" name="so_prefix" value="<?php if(isset($SoPrefix)) { echo $SoPrefix; } ?>"/>
-										
-                                    </span>
-                                 </div>
-                             </td>
-						<td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    Status
-                                </label>
-                            </td>
-                             <td class="fieldValue medium" >
-                                <div class="row-fluid">
-                                    <span class="span10">
-									<div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="customer_categoryError">
-                                          <div class="formErrorContent">This field is required</div>
-                                          <div class="formErrorArrow"></div>
-                                     </div>
-                                     <select name="so_status" class="chzn-select" id="so_status">
-                                            <option value="created">Created</option>
-                                     </select>
-                                    </span>
-                                </div>
-                            </td>
-							 
-                            
-                        </tr>
-						
-                        
-                       
-                        <tr>
-						<td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    <span class="redColor">*</span>Customer Name
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-										 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_nameError">
-                                          <div class="formErrorContent">This field is required</div>
-                                          <div class="formErrorArrow"></div>
-                                       </div>
-                                       <div class="row-fluid input-prepend input-append">
-                                        <input id="so_customer_name" name="so_customer_name" readonly type="text" class="input-large with_plus" />
-                                        <span id="plus_customer_details" class="add-on cursorPointer createReferenceRecord plus">
-                                              <a href="javascript:void(0);"><i class="icon-plus" title="Create"></i></a>
-                                          </span>
-                                          <input type="hidden" id="so_customer_id" name="so_customer_id" value="">
-                                          <input id="pricebook_id" name="pricebook_id" type="hidden" />
-										  <input type="hidden" name="customer_discount"  id="customer_discount" value=""  />
-                                          <input type="hidden" name="customer_cash_discount"  id="customer_cash_discount" value=""  />
-                                          <input type="hidden" name="customer_tax_type"  id="customer_tax_type" value=""  />
                                     </div>
-                                    </span>
-                                 </div>
-                             </td>
-							<td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px"><span class="redColor">*</span>Customer Code</label>
-                            </td>
-                            <td class="fieldValue medium" >
-                                <div class="row-fluid">
+						</div>
+                  </div>
+				  
+                  <div class="form-group col-md-6">
+					<label class="muted pull-right marginRight10px">
+					Status
+					</label>
+					<div class="row-fluid">
+						<span class="span10">
+						<select name="so_status" class="chzn-select form-control" id="so_status">
+						<option value="created">Created</option>
+						</select>
+						</span>
+						<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"   id="customer_categoryError">
+							<div class="formErrorContent">This field is required</div>
+							<div class="formErrorArrow"></div>
+						</div>
+					</div>
+                  </div>
+                  <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px">
+						<span class="redColor">*</span>Customer Name
+						</label>
+					<div class="row-fluid">
+						<span class="span10">
+							<div class="row-fluid input-prepend input-append">
+								<input id="so_customer_name" name="so_customer_name" readonly type="text" class="form-control input-large with_plus" />
+								<span id="plus_customer_details" class="add-on cursorPointer createReferenceRecord plus">
+								<a href="javascript:void(0);"><i class="fa fa-plus" title="Create"></i></a>
+								</span>
+								<input type="hidden" id="so_customer_id" name="so_customer_id" value="">
+								<input id="pricebook_id" name="pricebook_id" type="hidden" />
+								<input type="hidden" name="customer_discount"  id="customer_discount" value=""  />
+								<input type="hidden" name="customer_cash_discount"  id="customer_cash_discount" value=""  />
+								<input type="hidden" name="customer_tax_type"  id="customer_tax_type" value=""  />
+							</div>
+						</span>
+						<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"   id="so_customer_nameError">
+								<div class="formErrorContent">This field is required</div>
+								<div class="formErrorArrow"></div>
+							</div>
+					</div>
+                  </div>
+				   <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px"><span class="redColor">*</span>Customer Code</label>
+							<div class="row-fluid">
                                     <span class="span10">
-									<div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_codeError">
+										<input id="so_customer_code" readonly name="so_customer_code" type="text" class="form-control 
+										input-large uppercase"/>
+                                    </span>
+									<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"  id="so_customer_codeError">
                                           <div class="formErrorContent">This field is required</div>
                                           <div class="formErrorArrow"></div>
                                      </div>
-                                       <input id="so_customer_code" readonly name="so_customer_code" type="text" class="input-large uppercase"/>
-                                       
-                                    </span>
-                                </div>
-                            </td>
-						  
-						</tr>
-						
-						
-                        
-                        <tr>
-                        <td class="fieldLabel medium">
-                            <label class="muted pull-right marginRight10px">
-                                    <span class="redColor">*</span>Division
-                                </label>
-                            </td>
-                            <td>
-                            <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="division_nameError">
-                                            <div class="formErrorContent">This field is required</div>
-                                            <div class="formErrorArrow"></div>
-                                         </div>
-                            <select name="material_store_division_id" class="chzn-select" id="material_store_division_id" onchange="getstore_division()" >
-										<option value="1">GST</option>
+                            </div>
+                  </div>
+				   
+				  <div class="form-group col-md-6">
+					<label class="muted pull-right marginRight10px">
+						<span class="redColor">*</span>Division
+					</label>
+					<div class="row-fluid">
+						<span class="span10">
+						<select name="material_store_division_id" class="form-control chzn-select" id="material_store_division_id" onchange="getstore_division()" >
+						<option value="">Select Division</option>
+						<?php if(isset($store_division) && !empty($store_division)) { foreach($store_division as $STD) { ?>
+						<option value="<?php echo $STD['division_id']; ?>"><?php echo $STD['division_name']; ?></option><?php } } ?>
+						</select>
+						</span>
+						<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"  id="division_nameError">
+						<div class="formErrorContent">This field is required</div>
+						<div class="formErrorArrow"></div>
+						</div>
+					</div>
+                  </div>
+				  
+				  <div class="form-group col-md-6">
+					<label class="muted pull-right marginRight10px">
+						<span class="redColor">*</span>Store
+					</label>
+					<div class="row-fluid">
+						<span class="span10">
+						 <input id="purchse_ord_transac_date" name="purchse_ord_transac_date" value="<?php echo date('d-m-Y');?>" type="hidden" class="input-large nameField" />
+                                        <select name="material_store_id" class="form-control chzn-select" id="material_store_id">
+                                        <option value='0'>Select Store</option>
                                         </select>
-                            </td>
-                            
-                              <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                <span class="redColor">*</span>Store</label>
-                            </td>
-                            <td class="fieldValue medium" >
-                                <div class="row-fluid">
-                                    <span class="span10">
-                                        <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" id="store_nameError" style="margin-top: -30px;">
-                                            <div class="formErrorContent">*This field is required</div>
-                                            <div class="formErrorArrow"></div>
-                                         </div>
-										 <input id="purchse_ord_transac_date" name="purchse_ord_transac_date" value="<?php echo date('d-m-Y');?>" type="hidden" class="input-large nameField" />
-                                       
-                                       <select name="material_store_id" class="chzn-select" id="material_store_id"><option value="3">Agro- Gobi</option><option value="1">Agro- Erode</option><option value="2">Agro- Tiruppur</option></select>
-                                        </select>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
+						</span>
+						<div class="Products_editView_fieldName_productnameformError parentFormEditView formError"  id="division_nameError">
+						<div class="formErrorContent">This field is required</div>
+						<div class="formErrorArrow"></div>
+						</div>
+					</div>
+                  </div>
+				  <div class="form-group col-md-6">
+					<label class="muted pull-right marginRight10px">
+						<span class="redColor">*</span>Incentive Amount
+					</label>
+					<div class="row-fluid">
+						<span class="span10">
+							<input id="cus_inc_amt" name="cus_inc_amt" readonly value="" type="text" class="form-control input-large nameField" />
+						</span>
+					 </div>
+                  </div>
+				    
                        
 					   
-					    <tr>
-                        <td class="fieldLabel medium">
-                            <label class="muted pull-right marginRight10px">
-                                    <span class="redColor"></span>Incentive Amount
-                                </label>
-                            </td>
-                            <td>
-                            <div class="row-fluid">
-                                    <span class="span10">
-                                        <input id="cus_inc_amt" name="cus_inc_amt" readonly value="" type="text" class="input-large nameField" />
-                                    </span>
-                                 </div>
-                            </td>
-                            
-                              <td class="fieldLabel medium">
-                               
-                            </td>
-                            <td class="fieldValue medium" >
-                               
-                            </td>
-                        </tr>
-                    </tbody>
-                    
-                </table>
-						
-                <br>
-                 <span class="pin_error" id="add_itemError">
+					     
+                </div>
+                <!-- /.card-body -->
+
+                 
+               
+            </div>
+			
+			 <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Terms & Conditions</h3>
+              </div>
+			  <span class="pin_error" id="add_itemError">
                  Please Enter Number Only
                    </span>
-                    
-               
-			  <br />
-              <table class="table table-bordered blockContainer showInlineTable equalSplit">
-                    <thead>
-                        <tr>
-                            <th class="blockHeader" colspan="4">Terms & Conditions</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        <tr>
-                            <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    Payment Mode
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
+			  <div class="card-body row">
+			  
+                  <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px">   Payment Mode</label>
+								<div class="row-fluid">
                                     <span class="span10">
-										<select	data-selected-value="" name="purchse_ord_payment_mode" class="chzn-select" id="purchse_ord_payment_mode">
+										<select	data-selected-value="" name="purchse_ord_payment_mode" class="form-control chzn-select" id="purchse_ord_payment_mode">
                                              <?php if(isset($paymentmode) && !empty($paymentmode)) { foreach($paymentmode as $PM) { ?>
                                             <option value="<?php echo $PM['payment_mode_id']; ?>"><?php echo $PM['payment_mode_name']; ?></option><?php } } ?>
                                         </select>
                                         
                                     </span>
                                  </div>
-                             </td>
-                           
-                        
-                            <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    Transaction Date
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
+                  </div>
+				  
+				  <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px"> Transaction Date </label>
+						<div class="row-fluid">
+							<span class="span10">
+								<input id="purchse_ord_transac_date" name="purchse_ord_transac_date" value="<?php echo date('d-m-Y');?>" type="text" class="form-control  input-large nameField" />
+							</span>
+						 </div>
+                  </div>
+				  
+				  <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px"> Payment Terms	 </label>
+						 <div class="row-fluid">
                                     <span class="span10">
-                                        <input id="purchse_ord_transac_date" name="purchse_ord_transac_date" value="<?php echo date('d-m-Y');?>" type="text" class="input-large nameField" />
+                                        <textarea class="form-control row-fluid" id="purchse_ord_terms_conditions" name="purchse_ord_terms_conditions" ></textarea>
                                     </span>
                                  </div>
-                             </td>
-                           
-                        </tr>
-                        
-                        <tr>
-                            <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                  Payment Terms	
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-                                        <textarea class="row-fluid" id="purchse_ord_terms_conditions" name="purchse_ord_terms_conditions" ></textarea>
-                                    </span>
-                                 </div>
-                             </td>
-                           <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                  Comments
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-                                        <textarea class="row-fluid" id="purchse_ord_payment_terms" name="purchse_ord_payment_terms" ></textarea>
-                                    </span>
-                                 </div>
-                             </td>
-                        </tr>
-						
-                    </tbody>
-                    
-                </table>
+                  </div>
+				  <div class="form-group col-md-6">
+						<label class="muted pull-right marginRight10px">Comments </label>
+						 <div class="row-fluid">
+							<span class="span10">
+								<textarea class="form-control row-fluid" id="purchse_ord_payment_terms" name="purchse_ord_payment_terms" ></textarea>
+							</span>
+						 </div>
+                  </div>
+				  
+                  
 			
+				    
+                       
+					   
+					     
+                </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+               
+            </div>
+            <!-- /.card -->
+
+            <!-- general form elements -->
+               
+
+          </div>
+        </div>
+        <!-- /.row -->
+		</form>
+         
+      </div><!-- /.container-fluid -->
+    </section>
+	
+<section class="content">
+	<div class="row"  >
+		
+		<div class='container'>
+			<form class="form-horizontal recordEditView" id="addSalesorder" name="addSalesorder" autocomplete="off" method="post" action="<?php echo site_url('salesorder/addsalesorder')?>" enctype="multipart/form-data">
+				<div class="contentHeader row-fluid">
+					 
+					<span class="pull-right">
+						<button class="btn-success cus_add_details" value="Save" type="submit" name="save" id="cus_add_details"><strong>Save</strong></button>
+						 <button type="reset" value="Reset" class="btn btn-primary">Reset</button>
+						<a class="btn-danger materialreq_add_details" type="reset" onClick="javascript:window.history.back();">Cancel</a>
+                    </span>
+                </div>
+                <input id="login_company_id" name="login_company_id" type="hidden" value="<?php echo $login_company_id; ?>" />
+                <input id="tax_value" name="tax_value" type="hidden" value="<?php echo $tax_value; ?>" />
+                
+               
+						
+                <br>
+                 
+                    
+               
+			  <br />
+              
                  
                  <div class="row-fluid">
                  
@@ -672,35 +685,20 @@ function getstore_division()
                    </span>
                    
                    
-				<table id="tblList">
+				<table id="tblList" class='table'>
 				<thead>
 				<tr>	
                 <th>SN.</th>
-                <!--<th>Item Code</th>-->
-                <th>SKU</th>
+                <!--<th>Item Code</th>
+                <th>SKU</th>-->
         		<th>Item</th>
                
                 <th>Qty</th>
-				<th>Incentive Rate</th>
-				<th>Incentive total</th>
+				 
                 <th>MRP</th>
                 <th>Price</th>
-				<th>Batch No</th>
-				<th>Inventory Qty</th>
-                <th>Gross Amount</th>	
-				<th>Discount (%)</th>
-				<th>Discount Amount</th>
-              <!--  <th>Damage Discount (%)</th>
-                <th>Damage Discount Amount</th>-->
-                <th>Gross Amount</th>
-                <?php if($tax_value != 'nontaxable') { ?>
-				<th>CGST %</th>
-                <!--<th>CGST Amount</th>-->
-                <th>SGST %</th>
-                <!--<th>SGST Amount</th>-->
-              <!--  <th>IGST %</th>
-                <th>IGST Amount</th>-->
-                <?php } ?>
+				 
+                <th>Gross Amount</th> 
                 
 				<th>Actions</th>
 				 
@@ -908,6 +906,7 @@ function getstore_division()
 	 
      
 </section>
+</div>
 <script>
 function pack_size_calc(id)
 {	

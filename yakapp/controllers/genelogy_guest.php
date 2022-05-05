@@ -314,7 +314,7 @@ class Genelogy_guest extends MY_Controller {
 		$this->title = "AGRO FARM";
 		$this->keywords = "AGRO FARM";
 
-		$this->load->view('pages/officerregistration_guest');
+		$this->_render('pages/officerregistration_guest');
 	}
 	
 	public function genelogyOfficerValidation()

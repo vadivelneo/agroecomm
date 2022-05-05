@@ -17,18 +17,6 @@ Class Productmodule extends CI_Model
 	
 	//** Get Product **//
 	
-	public function getproduct_store_division($material_store_division_id)
-	{
-		$ret =  $this->db->select('STR.*,STD.* ')
-						->from('store_division as STD')
-						->join('store as STR','STR.store_division = STD.division_id')
-						->where('STR.store_division',$material_store_division_id)
-						->where('STR.store_status', 'enable')
-						->get()->result_array();
-	
-		return $ret;
-	}
-	
 	public function get_products()
 	{
 		$ret['rows'] = $this->db->select('*')
@@ -49,13 +37,13 @@ Class Productmodule extends CI_Model
 	
 	//** Get Product store based on company name **//
 	
-	public function getproduct_sub_group($product_group)
+	public function getproduct_store_division($material_store_division_id)
 	{
-		$ret =  $this->db->select('PROSG.*,PROG.* ')
-						->from('product_sub_group as PROSG')
-						->join('products_groups as PROG','PROSG.product_group_id = PROG.products_group_id')
-						->where('PROSG.product_group_id',$product_group)
-						->where('PROSG.product_sub_group_status', 'enable')
+		$ret =  $this->db->select('STR.*,STD.* ')
+						->from('store_division as STD')
+						->join('store as STR','STR.store_division = STD.division_id')
+						->where('STR.store_division',$material_store_division_id)
+						->where('STR.store_status', 'enable')
 						->get()->result_array();
 	
 		return $ret;
@@ -328,17 +316,6 @@ Class Productmodule extends CI_Model
 	{
 		$ret = $this->db->select('G.products_group_id, G.products_group_name')
 						->from('products_groups as G')
-						->where('G.products_group_status','enable')
-						->get()->result_array();
-		return $ret;
-	}
-	
-	public function get_allproductsubgroups($product_group_id)
-	{
-		$ret = $this->db->select('G.product_sub_group_id, G.product_sub_group_name')
-						->from('product_sub_group as G')
-						->where('G.product_group_id',$product_group_id)
-						->where('G.product_sub_group_status','enable')
 						->get()->result_array();
 		return $ret;
 	}

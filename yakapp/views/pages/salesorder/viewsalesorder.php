@@ -1,111 +1,137 @@
 <?php //echo "<PRE>"; print_r($so_data);
 	$file=$so_data->sales_order_doc_name;
 	?>
-<?php echo $this->load->view('pages/sales_left_side'); ?>
-
-<section>
-	<div class="rightPanel" style="padding: 14px 20px; width:96%;">
-		
-		<div class='container-fluid editViewContainer'>
-			<form class="form-horizontal recordEditView" id="EditView" name="EditView" method="post" action="<?php echo site_url();?>/salesorder/edit_salesorder/<?php  echo $so_data->sales_order_id;?>" enctype="multipart/form-data">
-				<div class="contentHeader row-fluid">
-					<h3 class="span8 textOverflowEllipsis">View Self Purchase Details</h3>
-					<span class="pull-right">
-						<!--<button class="btn-success so_update_details" value="Save" type="submit" name="save" id="so_update_details"><strong>Update</strong></button>-->
-						 <a class="cancelLink" type="reset" onClick="javascript:window.history.back();">Cancel</a>
-                    </span>
-                </div>
-                
-                <table class="table table-bordered blockContainer showInlineTable equalSplit">
-                    <thead>
-                        <tr>
-                            <th class="blockHeader" colspan="4">Self Purchase Details</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        <tr>
-                            <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    <span class="redColor">*</span>Self Purchase no
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-										 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_noError">
-                                          <div class="formErrorContent">This field is required</div>
-                                          <div class="formErrorArrow"></div>
-                                       </div>
-									    <?php if(isset($so_data->sales_order_number)){ echo $so_data->sales_order_number;}?>
-                                        
-										
-                                    </span>
-                                 </div>
-                             </td>
-                             <td class="fieldLabel medium">
-                                
-                            </td>
-                            <td class="fieldValue medium">
-                              
-                             </td>
-							 
-                        </tr>
-						<tr>
-                        <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px">
-                                    <span class="redColor">*</span>Customer Name
-                                </label>
-                            </td>
-                            <td class="fieldValue medium">
-                                <div class="row-fluid">
-                                    <span class="span10">
-										 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_nameError">
-                                          <div class="formErrorContent">This field is required</div>
-                                          <div class="formErrorArrow"></div>
-                                       </div>
-                                       <div class="row-fluid input-prepend input-append">
-                                       <?php if(isset($so_data->sales_order_customer_name)){ echo $so_data->sales_order_customer_name;}?>
-                                   
-                                          <input id="so_customer_id" name="so_customer_id" value="<?php if(isset($so_data->sales_order_customer_id)){ echo $so_data->sales_order_customer_id;}?>" type="hidden" />
-                                          <input id="pricebook_id" name="pricebook_id" value="<?php if(isset($so_data->customer_price_list)){ echo $so_data->customer_price_list;}?>" type="hidden" />
-                                          </div>
-                                    </span>
-                                 </div>
-                             </td>
-                            
-                          <td class="fieldLabel medium">
-                                <label class="muted pull-right marginRight10px"><span class="redColor">*</span>Customer Code</label>
-                            </td>
-                            <td class="fieldValue medium" >
-                                <div class="row-fluid">
-                                    <span class="span10">
-									<div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_codeError">
-                                          <div class="formErrorContent">This field is required</div>
-                                          <div class="formErrorArrow"></div>
-                                     </div>
-                                       <?php if(isset($so_data->sales_order_customer_code)){ echo $so_data->sales_order_customer_code;}?>
-                                       
-                                    </span>
-                                </div>
-                            </td>
-                            
-                        </tr>
-                        
-                       
+ <style>
+ .formError{ display:none; }
+ </style>
+ 
+ 
+  
+<link rel="stylesheet" href="http://localhost/neo/agro/agro_ecomm1/agro_ecomm1//resources/css/jquery-ui.css" />
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>View Self Purchase</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">View Self Purchase     </li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+		 
+	
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">View  Self Purchase </h3>
+			</div>
+              <!-- /.card-header -->
+				<div class="card-body table-responsive p-0">
+					<table class="table table-bordered blockContainer showInlineTable equalSplit">
+						<thead>
+							<tr>
+								<th class="blockHeader" colspan="4">Self Purchase Details</th>
+							</tr>
+						</thead>
 						
-                    </tbody>
-                    
-                </table>
+						<tbody>
+							<tr>
+								<td class="fieldLabel medium">
+									<label class="muted pull-right marginRight10px">
+										<span class="redColor">*</span>Self Purchase no
+									</label>
+								</td>
+								<td class="fieldValue medium">
+									<div class="row-fluid">
+										<span class="span10">
+											 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_noError">
+											  <div class="formErrorContent">This field is required</div>
+											  <div class="formErrorArrow"></div>
+										   </div>
+											<?php if(isset($so_data->sales_order_number)){ echo $so_data->sales_order_number;}?>
+											
+											
+										</span>
+									 </div>
+								 </td>
+								 <td class="fieldLabel medium">
+									
+								</td>
+								<td class="fieldValue medium">
+								  
+								 </td>
+								 
+							</tr>
+							<tr>
+							<td class="fieldLabel medium">
+									<label class="muted pull-right marginRight10px">
+										<span class="redColor">*</span>Customer Name
+									</label>
+								</td>
+								<td class="fieldValue medium">
+									<div class="row-fluid">
+										<span class="span10">
+											 <div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_nameError">
+											  <div class="formErrorContent">This field is required</div>
+											  <div class="formErrorArrow"></div>
+										   </div>
+										   <div class="row-fluid input-prepend input-append">
+										   <?php if(isset($so_data->sales_order_customer_name)){ echo $so_data->sales_order_customer_name;}?>
+									   
+											  <input id="so_customer_id" name="so_customer_id" value="<?php if(isset($so_data->sales_order_customer_id)){ echo $so_data->sales_order_customer_id;}?>" type="hidden" />
+											  <input id="pricebook_id" name="pricebook_id" value="<?php if(isset($so_data->customer_price_list)){ echo $so_data->customer_price_list;}?>" type="hidden" />
+											  </div>
+										</span>
+									 </div>
+								 </td>
+								
+							  <td class="fieldLabel medium">
+									<label class="muted pull-right marginRight10px"><span class="redColor">*</span>Customer Code</label>
+								</td>
+								<td class="fieldValue medium" >
+									<div class="row-fluid">
+										<span class="span10">
+										<div class="Products_editView_fieldName_productnameformError parentFormEditView formError" style="margin-top: -30px;" id="so_customer_codeError">
+											  <div class="formErrorContent">This field is required</div>
+											  <div class="formErrorArrow"></div>
+										 </div>
+										   <?php if(isset($so_data->sales_order_customer_code)){ echo $so_data->sales_order_customer_code;}?>
+										   
+										</span>
+									</div>
+								</td>
+								
+							</tr>
+							
+						   
+							
+						</tbody>
 						
-                <br>
-                     <span class="nums_error" id="add_itemError">
-                 Please Enter Number Only
+					</table>
+				</div>
+				<br/>
+				<div class="card-body table-responsive p-0">
+					  <span class="nums_error" id="add_itemError">
+						<div class="card-header">
+							<h3 class="card-title"> Please Enter Number Only </h3>
+						</div>
                    </span>
                       
                 
               <br>
-			 <table class="table table-bordered blockContainer showInlineTable equalSplit">
+			 <table class="table table-hover text-nowrap table-bordered blockContainer showInlineTable equalSplit">
                     <thead>
                         <tr>
                             <th class="blockHeader" colspan="4">Terms & Conditions</th>
@@ -175,26 +201,18 @@
                     
                 </table>
 			
-                        
-                <br />
-                <br>
-                <div class="row-fluid">
-                    <div class="pull-right">
-                        <!--<a class="btn btn-success" name="vendor_add_details" id="singleitem" href="javascript:void(0);"><strong>Add Single Item</strong></a>
-                        <a class="btn btn-success" name="vendor_add_details" id="multipleitems"><strong>Add Multiples Item</strong></a>-->
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-				 <input type ="hidden" value="0" name="last_table_id " id="last_table_id">
-				  <input type ="hidden" value="<?php echo count($so_item_data); ?>" name="count_of_items " id="count_of_items">
-                <br /> 
-				 <br>
-                 
-                  <span class="grid_error" id="add_itemError">
-                 Please Add Some Items
+				</div>
+				<br/>
+				<div class="card-body table-responsive p-0">
+					<span class="grid_error" id="add_itemError">
+					<div class="card-header">
+							<h3 class="card-title"> Please Add Some Items  </h3>
+						</div>
                    </span>
-                   
-				<table id="tblList">
+                    <input type ="hidden" value="0" name="last_table_id " id="last_table_id">
+				  <input type ="hidden" value="<?php echo count($so_item_data); ?>" name="count_of_items " id="count_of_items">
+               
+				<table id="tblList" class='table table-hover text-nowrap'>
 				<thead>
 				<tr>	
 				<th>SKU</th>
@@ -255,9 +273,7 @@
 					  <a href="javascript:void(0);" id="item_name_value_<?php echo $itemcount; ?>"><?php if(isset($ITEMS['so_items_incentive_total'])) { echo $ITEMS['so_items_incentive_total']; } ?></a>
                        
 						</td>
-						<!-- <td><p align="center"><a href="javascript:void(0);" id="item_free_qty_value_<?php //echo $itemcount; ?>"><?php //if(isset($ITEMS['so_items_free_item'])) { echo $ITEMS['so_items_free_item']; } ?></a></p></td>
-
-						  <td><p align="center"><a href="javascript:void(0);" id="item_free_qty_value_<?php //echo $itemcount; ?>"><?php //if(isset($ITEMS['so_items_free_qty'])) { echo $ITEMS['so_items_free_qty']; } ?></a></p></td>-->
+						 
 						  
 						  
                           <td><a href="javascript:void(0);" ><?php if(isset($ITEMS['so_items_mrp'])) { echo $ITEMS['so_items_mrp']; } ?></a></td>
@@ -270,10 +286,7 @@
                         </p></td>
                       <td><p align="center"><a href="javascript:void(0);" id="item_discount_amount_value_<?php echo $itemcount; ?>"><?php if(isset($ITEMS['so_items_discounts_amount'])) { echo $ITEMS['so_items_discounts_amount']; } ?></a>
                        </p></td>
-                       <!-- <td><p align="center"><a href="javascript:void(0);" id="item_discount_percent_value_<?php //echo $itemcount; ?>"><?php //if(isset($ITEMS['so_items_damage_discount_perc'])) { echo $ITEMS['so_items_damage_discount_perc']; } ?></a>
-                       </p></td>
                         
-                        <td><p align="center"><a href="javascript:void(0);" ><?php //if(isset($ITEMS['so_items_damage_discount_amount'])) { echo $ITEMS['so_items_damage_discount_amount']; } ?></a>-->
                         </p></td>
                         <td><p align="center"><a href="javascript:void(0);" ><?php if(isset($ITEMS['so_items_gross_amount_with_discount'])) { echo $ITEMS['so_items_gross_amount_with_discount']; } ?></a>
                        </p>
@@ -288,18 +301,9 @@
 						
                     </tr>
                     <?php $itemcount++; } } ?>
-				
-				</tbody>
-				</table>
-                
-                <br />
-                 <div id="tax_group_calculation">
-                 <?php if(!empty($tax_group)) { $taxcount = 0; foreach($tax_group as $TG) {  ?>
-                 <div class="inner_tax_group">
-					<table class="tax_group_table table table-bordered blockContainer showInlineTable equalSplit">
-                    	<tbody>
-                            <tr>
-                                <td class="tax_group_lable">
+					 <?php if(!empty($tax_group)) { $taxcount = 0; foreach($tax_group as $TG) {  ?>
+					 <tr>
+                                <td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                     <label>Total Gross Amount</label>
                                 </td>
                                 <td>
@@ -307,7 +311,7 @@
                                 </td>
                             </tr>
                     		<tr>
-                            	<td class="tax_group_lable">
+                            	<td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                 	<label>Total Discount</label>
                                 </td>
                                 <td>
@@ -317,7 +321,7 @@
                              
                              
                              <tr>
-                            	<td class="tax_group_lable">
+                            	<td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                 	<label>Damage Discount Amount</label>
                                 </td>
                                 <td>
@@ -325,7 +329,7 @@
                                 </td>
                              </tr>
                              <tr>
-                             	<td class="tax_group_lable">
+                             	<td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                 	<label>Total Gross Amount Without Tax</label>
                                 </td>
                                 <td>
@@ -333,7 +337,7 @@
                                 </td>
                              </tr>
                              <tr>
-                             	<td class="tax_group_lable">
+                             	<td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                 	<label>Tax Amount</label>
                                 </td>
                                 <td>
@@ -341,23 +345,21 @@
                                 </td>
                              </tr>
                              <tr>
-                                 <td class="tax_group_lable">
+                                 <td class="tax_group_lable" colspan='15' style='text-align:right;'>
                                  <label>Total Gross Amount With Tax</label>
                                  </td>
                                  <td>
                                  <p class="amount_calc"><?php echo $TG['tax_group_with_tax_gross_amount']; ?></p>
                                  </td>
                              </tr>
-                         </tbody>
-                     </table>
-                     </div>
-                     <br />
-                     <?php } } ?>
-                 </div>
-                 <br />
+				 <?php } } ?>
+				</tbody>
+				</table>
+                
+				</div>
 				
-				
-			<table class="table table-bordered blockContainer showInlineTable equalSplit">
+				<div class="card-body table-responsive p-0">
+					<table class="table table-bordered blockContainer showInlineTable equalSplit">
 				
 				
 				<tbody>
@@ -374,17 +376,7 @@
 				</td>
 				
 			</tr>
-            <?php /*?><tr>
-				<td class="fieldLabel medium">
-					<label class="muted pull-right marginRight10px">
-						Total Tax (%)
-					</label>
-				</td>
-				<td class="fieldLabel medium" style="width:20%;">
-                <span class="totalvalidationmsg"></span>
-					<p class="amount_calc"><?php if(isset($so_item_total->so_total_tax_percentage)){ echo $so_item_total->so_total_tax_percentage;}?></p>
-				</td>
-			</tr><?php */?>
+            <?php  ?>
             <tr>
 				<td class="fieldLabel medium">
 					<label class="muted pull-right marginRight10px">
@@ -396,17 +388,7 @@
 					<p class="amount_calc"><?php if(isset($so_item_total->so_total_tax_amount)){ echo $so_item_total->so_total_tax_amount;}?></p>
 				</td>
 			</tr>
-            <!--<tr>
-				<td class="fieldLabel medium">
-					<label class="muted pull-right marginRight10px">
-						Total Discount (%)
-					</label>
-				</td>
-				<td class="fieldLabel medium" style="width:20%;">
-                <span class="totalvalidationmsg"></span>
-					<p class="amount_calc"><?php if(isset($so_item_total->so_total_discount_percentage)){ echo $so_item_total->so_total_discount_percentage;}?></p>
-				</td>
-			</tr>-->
+             
             <tr>
 				<td class="fieldLabel medium">
 					<label class="muted pull-right marginRight10px">
@@ -485,18 +467,24 @@
                 <div class="row-fluid">
                     <div class="pull-right">
                         
-                        <a class="cancelLink" type="reset" onClick="javascript:window.history.back();">Cancel</a>
+                        <a class="cancelLink btn btn-warning" type="reset" onClick="javascript:window.history.back();">Back</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 
-                <br>
-            
+				</div>
 				
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
+        </div>
+        <!-- /.row -->
+         
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
+  
 
-      </div>
-     
-	 
-     
-</section>

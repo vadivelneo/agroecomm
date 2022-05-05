@@ -1,4 +1,266 @@
-<script>
+ 
+<link rel="stylesheet" href="http://localhost/neo/agro/agro_ecomm1/agro_ecomm1//resources/css/jquery-ui.css" />
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>Self Purchase</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Self Purchase     </li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+		
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+		 
+		  
+		 
+          <div class="col-12">
+          
+                
+              <!-- /.card-header -->
+			  <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Search</h3>
+              </div>
+				<div class="card-body">
+				<?php if(isset($salesorder->add_option)) { if($salesorder->add_option != '0') { ?>
+					<span class="btn-group">
+					<?php 
+					$sessionData = $this->session->userdata('userlogin');
+					if($sessionData['user_id'] == 1)  {
+					?>
+					<button class="addButton" onclick='window.location.href="<?php echo site_url('salesorder/addsalesorder'); ?>"'><i class="icon-plus" ></i>&nbsp;<strong>Add Self Purchase</strong></button>
+					<?php }  ?>
+					</span>
+					<?php } } ?>
+				<form class="form-horizontal recordEditView" id="stockForm" name="stockForm" method="post" action="<?php echo site_url('salesorder/search_salesorder'); ?>" enctype="multipart/form-data"> 
+					<div tabindex="3" class="row wrapper_search" id="wrapper_search"> 
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>Sales Order No : </p>
+							</div>	
+							<div class="report_field_input">
+						<input type="text" 	value="<?php echo $this->input->post('search_sale_ord_no');?>" name="search_sale_ord_no" class="form-control input-large search-l" id="search_sale_ord_no" placeholder="Sales Order No">
+						<span id="auto_complete_sale_ord_no"></span>
+						</div>
+						</div>
+						
+						<?php 
+						$sessionData = $this->session->userdata('userlogin');
+						if($sessionData['user_id'] == 1)  {
+						?>
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>Customer Name : </p>
+							</div>	
+							<div class="report_field_input">
+						<input type="text" 	value="<?php echo $this->input->post('search_cus_name');?>" name="search_cus_name" class="form-control  input-large search-l" id="search_cus_name" placeholder="Customer Name">
+						<span id="auto_complete_cus_name"></span>
+						</div>
+						</div>
+						
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>Customer Code : </p>
+							</div>	
+							<div class="report_field_input">
+						<input type="text" 	value="<?php echo $this->input->post('search_cus_code');?>" name="search_cus_code" class="form-control  input-large search-l" id="search_cus_code" placeholder="Customer Code">
+						<span id="auto_complete_cus_code"></span>
+						</div>
+						</div>
+						<?php }  ?>
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>From Date : </p>
+							</div>	
+							<div class="report_field_input">
+						<input type="text" autocomplete='off' 	value="<?php echo $this->input->post('from_date');?>" name="from_date" class=" form-control  input-large search-l" id="from_date" placeholder="From Date">
+						</div>
+						</div>
+						
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>To Date : </p>
+							</div>	
+							<div class="report_field_input">
+						<input type="text" autocomplete='off'	value="<?php echo $this->input->post('to_date');?>" name="to_date" class="form-control  input-large search-l" id="to_date" placeholder="To Date">
+						</div>
+						</div>
+						
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>Status : </p>
+							</div>	
+							<div class="report_field_input">
+						<select class="form-control  status"  name="status" id="search_status">
+						<option value="">Select to All</option>
+						<option value="created" <?php if($this->input->post('status') =="created") { ?> selected="selected" <?php } ?>>Created</option>
+						<option value="approved" <?php if($this->input->post('status') =="approved") { ?> selected="selected" <?php } ?>>Approved</option>
+						<option value="cancelled" <?php if($this->input->post('status') =="cancelled") { ?> selected="selected" <?php } ?>>Cancelled</option>
+						</select>
+						</div>
+						</div>
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								 <p> Action </p>
+							</div>	
+							<div class="report_field_input">
+						<button id="search" name="search" type="submit" class="btn btn-success">Search</button>
+						</div></div>
+					</div> 
+				</form>
+				</div>
+              </div>
+			 
+              <!-- /.card-body -->
+            
+			
+				 
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      
+    </section>
+	
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> Self Purchase </h3>
+			</div>
+              <!-- /.card-header -->
+				<div class="card-body table-responsive p-0">
+					<table class="table table-hover text-nowrap">
+					<tr>
+						<thead>
+							<th width="100px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_requested_date/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">S.No &nbsp;&nbsp;</a></th>
+							<th width="100px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_requested_date/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">SO Date &nbsp;&nbsp;</a></th>
+							<th width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_number/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Invoice No&nbsp;&nbsp;</a></th>
+							<?php 
+							$sessionData = $this->session->userdata('userlogin');
+							if($sessionData['user_id'] == 1)  {
+							?>
+
+							<th  width="250px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Customer Name&nbsp;&nbsp;</a></th>
+
+							<th  width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Customer ID&nbsp;&nbsp;</a></th>
+
+							<th  width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Mobile&nbsp;&nbsp;</a></th>
+
+							<?php } ?>
+
+							<th width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/so_grand_total/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues numeric_value ">Amount &nbsp;&nbsp;</a></th>
+
+							<th width="200px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_status/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Status&nbsp;&nbsp;</a></th>
+							<th width="150px">Actions</th>
+						</thead>
+						<tbody>
+							<?php 
+							if(!empty($so_list)) {
+							$i = $this->uri->segment(5) ? $this->uri->segment(5)+1 : 1;
+
+							foreach($so_list as $SO) { ?>
+							<tr class="listViewEntries" data-id='36'  id="Leads_listView_row_1">
+							<!--<td class="checkbox"><input type="checkbox" class="itemcheckbox" name="checkbox"></td>-->
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo $i;?></a></td>
+							<td><?php if(($SO['sales_order_transaction_date']) != '0000-00-00' && $SO['sales_order_transaction_date'] != '' && $SO['sales_order_transaction_date'] != NULL) { ?>
+							<?php echo date('d-m-Y', strtotime($SO['sales_order_transaction_date'])); ?>
+							<?php } else { ?>
+							-
+							<?php } ?> </td>
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo $SO['sales_order_number'];?></a></td>
+
+							<?php 
+							if($sessionData['user_id'] == 1)  {
+							?>
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo  $SO['OFCR_FST_NME']." ".$SO['OFCR_LST_NME']; ;?></a></td>
+
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"  ><?php echo $SO['OFCR_USR_VALUE'];?></a></td>
+
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"  ><?php echo $SO['OFCR_MOB'];?></a></td>
+							<?php } ?>
+
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" class="numeric_value" ><?php echo $SO['so_grand_total'];?></a></td>
+
+							<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" ><?php echo $SO['sales_order_status'];?></a></td>
+							<td>
+
+							<a href="<?php echo site_url('salesorder/print_sales_order_a4/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="A4 Sheet Printer" target="_blank"><span class="fa fa-print"></span></a>
+
+							<?php
+
+							if($sessionData['user_id'] == 1)  { ?>
+							<a href="<?php echo site_url('salesorder/print_sales_order/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="Thermal Printer" target="_blank"><span class="fa fa-print"></span></a>
+							<?php } ?>
+							 
+							<?php if(isset($salesorder->view_option)) { if($salesorder->view_option != '0') { ?>
+							<a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="View">
+							<span class="fa fa-eye">
+							</span>
+							</a><?php } } ?>
+							  
+							 
+							<?php if(isset($salesorder->edit_option)) { if($salesorder->edit_option != '0') { ?>
+							 
+							<?php
+
+							if($sessionData['user_id'] == 1)  {
+							if($SO['sales_order_status'] == "created"){?>
+
+							<a href="<?php echo site_url('salesorder/edit_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="Edit">  <span class="fa fa-edit"></span></a>
+							<?php }else {?>
+							<a href="javascript:void(0)" onclick="edit_block();"><span class="fa fa-edit"></span></a>
+							<?php } } } }?>
+							 
+							 
+							</td>
+							</tr>
+							<?php $i++;}} else{?>
+							<tr>
+							<td colspan="6" style="text-align:center;"> No Records Found </td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</tr>	
+        
+
+					</table>
+					<div class="dataTables_paginate paging_bootstrap">
+						<center> <?php echo $page_links; ?> </center>
+					</div>
+				</div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
+ 
+ <script>
 
 function deleteso(id,status)
 {
@@ -100,199 +362,3 @@ $( "#from_date" ).datepicker({
 
 
 </script>
-
-
-<?php echo $this->load->view('pages/sales_left_side');
-$page_num = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
-$deliveryStatus = $this->uri->segment(3,"pending");
-if($sort_by == "desc") $order = "asc"; else $order = "desc";
-$uri2 = $this->uri->segment(2);
-
-$search_so  = $this->session->userdata('sales_order_data');
-  // echo "<PRE>";print_r($vq_data);
- $f_date=$search_so['from_date'];
- $t_date=$search_so['to_date'];
-
- ?>
-
-<section>
-  <div class="rightPanel">
-  	
-    <div class="row-fluid">
-     
-	  <?php if(isset($salesorder->add_option)) { if($salesorder->add_option != '0') { ?>
-      <span class="btn-group">
-	   <?php 
-					$sessionData = $this->session->userdata('userlogin');
-					if($sessionData['user_id'] == 1)  {
-					?>
-     <button class="addButton" onclick='window.location.href="<?php echo site_url('salesorder/addsalesorder'); ?>"'><i class="icon-plus" ></i>&nbsp;<strong>Add Self Purchase</strong></button>
-	 <?php }  ?>
-      </span><?php } } ?>
-      
-      <span class="span4 btn-toolbar">
-        <div class="listViewActions pull-right">
-          
-          </div>
-          <div class="clearfix">
-		  
-          </div>
-          <input type="hidden" value="" id="recordsCount">
-          <input type="hidden" name="selectedIds" id="selectedIds">
-          <input type="hidden" name="excludedIds" id="excludedIds">
-      </span>
-      
-            <form class="form-horizontal recordEditView" id="stockForm" name="stockForm" method="post" action="<?php echo site_url('salesorder/search_salesorder'); ?>" enctype="multipart/form-data"> 
-       <div tabindex="3" class="wrapper_search" id="wrapper_search"> 
-       
-            <input type="text" 	value="<?php if(isset($search_so['search_so_order'])){ echo $search_so['search_so_order']; }else{}?>" name="search_sale_ord_no" class="input-large search-l" id="search_sale_ord_no" placeholder="Sales Order No">
-            <span id="auto_complete_sale_ord_no"></span>
-            
-			
-			
-           <!-- <input type="text" 	value="<?php //if(isset($search_so['so_qut_no'])){ echo $search_so['so_qut_no']; }else{}?>" name="search_sale_qut_no" class="input-large search-l" id="search_sale_qut_no" placeholder="Sales Quotaion No">
-            <span id="auto_complete_sale_qut_no"></span>-->
-              <?php 
-					$sessionData = $this->session->userdata('userlogin');
-					if($sessionData['user_id'] == 1)  {
-					?>
-            <input type="text" 	value="<?php //if(isset($search_so['search_cus_name'])){ echo $search_so['search_cus_name']; }else{}?>" name="search_cus_name" class="input-large search-l" id="search_cus_name" placeholder="Customer Name">
-            <span id="auto_complete_cus_name"></span>
-            
-           <input type="text" 	value="" name="search_cus_code" class="input-large search-l" id="search_cus_code" placeholder="Customer Code">
-            <span id="auto_complete_cus_code"></span>
-            <?php }  ?>
-          <input type="text" 	value="<?php if($f_date != "1970-01-01"){ echo $search_so['from_date']; }else{}?>" name="from_date" class="input-large search-l" id="from_date" placeholder="From Date">
-             
-            <input type="text" 	value="<?php if($t_date != "1970-01-01"){ echo $search_so['to_date']; }else{}?>" name="to_date" class="input-large search-l" id="to_date" placeholder="To Date">
-             
-            <select class="status"  name="status" id="search_status">
-                <option value="">Select to All</option>
-                <option value="created" <?php if($search_so['search_status'] =="created") { ?> selected="selected" <?php } ?>>Created</option>
-                <option value="approved" <?php if($search_so['search_status'] =="approved") { ?> selected="selected" <?php } ?>>Approved</option>
-                <option value="cancelled" <?php if($search_so['search_status'] =="cancelled") { ?> selected="selected" <?php } ?>>Cancelled</option>
-              </select>
-<!--       	 <input type="reset" name="Reset" id="rest" class="btn btn-primary" style="width:80px;" />
--->			<button id="search" name="search" type="submit" class="btn-success">Search</button>
- 		 </div> 
-      </form>
-      
-      
-   </div>
-    
-    <div class="table_head" id="table">
-      <div class="col w10 last">
-	  <div class="sessionMsg"><?php echo $this->session->flashdata('message'); ?></div>
-        <div class="content">
-          <table>
-            <tbody>
-              <tr>
-                <!-- <th class="checkbox"><input type="checkbox" name="checkbox" id="multipleItemselecctall"></th>-->
-				  <th width="100px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_requested_date/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">S.No &nbsp;&nbsp;</a></th>
-                <th width="100px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_requested_date/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">SO Date &nbsp;&nbsp;</a></th>
-                <th width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_number/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Invoice No&nbsp;&nbsp;</a></th>
-					<?php 
-					$sessionData = $this->session->userdata('userlogin');
-					if($sessionData['user_id'] == 1)  {
-					?>
-					
-                <th  width="250px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Customer Name&nbsp;&nbsp;</a></th>
-				
-				 <th  width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Customer ID&nbsp;&nbsp;</a></th>
-				 
-				  <th  width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_customer_name/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Mobile&nbsp;&nbsp;</a></th>
-				  
-				  <?php } ?>
-                
-                <th width="150px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/so_grand_total/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues numeric_value ">Amount &nbsp;&nbsp;</a></th>
-                
-                <th width="200px"><a href="<?php echo site_url('salesorder/'.$uri2);?>/sales_order_status/<?=$order?>/<?=$page_num?>" class="listViewHeaderValues">Status&nbsp;&nbsp;</a></th>
-                <th width="150px">Actions</th>
-                
-              </tr>
-              <?php
-			 // echo "<pre>";
-			 // print_r($so_list);
-		if(!empty($so_list)) {
-			$i = $this->uri->segment(5) ? $this->uri->segment(5)+1 : 1;
-			
-		 foreach($so_list as $SO) { ?>
-              <tr class="listViewEntries" data-id='36'  id="Leads_listView_row_1">
-                <!--<td class="checkbox"><input type="checkbox" class="itemcheckbox" name="checkbox"></td>-->
-				 <td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo $i;?></a></td>
-                <td><?php if(($SO['sales_order_transaction_date']) != '0000-00-00' && $SO['sales_order_transaction_date'] != '' && $SO['sales_order_transaction_date'] != NULL) { ?>
-                	<?php echo date('d-m-Y', strtotime($SO['sales_order_transaction_date'])); ?>
-                <?php } else { ?>
-                	-
-				 <?php } ?> </td>
-                <td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo $SO['sales_order_number'];?></a></td>
-              
-			  <?php 
-					if($sessionData['user_id'] == 1)  {
-					?>
-                <td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"><?php echo  $SO['OFCR_FST_NME']." ".$SO['OFCR_LST_NME']; ;?></a></td>
-				
-				<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"  ><?php echo $SO['OFCR_USR_VALUE'];?></a></td>
-				
-				<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>"  ><?php echo $SO['OFCR_MOB'];?></a></td>
-				 <?php } ?>
-				
-				<td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" class="numeric_value" ><?php echo $SO['so_grand_total'];?></a></td>
-              
-                <td><a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" ><?php echo $SO['sales_order_status'];?></a></td>
-				<td>
-                
-				 <a href="<?php echo site_url('salesorder/print_sales_order_a4/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="A4 Sheet Printer" target="_blank"><span class="icon-print"></span></a>
-				 
-				  <?php
-
-					if($sessionData['user_id'] == 1)  { ?>
-                <a href="<?php echo site_url('salesorder/print_sales_order/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="Thermal Printer" target="_blank"><span class="icon-print"></span></a>
-					<?php } ?>
-                <li>
-				 <?php if(isset($salesorder->view_option)) { if($salesorder->view_option != '0') { ?>
-				<a href="<?php echo site_url('salesorder/view_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="View">
-				<span class="icon-edit">
-				</span>
-				</a><?php } } ?>
-				</li> 
-				 <li>
-				 <?php if(isset($salesorder->edit_option)) { if($salesorder->edit_option != '0') { ?>
-				   <?php /*?><?php if($SO['sales_order_status'] != "delivered" && $SO['sales_order_status'] != "closed" && $SO['sales_order_status'] != "onprocess"  && $SO['sales_order_status'] != "awaiting confirmation"){?><?php */?>
-				   
-				  <?php
-
-					if($sessionData['user_id'] == 1)  {
-					if($SO['sales_order_status'] == "created"){?>
-					
-				<a href="<?php echo site_url('salesorder/edit_salesorder/'); ?>/<?php echo $SO['sales_order_id']; ?>" title="Edit">  <span class="icon-pencil"></span></a>
-                 <?php }else {?>
-                 <a href="javascript:void(0)" onclick="edit_block();"><span class="icon-pencil"></span></a>
-                 <?php } } } }?>
-				</li>
-				<?php /*?><li><?php if(isset($salesorder->delete_option)) { if($salesorder->delete_option != '0') { ?>
-                 <?php if($SO['sales_order_status'] != "delivered" && $SO['sales_order_status'] != "closed" && $SO['sales_order_status'] != "onprocess"  && $SO['sales_order_status'] != "awaiting confirmation"){?>
-				<a class="javascript:void(0);" onclick="return deleteso(<?php echo $SO['sales_order_id'] ;?>,'<?php echo $SO['sales_order_active_status']; ?>')" title="Delete"> <span class="icon-trash"></span></a>
-                <?php }else {?>
-                 <a href="javascript:void(0)" onclick="edit_block();"><span class="icon-trash"></span></a>
-                 <?php } } } ?>
-                </li><?php */?>
-                </td>
-              </tr>
-              <?php $i++;}} else{?>
-              <tr>
-                <td colspan="6" style="text-align:center;"> No Records Found </td>
-              </tr>
-              <?php }?>
-            </tbody>
-          </table>
-          
-        </div>
-        <div class="dataTables_paginate paging_bootstrap">
-              <center> <?php echo $page_links; ?> </center>  
-          </div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-</section>

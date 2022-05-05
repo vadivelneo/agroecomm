@@ -1,192 +1,143 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 
-
-
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title><?php echo $company_name;?></title>
-        <link rel="icon" type="image/ico" href="<?php echo base_url(); ?>/resources/assets/images/favicon.ico" />
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-
-        <!-- ============================================
-        ================= Stylesheets ===================
-        ============================================= -->
-        <!-- vendor css files -->
-        
-
-    </head>
-
-
-
-
-
-    <body id="minovate" class="appWrapper">
-
-        <!-- ====================================================
-        ================= Application Content ===================
-        ===================================================== -->
-        <div id="wrap" class="animsition">
-
-
-
-
-
-
-            <!-- ===============================================
-            ================= HEADER Content ===================
-            ================================================ -->
-          <?php echo $this->load->view('pages/enrollement_left_side'); ?>
-		 <!--/ HEADER Content  -->
-
-
-
-
-
-            <!-- =================================================
-            ================= CONTROLS Content ===================
-            ================================================== -->
-           <?php //include('menu.php'); ?>
-		   <!--/ CONTROLS Content -->
-
-
-
-
-            <!-- ====================================================
-            ================= CONTENT ===============================
-            ===================================================== -->
-            <section id="content">
-
-                <div class="page page-ui-modals">
-
-                  
-
-                    <!-- row -->
-                    <div class="row">
-                        <!-- col -->
-                        <div class="col-md-12">
- <section class="tile">
-
-                                <!-- tile header -->
-                                <div class="tile-header dvd dvd-btm">
-                                    <h1 class="custom-font"><strong>Purchase Report</strong></h1>                                    
-									&nbsp;&nbsp;&nbsp;&nbsp;
-									 
-                                    
-                                    <ul class="controls">
-                                        <li class="dropdown">
-
-                                            <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
-                                                <i class="fa fa-cog"></i>
-                                                <i class="fa fa-spinner fa-spin"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
-                                                <li>
-                                                    <a role="button" tabindex="0" class="tile-toggle">
-                                                        <span class="minimize"><i class="fa fa-angle-down"></i>&nbsp;&nbsp;&nbsp;Minimize</span>
-                                                        <span class="expand"><i class="fa fa-angle-up"></i>&nbsp;&nbsp;&nbsp;Expand</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a role="button" tabindex="0" class="tile-refresh">
-                                                        <i class="fa fa-refresh"></i> Refresh
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a role="button" tabindex="0" class="tile-fullscreen">
-                                                        <i class="fa fa-expand"></i> Fullscreen
-                                                    </a>
-                                                </li>
-                                            </ul>
-
-                                        </li>
-                                        <li class="remove"><a role="button" tabindex="0" class="tile-close"><i class="fa fa-times"></i></a></li>
-                                    </ul>
-                                </div>
-                                <!-- /tile header -->
-
-                                <!-- tile body -->
-                                <div class="tile-body">
-                                   
-                                    <section>
-		<div class="row-fluid">
-			<form class="form-horizontal " id="stockForm" name="stockForm" method="post" action="" enctype="multipart/form-data"> 
-				<div tabindex="3" class="report" id="report" style="padding:1%;">
-	<?php
-$sessionuserData = $this->session->userdata('userlogin');
-//echo/"<pre>"; print_r($sessionuserData); exit;
-$sess_user=$sessionuserData['user_id'];
-?>			
- <?php
-				$con = $conn = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
-				mysqli_select_db($conn, $this->db->database);
-				
-				//$con = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
-				//mysqli_select_db($con, 'neoindzg_agro_ecomm');  
-				$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 
-				//echo $sql; exit;				
-				$setRec = mysqli_query($con, $sql);  
-				
-				$row = mysqli_fetch_array($setRec);
-				
-	  ?>
-				   <div class="col-xs-12">
-                                    	
-                                    <div class="col-xs-3">
-                                    	<input type="date" class="form-control" name="from_date" required  id="from_date" value="<?php if(isset($_POST['from_date'])) { if(($_POST['from_date']) != '0000-00-00' && $_POST['from_date'] != '' && $_POST['from_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['from_date'])); } } else { echo date('01-m-Y'); } ?>">
-										 
-                                	</div>
-									 <div class="col-xs-3">
-                                    	 <input type="date" class="form-control" name="to_date" required id="to_date" value="<?php if(isset($_POST['to_date'])) { if(($_POST['to_date']) != '0000-00-00' && $_POST['to_date'] != '' && $_POST['to_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['to_date'])); } } else { echo date('01-m-Y'); } ?>">
-                                </div>
-								<div class="col-xs-2">
-								<input type="text" required class="form-control" name="OFCR_TRE_UNDR_ID" required placeholder="Officer ID" id="OFCR_TRE_UNDR_ID" <?php if($sess_user != 1) { ?>  readonly <?php } else {  ?>  <?php } ?> value="<?php  echo $row['OFCR_USR_VALUE']; ?>">
-								</div>
-                           <div class="col-xs-2">
-							<select class="form-control" required name="level" id="level">
-							<option value="">Select Level</option>
-							<option value="1" <?php if($this->input->post('level')==1){ echo "selected";}?>>1</option>
-							<option value="2" <?php if($this->input->post('level')==2){ echo "selected";}?> >2</option>
-							<option value="3" <?php if($this->input->post('level')==3){ echo "selected";}?> >3</option>
-							<option value="4" <?php if($this->input->post('level')==4){ echo "selected";}?> >4</option>
-							<option value="5" <?php if($this->input->post('level')==5){ echo "selected";}?> >5</option>
-							<option value="6" <?php if($this->input->post('level')==6){ echo "selected";}?> >6</option>
-							<option value="7" <?php if($this->input->post('level')==7){ echo "selected";}?> >7</option>
-							<option value="8" <?php if($this->input->post('level')==8){ echo "selected";}?> >8</option>
-							<option value="9" <?php if($this->input->post('level')==9){ echo "selected";}?> >9</option>
-							<option value="10" <?php if($this->input->post('level')==10){ echo "selected";}?>>10</option>
-							
-							</select>
-							</div>
-							<div class="col-xs-2">
-                              <button type="submit" name="view_report" class="btn btn-green">View</button>
-							</div>        
-				</div> 
-			</form> 
-			
-		</div>
-		<br />
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+		<?php echo $this->session->flashdata('message'); ?>
+          <div class="col-sm-6">
+            <h1>Purchase Report</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Purchase Report</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 		
-<style>
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+		 
+		  
+		 
+          <div class="col-12">
+          
+                
+              <!-- /.card-header -->
+			  <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Search</h3>
+              </div>
+				<div class="card-body">
+				<form class="form-horizontal " id="stockForm" name="stockForm" method="post" action="" enctype="multipart/form-data"> 
+					<div tabindex="3" class="report row" id="report" style="padding:1%;">
+					<?php
+					$sessionuserData = $this->session->userdata('userlogin');
+					//echo/"<pre>"; print_r($sessionuserData); exit;
+					$sess_user=$sessionuserData['user_id'];
+					?>			
+					<?php
+					$con = new mysqli($this->db->hostname, $this->db->username, $this->db->password);  
+					mysqli_select_db($con, $this->db->database);
+					//$con = new mysqli('localhost', 'neoindzg_agro', 'agro*123$'); 
+					//mysqli_select_db($con, 'neoindzg_agro_ecomm');  
+					$sql = "SELECT OFCR.OFCR_ID,OFCR.OFCR_USR_VALUE FROM `vsoft_officer` as OFCR where OFCR.OFCR_ADD_USR_ID =".$sessionuserData['user_id']; 
+					//echo $sql; exit;				
+					$setRec = mysqli_query($con, $sql);  
 
-.table_1 {
-    margin-left: 50px;
-    width: 90% !important;
-}
+					$row = mysqli_fetch_array($setRec);
+					$level=$_POST['level'];
+					?>
 
-</style>
-<table class="table table-custom" id="advanced-usage" style="margin-left:10px;margin-bottom:50px;width:95%;" border="1">
- 
+
+
+						<div class="report_field field_box col-md-2">
+							<div class="report_field_label">
+								<p>From date : </p>
+							</div>	
+							<div class="report_field_input">
+								<input type="date" class="form-control" name="from_date" required  id="from_date" value="<?php if(isset($_POST['from_date'])) { if(($_POST['from_date']) != '0000-00-00' && $_POST['from_date'] != '' && $_POST['from_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['from_date'])); } } else { echo date('01-m-Y'); } ?>">
+							</div>
+							</div>
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> To date : </p>
+						</div>	
+						<div class="report_field_input">
+						<input type="date" class="form-control" name="to_date" required id="to_date" value="<?php if(isset($_POST['to_date'])) { if(($_POST['to_date']) != '0000-00-00' && $_POST['to_date'] != '' && $_POST['to_date'] != NULL){ echo date('Y-m-d', strtotime($_POST['to_date'])); } } else { echo date('01-m-Y'); } ?>">
+						</div>
+						</div>
+
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> Officer ID : </p>
+						</div>	
+						<div class="report_field_input"> 
+						<input type="text" required class="form-control" name="OFCR_TRE_UNDR_ID" required placeholder="Officer ID" id="OFCR_TRE_UNDR_ID" <?php if($sess_user != 1) { ?>  readonly <?php } else {  ?>  <?php } ?> value="<?php  echo $row['OFCR_USR_VALUE']; ?>">
+						</div>
+						</div>
+						<div class="report_field field_box col-md-2">
+						<div class="report_field_label">
+						<p> level : </p>
+						</div>	
+						<div class="report_field_input">
+						<select required name="level" id="level" class='form-control'>
+						<option value="">Select Level</option>
+						<option value="1" <?php if($level==1){ echo "selected";}?> >1</option>
+						<option value="2" <?php if($level==2){ echo "selected";}?>>2</option>
+						<option value="3" <?php if($level==3){ echo "selected";}?>>3</option>
+						<option value="4" <?php if($level==4){ echo "selected";}?>>4</option>
+						<option value="5" <?php if($level==5){ echo "selected";}?>>5</option>
+						<option value="6" <?php if($level==6){ echo "selected";}?>>6</option>
+						<option value="7" <?php if($level==7){ echo "selected";}?>>7</option>
+						<option value="8" <?php if($level==8){ echo "selected";}?>>8</option>
+						<option value="9" <?php if($level==9){ echo "selected";}?>>9</option>
+						<option value="10" <?php if($level==10){ echo "selected";}?>>10</option>
+						</select>
+						</div>
+						</div>
+						<button type="submit" name="view_report" class="btn btn-success">View</button>               
+					</div> 
+				</form> 
+				</div>
+              </div>
+			 
+              <!-- /.card-body -->
+            
+			
+				 
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+         
+      
+    </section>
+	
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"> Purchase Report </h3>
+				<div>
+             	
+        	</div>
+			 
+              </div>
+              <!-- /.card-header -->
+				<div class="card-body table-responsive p-0">
+					<table class="table table-hover text-nowrap">
+						
+       
        <?php
 
 if(isset($_POST['view_report']))
@@ -232,7 +183,7 @@ if(isset($_POST['view_report']))
                 }   
          } 
          
-        if($level==1) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 1- '.$l1_c.'</button></td></tr>';  //Prints Table Data
+        if($level==1) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 1- '.$l1_c.'</button></td></tr>';  //Prints Table Data
         
 		 ?>
 		 <tr  style="font-weight: bold;">
@@ -287,7 +238,7 @@ if(isset($_POST['view_report']))
       
         }
         
-        if($level==1) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==1) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
         
      $l3_c="0";$l3array=array();
@@ -311,7 +262,7 @@ if(isset($_POST['view_report']))
          
  
 if($level>=2) {      
-         if($level==2) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 2- '.$l2_c.'</button></td></tr>';  //Prints Table Data
+         if($level==2) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 2- '.$l2_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -362,7 +313,7 @@ if($level>=2) {
             }
       
         }
-        if($level==2) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==2) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
         
     }
          
@@ -388,7 +339,7 @@ if($level>=3) {
          } 
          
          
-         if($level==3) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 3- '.$l3_c.'</button></td></tr>';  //Prints Table Data
+         if($level==3) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 3- '.$l3_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -439,7 +390,7 @@ if($level>=3) {
             }
       
         }
-        if($level==3) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==3) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
 } 
 if($level>=4) {      
@@ -461,7 +412,7 @@ if($level>=4) {
                 }   
          } 
          
-         if($level==4) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 4- '.$l4_c.'</button></td></tr>';  //Prints Table Data
+         if($level==4) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 4- '.$l4_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -513,7 +464,7 @@ if($level>=4) {
             }
       
         }
-        if($level==4) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==4) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
     
 } 
@@ -537,7 +488,7 @@ if($level>=5) {
          } 
          
          
-         if($level==5) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 5- '.$l5_c.'</button></td></tr>';  //Prints Table Data
+         if($level==5) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 5- '.$l5_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -589,7 +540,7 @@ if($level>=5) {
             }
       
         }
-        if($level==5) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==5) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
 
 } 
@@ -613,7 +564,7 @@ if($level>=6) {
                 }   
          } 
         
-         if($level==6) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 6- '.$l6_c.'</button></td></tr>';  //Prints Table Data
+         if($level==6) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 6- '.$l6_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -664,7 +615,7 @@ if($level>=6) {
             }
       
         }
-        if($level==6) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==6) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
 
 } 
@@ -687,7 +638,7 @@ if($level>=7) {
                 }   
          } 
         
-        if($level==7) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 7- '.$l7_c.'</button></td></tr>';  //Prints Table Data
+        if($level==7) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 7- '.$l7_c.'</button></td></tr>';  //Prints Table Data
          $sales_total="0";
 		 $i = 1;
 		 ?>
@@ -738,7 +689,7 @@ if($level>=7) {
             }
       
         }
-        if($level==7) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==7) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
         
 } 
@@ -760,7 +711,7 @@ if($level>=8) {
                      }
                 }   
          }      
-            if($level==8) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 8- '.$l8_c.'</button></td></tr>';  //Prints Table Data
+            if($level==8) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 8- '.$l8_c.'</button></td></tr>';  //Prints Table Data
              $sales_total="0";
          $i = 1;
 		 ?>
@@ -814,7 +765,7 @@ if($level>=8) {
             }
       
         }
-        if($level==8) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==8) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
         
 } 
@@ -840,7 +791,7 @@ if($level>=9) {
          } 
          
          
-         if($level==9) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 9- '.$l9_c.'</button></td></tr>';  //Prints Table Data
+         if($level==9) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 9- '.$l9_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -891,7 +842,7 @@ if($level>=9) {
             }
       
         }
-        if($level==9) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==9) {  echo "</td></tr><tr><td  colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
   } 
   $l11array=array();
@@ -915,7 +866,7 @@ if($level>=9) {
          } 
          
          
-         if($level==10) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-green">Level 10- '.$l10_c.'</button></td></tr>';  //Prints Table Data
+         if($level==10) {  echo '<tr><td colspan="4"><button style="margin-bottom:15px;" type="submit" name="view_report" class="btn btn-primary">Level 10- '.$l10_c.'</button></td></tr>';  //Prints Table Data
           $sales_total="0";
 		  $i = 1;
 		  ?>
@@ -966,123 +917,26 @@ if($level>=9) {
             }
       
         }
-        if($level==10) {  echo "</td></tr><tr><td colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-green'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
+        if($level==10) {  echo "</td></tr><tr><td colspan='4' style='text-align: right;'><button style='margin-bottom:15px;' type='submit' name='view_report' class='btn btn-primary'>Total -  $sales_total</button></td></tr>"; } //Prints Table Data
     }
         
   }
      } ?>
 
-</table>
-
-                        	
-                        
-               
-</section>
-                                </div>
-                                <!-- /tile body -->
-
-                            </section>
-                        
-                            </div>
-                        <!-- /col -->
-                    </div>
-                    <!-- /row -->
-
-
-                </div>
-                
-            </section>
-            <!--/ CONTENT -->
-
-	
-
-
-
+					</table>
+					<div class="dataTables_paginate paging_bootstrap">
+						<center> <?php echo $page_links; ?> </center>
+					</div>
+				</div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
         </div>
-        <!--/ Application Content -->
-
-
-
-        <!-- Modal -->
-        
-        <!-- ============================================
-        ============== Vendor JavaScripts ===============
-        ============================================= -->
-        <script src="<?php echo base_url(); ?>/resources/assets/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>/resources/assets/js/vendor/jquery/jquery-1.11.2.min.js"><\/script>')</script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/jRespond/jRespond.min.js"></script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/slimscroll/jquery.slimscroll.min.js"></script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/animsition/js/jquery.animsition.min.js"></script>
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/screenfull/screenfull.min.js"></script>
-        <!--/ vendor javascripts -->
-
-
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-        <script src="<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/dataTables.bootstrap.js"></script>
-
-
-
-
-<script>
-            $(window).load(function(){
-
-                    
-                    
-                    
-                var table4 = $('#advanced-usage').DataTable({
-                      
-                    "aoColumnDefs": [
-                      { 'bSortable': false, 'aTargets': [ "no-sort" ] }
-                    ]
-                });
-
-                var colvis = new $.fn.dataTable.ColVis(table4);
-
-                $(colvis.button()).insertAfter('#colVis');
-                $(colvis.button()).find('button').addClass('btn btn-default').removeClass('ColVis_Button');
-
-                var tt = new $.fn.dataTable.TableTools(table4, {
-                    sRowSelect: 'single',
-                    "aButtons": [
-                        'copy',
-                        'print', {
-                            'sExtends': 'collection',
-                            'sButtonText': 'Save',
-                            'aButtons': ['csv', 'xls', 'pdf']
-                        }
-                    ],
-                    "sSwfPath": "<?php echo base_url(); ?>/resources/assets/js/vendor/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
-                });
-
-                $(tt.fnContainer()).insertAfter('#tableTools');
-                //*initialize responsive datatable
-
-            });
-        </script>
-
-
-        <!-- ===============================================
-        ============== Page Specific Scripts ===============
-        ================================================ -->
-        <script>
-            $(window).load(function(){
-
-            });
-        </script>
-        <!--/ Page Specific Scripts -->
-
-    </body>
-</html>
-
+        <!-- /.row -->
+         
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+ 
